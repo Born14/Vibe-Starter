@@ -17,6 +17,7 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [hasAccount, setHasAccount] = useState(false);
 
   const isConnected = session?.hasVercel;
 
@@ -68,7 +69,7 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
         </div>
         <h2 className="text-3xl font-bold mb-2">Connect Vercel</h2>
         <p className="text-white/60">
-          Vercel hosts your app for free. We need a token to deploy for you.
+          Vercel puts your app on the internet — for free.
         </p>
       </div>
 
@@ -88,16 +89,63 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
             Continue →
           </button>
         </div>
+      ) : !hasAccount ? (
+        <>
+          {/* Step 1: Create Account */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-emerald-400 text-black rounded-full flex items-center justify-center font-bold text-sm">1</div>
+              <h4 className="font-semibold">Create a free Vercel account</h4>
+            </div>
+            <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside ml-11">
+              <li>Click the button below to open Vercel</li>
+              <li>Click <strong>&quot;Sign Up&quot;</strong></li>
+              <li>Choose <strong>&quot;Continue with GitHub&quot;</strong> (easiest!)</li>
+              <li>Authorize Vercel to access your GitHub</li>
+            </ol>
+          </div>
+
+          <a
+            href="https://vercel.com/signup"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors mb-6 flex items-center justify-center gap-3"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 76 65" fill="currentColor">
+              <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
+            </svg>
+            Create Vercel Account →
+          </a>
+
+          <button
+            onClick={() => setHasAccount(true)}
+            className="w-full border border-white/20 text-white py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-colors"
+          >
+            I have a Vercel account →
+          </button>
+
+          {/* What is Vercel? */}
+          <div className="mt-8 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+            <p className="text-blue-400 text-sm">
+              <strong>What is Vercel?</strong> It&apos;s free web hosting that automatically
+              updates your site whenever you push code to GitHub. No server setup needed.
+            </p>
+          </div>
+        </>
       ) : (
         <>
-          {/* Instructions */}
+          {/* Step 2: Get Token */}
           <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
-            <h4 className="font-semibold mb-3">Quick Steps:</h4>
-            <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside">
-              <li>Click the button below to open Vercel</li>
-              <li>Sign up with GitHub if you haven&apos;t already</li>
-              <li>Click <strong>&quot;Create&quot;</strong> to make a new token</li>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 bg-emerald-400 text-black rounded-full flex items-center justify-center font-bold text-sm">2</div>
+              <h4 className="font-semibold">Create an access token</h4>
+            </div>
+            <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside ml-11">
+              <li>Click the button below to open your tokens page</li>
+              <li>Click <strong>&quot;Create&quot;</strong></li>
               <li>Name it anything (e.g., &quot;Vibe Starter&quot;)</li>
+              <li>Leave scope as &quot;Full Account&quot;</li>
+              <li>Click <strong>&quot;Create Token&quot;</strong></li>
               <li>Copy the token and paste it below</li>
             </ol>
           </div>
@@ -140,6 +188,13 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
               {loading ? "Verifying..." : "Save & Continue →"}
             </button>
           </form>
+
+          <button
+            onClick={() => setHasAccount(false)}
+            className="w-full text-white/60 py-3 text-sm hover:text-white transition-colors mt-4"
+          >
+            ← Back to account creation
+          </button>
         </>
       )}
 

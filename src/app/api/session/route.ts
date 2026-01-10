@@ -111,10 +111,25 @@ export async function POST(request: NextRequest) {
     const sensitiveFields = ["vercelToken", "clerkPublishable", "clerkSecret", "databaseUrl", "aiKey"];
     const finalValue = sensitiveFields.includes(field) ? encrypt(value) : value;
 
-    // Update the session
+    // Map fields to their corresponding step numbers
+    const stepMap: Record<string, number> = {
+      vercelToken: 4,      // After Vercel, go to Clerk (step 4)
+      clerkPublishable: 4, // Still on Clerk step
+      clerkSecret: 5,      // After Clerk secret, go to Neon (step 5)
+      databaseUrl: 6,      // After Neon, go to AI (step 6)
+      aiKey: 7,            // After AI, go to App Name (step 7)
+      appName: 8,          // After App Name, go to Deploy (step 8)
+    };
+
+    // Update the session with field value and advance step if applicable
+    const updateData: Record<string, unknown> = { [fieldConfig.column]: finalValue };
+    if (stepMap[field]) {
+      updateData.currentStep = stepMap[field];
+    }
+
     await db
       .update(wizardSessions)
-      .set({ [fieldConfig.column]: finalValue })
+      .set(updateData)
       .where(eq(wizardSessions.id, sessionId));
 
     return NextResponse.json({ success: true });

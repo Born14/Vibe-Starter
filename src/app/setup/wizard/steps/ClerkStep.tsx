@@ -61,7 +61,7 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
   };
 
   const openClerk = () => {
-    window.open("https://dashboard.clerk.com/sign-up", "_blank");
+    window.open("https://dashboard.clerk.com", "_blank");
   };
 
   return (

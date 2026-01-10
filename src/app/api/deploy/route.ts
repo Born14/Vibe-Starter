@@ -71,6 +71,7 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     const clerkSecret = decrypt(session.clerkSecret!);
     const databaseUrl = decrypt(session.databaseUrl!);
     const aiKey = decrypt(session.aiKey!);
+    const aiProvider = session.aiProvider || "claude";
 
     // Step 1: Create GitHub repo
     await updateDeploymentStep(deploymentId, 1);
@@ -91,13 +92,13 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     });
 
     if (!repoResponse.ok && repoResponse.status !== 422) {
-      // 422 means repo exists
+      const errorData = await repoResponse.json();
+      console.error("GitHub repo creation failed:", errorData);
       throw new Error("Failed to create GitHub repository");
     }
 
     const repoData = await repoResponse.json();
     const repoFullName = repoData.full_name || `${repoData.owner?.login}/${session.appName}`;
-    const repoUrl = repoData.html_url || `https://github.com/${repoFullName}`;
 
     // Update deployment with repo info
     await db
@@ -108,9 +109,7 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     // Step 2: Push template code
     await updateDeploymentStep(deploymentId, 2);
 
-    // Get the template files and push them
-    // For now, we'll create a minimal starter - in production, this would clone from a template repo
-    await pushTemplateCode(githubToken, repoFullName, session.appName!);
+    await pushTemplateCode(githubToken, repoFullName, session.appName!, aiProvider);
 
     // Step 3: Create Vercel project
     await updateDeploymentStep(deploymentId, 3);
@@ -148,11 +147,15 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     // Step 4: Set environment variables
     await updateDeploymentStep(deploymentId, 4);
 
+    const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : "ANTHROPIC_API_KEY";
+
     const envVars = [
       { key: "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", value: clerkPublishable },
       { key: "CLERK_SECRET_KEY", value: clerkSecret },
+      { key: "NEXT_PUBLIC_CLERK_SIGN_IN_URL", value: "/sign-in" },
+      { key: "NEXT_PUBLIC_CLERK_SIGN_UP_URL", value: "/sign-up" },
       { key: "DATABASE_URL", value: databaseUrl },
-      { key: `${session.aiProvider?.toUpperCase() || "CLAUDE"}_API_KEY`, value: aiKey },
+      { key: aiKeyName, value: aiKey },
     ];
 
     for (const envVar of envVars) {
@@ -182,7 +185,7 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     let deploymentComplete = false;
     let attempts = 0;
 
-    while (!deploymentComplete && attempts < 30) {
+    while (!deploymentComplete && attempts < 45) {
       await new Promise((resolve) => setTimeout(resolve, 4000));
 
       const deploymentsRes = await fetch(
@@ -202,6 +205,10 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       }
 
       attempts++;
+    }
+
+    if (!deploymentComplete) {
+      throw new Error("Deploy timed out - check Vercel dashboard");
     }
 
     // Step 7: Final checks
@@ -260,18 +267,17 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
 }
 
 async function updateDeploymentStep(deploymentId: string, step: number) {
-  // Store current step in deployment for status polling
-  // We'll use a simple approach - store in the error field temporarily
-  // In production, add a dedicated step column
   await db
     .update(deployments)
     .set({ error: `step:${step}` })
     .where(eq(deployments.id, deploymentId));
 }
 
-async function pushTemplateCode(githubToken: string, repoFullName: string, appName: string) {
-  // Template files to push (simplified starter)
-  const files = [
+function getTemplateFiles(appName: string, aiProvider: string): { path: string; content: string }[] {
+  const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : "ANTHROPIC_API_KEY";
+
+  return [
+    // package.json
     {
       path: "package.json",
       content: JSON.stringify({
@@ -284,79 +290,492 @@ async function pushTemplateCode(githubToken: string, repoFullName: string, appNa
           start: "next start",
           lint: "next lint",
           "db:push": "drizzle-kit push",
+          "db:studio": "drizzle-kit studio",
         },
         dependencies: {
-          "@clerk/nextjs": "^5.0.0",
-          "@neondatabase/serverless": "^0.9.0",
-          "drizzle-orm": "^0.30.0",
-          next: "15.0.0",
-          react: "^18.3.0",
-          "react-dom": "^18.3.0",
+          "@clerk/nextjs": "^5.7.0",
+          "@neondatabase/serverless": "^0.10.0",
+          "drizzle-orm": "^0.36.0",
+          next: "15.0.3",
+          react: "^18.3.1",
+          "react-dom": "^18.3.1",
         },
         devDependencies: {
-          "@tailwindcss/postcss": "^4.0.0",
-          "@types/node": "^20.0.0",
+          "@types/node": "^22.0.0",
           "@types/react": "^18.3.0",
           "@types/react-dom": "^18.3.0",
-          "drizzle-kit": "^0.21.0",
-          tailwindcss: "^4.0.0",
-          typescript: "^5.0.0",
+          "drizzle-kit": "^0.28.0",
+          postcss: "^8.4.49",
+          tailwindcss: "^3.4.15",
+          typescript: "^5.6.0",
         },
       }, null, 2),
     },
+
+    // tsconfig.json
+    {
+      path: "tsconfig.json",
+      content: JSON.stringify({
+        compilerOptions: {
+          target: "ES2017",
+          lib: ["dom", "dom.iterable", "esnext"],
+          allowJs: true,
+          skipLibCheck: true,
+          strict: true,
+          noEmit: true,
+          esModuleInterop: true,
+          module: "esnext",
+          moduleResolution: "bundler",
+          resolveJsonModule: true,
+          isolatedModules: true,
+          jsx: "preserve",
+          incremental: true,
+          plugins: [{ name: "next" }],
+          paths: { "@/*": ["./src/*"] },
+        },
+        include: ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+        exclude: ["node_modules"],
+      }, null, 2),
+    },
+
+    // next.config.ts
+    {
+      path: "next.config.ts",
+      content: `import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  // Add config options here
+};
+
+export default nextConfig;
+`,
+    },
+
+    // tailwind.config.ts
+    {
+      path: "tailwind.config.ts",
+      content: `import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+export default config;
+`,
+    },
+
+    // postcss.config.mjs
+    {
+      path: "postcss.config.mjs",
+      content: `/** @type {import('postcss-load-config').Config} */
+const config = {
+  plugins: {
+    tailwindcss: {},
+  },
+};
+
+export default config;
+`,
+    },
+
+    // drizzle.config.ts
+    {
+      path: "drizzle.config.ts",
+      content: `import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./src/lib/db/schema.ts",
+  out: "./drizzle",
+  dialect: "postgresql",
+  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },
+});
+`,
+    },
+
+    // .env.example
+    {
+      path: ".env.example",
+      content: `# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+# Database (Neon Postgres)
+DATABASE_URL=postgresql://...
+
+# AI (Claude or Gemini)
+${aiKeyName}=sk-ant-...
+`,
+    },
+
+    // .gitignore
+    {
+      path: ".gitignore",
+      content: `# Dependencies
+node_modules
+.pnpm-store
+
+# Next.js
+.next
+out
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+
+# Debug
+npm-debug.log*
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+`,
+    },
+
+    // src/app/globals.css
+    {
+      path: "src/app/globals.css",
+      content: `@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+`,
+    },
+
+    // src/app/layout.tsx
+    {
+      path: "src/app/layout.tsx",
+      content: `import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "${appName}",
+  description: "Built with Vibe Starter",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body className="min-h-screen bg-gray-50">{children}</body>
+      </html>
+    </ClerkProvider>
+  );
+}
+`,
+    },
+
+    // src/app/page.tsx (Landing page)
+    {
+      path: "src/app/page.tsx",
+      content: `import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
+export default async function Home() {
+  const { userId } = await auth();
+
+  if (userId) {
+    redirect("/dashboard");
+  }
+
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center p-8">
+      <div className="max-w-2xl text-center">
+        <h1 className="text-5xl font-bold text-gray-900 mb-6">
+          Welcome to ${appName}
+        </h1>
+        <p className="text-xl text-gray-600 mb-8">
+          Your app is live! Sign in to get started.
+        </p>
+        <div className="flex gap-4 justify-center">
+          <Link
+            href="/sign-in"
+            className="px-6 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
+          >
+            Sign In
+          </Link>
+          <Link
+            href="/sign-up"
+            className="px-6 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+          >
+            Sign Up
+          </Link>
+        </div>
+      </div>
+    </main>
+  );
+}
+`,
+    },
+
+    // src/app/sign-in/[[...sign-in]]/page.tsx
+    {
+      path: "src/app/sign-in/[[...sign-in]]/page.tsx",
+      content: `import { SignIn } from "@clerk/nextjs";
+
+export default function SignInPage() {
+  return (
+    <main className="min-h-screen flex items-center justify-center p-8">
+      <SignIn />
+    </main>
+  );
+}
+`,
+    },
+
+    // src/app/sign-up/[[...sign-up]]/page.tsx
+    {
+      path: "src/app/sign-up/[[...sign-up]]/page.tsx",
+      content: `import { SignUp } from "@clerk/nextjs";
+
+export default function SignUpPage() {
+  return (
+    <main className="min-h-screen flex items-center justify-center p-8">
+      <SignUp />
+    </main>
+  );
+}
+`,
+    },
+
+    // src/app/dashboard/page.tsx
+    {
+      path: "src/app/dashboard/page.tsx",
+      content: `import { auth, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
+
+export default async function DashboardPage() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  const user = await currentUser();
+
+  return (
+    <main className="min-h-screen p-8">
+      <header className="max-w-4xl mx-auto flex items-center justify-between mb-12">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <UserButton afterSignOutUrl="/" />
+      </header>
+
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+          <h2 className="text-xl font-semibold mb-2">
+            Welcome, {user?.firstName || "there"}!
+          </h2>
+          <p className="text-gray-600">
+            Your app is working. Start building your features!
+          </p>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm border p-6">
+          <h3 className="font-semibold mb-4">Quick Start</h3>
+          <ul className="space-y-2 text-gray-600">
+            <li>1. Open PROMPT.md in your project</li>
+            <li>2. Paste it into Claude</li>
+            <li>3. Tell Claude what you want to build</li>
+            <li>4. Push to GitHub - your site updates!</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  );
+}
+`,
+    },
+
+    // src/middleware.ts
+    {
+      path: "src/middleware.ts",
+      content: `import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/api/webhook(.*)",
+]);
+
+export default clerkMiddleware(async (auth, request) => {
+  if (!isPublicRoute(request)) {
+    await auth.protect();
+  }
+});
+
+export const config = {
+  matcher: [
+    "/((?!_next|[^?]*\\\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+  ],
+};
+`,
+    },
+
+    // src/lib/db/index.ts
+    {
+      path: "src/lib/db/index.ts",
+      content: `import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import * as schema from "./schema";
+
+const sql = neon(process.env.DATABASE_URL!);
+export const db = drizzle(sql, { schema });
+`,
+    },
+
+    // src/lib/db/schema.ts
+    {
+      path: "src/lib/db/schema.ts",
+      content: `import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+
+// Example table - customize this for your app
+export const items = pgTable("items", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: text("user_id").notNull(),
+  title: text("title").notNull(),
+  content: text("content"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Add more tables here as you build features
+`,
+    },
+
+    // PROMPT.md
     {
       path: "PROMPT.md",
       content: `# ${appName}
 
+This is your AI coding assistant context. Paste this into Claude when building features.
+
 ## Stack
-- Framework: Next.js 15 (App Router)
-- Auth: Clerk
-- Database: Neon Postgres + Drizzle ORM
-- Styling: Tailwind CSS
+- **Framework:** Next.js 15 (App Router)
+- **Auth:** Clerk (users can sign up/sign in)
+- **Database:** Neon Postgres + Drizzle ORM
+- **Styling:** Tailwind CSS
+- **AI:** ${aiProvider === "gemini" ? "Gemini" : "Claude"} API ready
 
 ## Project Structure
 \`\`\`
 src/
 ├── app/
-│   ├── api/          # API routes
-│   ├── dashboard/    # Protected pages
-│   ├── sign-in/      # Auth pages
-│   ├── sign-up/
-│   ├── layout.tsx    # Root layout with Clerk
-│   └── page.tsx      # Landing page
-├── components/       # React components
-└── lib/
-    └── db/           # Database schema
+│   ├── api/              # API routes (add /api/[name]/route.ts)
+│   ├── dashboard/        # Protected pages (user must be logged in)
+│   ├── sign-in/          # Clerk sign-in page
+│   ├── sign-up/          # Clerk sign-up page
+│   ├── layout.tsx        # Root layout with Clerk provider
+│   ├── page.tsx          # Landing page (redirects to dashboard if logged in)
+│   └── globals.css       # Global styles
+├── components/           # React components (create this folder)
+├── lib/
+│   └── db/
+│       ├── index.ts      # Database connection
+│       └── schema.ts     # Database tables (edit this to add tables)
+└── middleware.ts         # Protects routes (dashboard, api, etc.)
 \`\`\`
 
 ## How to Add Features
 
 ### Add a new page
-Create a new file at \`src/app/[page-name]/page.tsx\`
+Create a file at \`src/app/[page-name]/page.tsx\`
+- For protected pages, add the path to middleware.ts
+- Use \`"use client"\` at top if you need interactivity (buttons, forms)
 
 ### Add a database table
-Edit \`src/lib/db/schema.ts\` and run \`npm run db:push\`
+1. Edit \`src/lib/db/schema.ts\`
+2. Run \`npm run db:push\` to sync
 
 ### Add an API route
-Create a new file at \`src/app/api/[route-name]/route.ts\`
+Create \`src/app/api/[route-name]/route.ts\`
+\`\`\`typescript
+import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
+
+export async function GET() {
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  // Your logic here
+  return NextResponse.json({ data: "..." });
+}
+\`\`\`
 
 ## Current Database Schema
-Check \`src/lib/db/schema.ts\` for current tables.
 
-## Rules
-- Always use server components unless you need interactivity
-- Use \`"use client"\` directive for interactive components
-- Protect routes with Clerk middleware
-- Use Tailwind for styling
+\`\`\`typescript
+// Items table (example - customize for your app)
+items: {
+  id: uuid (primary key)
+  userId: text (the Clerk user ID)
+  title: text
+  content: text (optional)
+  createdAt: timestamp
+  updatedAt: timestamp
+}
+\`\`\`
+
+## Rules for AI
+- Use TypeScript for all files
+- Use Tailwind CSS for styling (no CSS modules)
+- Use server components by default, add "use client" only when needed
+- Always check auth with \`auth()\` from @clerk/nextjs/server in API routes
+- Use the \`db\` object from @/lib/db for database queries
+- Keep it simple - don't over-engineer
+
+## Example Requests to Claude
+
+- "Add a page where I can save notes"
+- "Create a form to add new items"
+- "Add a delete button to each item"
+- "Make the dashboard show all my items"
+- "Add a search bar to filter items"
 `,
     },
+
+    // README.md
     {
       path: "README.md",
       content: `# ${appName}
 
 Created with [Vibe Starter](https://vibestarter.app)
 
-## Getting Started
+## Your app is live!
+
+Visit: https://${appName}.vercel.app
+
+## Getting Started (Local Development)
 
 \`\`\`bash
 npm install
@@ -370,20 +789,34 @@ Open [http://localhost:3000](http://localhost:3000)
 1. Open Claude on your phone
 2. Paste the contents of PROMPT.md
 3. Describe what you want to build
-4. Push to GitHub
-5. Site updates automatically!
+4. Claude writes the code
+5. Push to GitHub (via web or app)
+6. Site updates automatically!
+
+## Tech Stack
+
+- **Next.js 15** - React framework
+- **Clerk** - Authentication
+- **Neon** - Postgres database
+- **Drizzle** - Database ORM
+- **Tailwind CSS** - Styling
+- **Vercel** - Hosting
+
+## Useful Commands
+
+\`\`\`bash
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run db:push    # Sync database schema
+npm run db:studio  # Open database UI
+\`\`\`
 `,
     },
   ];
+}
 
-  // Create initial commit with all files
-  // First, get the default branch
-  const repoRes = await fetch(`https://api.github.com/repos/${repoFullName}`, {
-    headers: {
-      Authorization: `Bearer ${githubToken}`,
-      Accept: "application/vnd.github.v3+json",
-    },
-  });
+async function pushTemplateCode(githubToken: string, repoFullName: string, appName: string, aiProvider: string) {
+  const files = getTemplateFiles(appName, aiProvider);
 
   // Create blobs for each file
   const blobs = await Promise.all(
@@ -400,6 +833,13 @@ Open [http://localhost:3000](http://localhost:3000)
           encoding: "base64",
         }),
       });
+
+      if (!blobRes.ok) {
+        const error = await blobRes.json();
+        console.error(`Failed to create blob for ${file.path}:`, error);
+        throw new Error(`Failed to create blob for ${file.path}`);
+      }
+
       const blobData = await blobRes.json();
       return { path: file.path, sha: blobData.sha };
     })
@@ -422,9 +862,16 @@ Open [http://localhost:3000](http://localhost:3000)
       })),
     }),
   });
+
+  if (!treeRes.ok) {
+    const error = await treeRes.json();
+    console.error("Failed to create tree:", error);
+    throw new Error("Failed to create git tree");
+  }
+
   const treeData = await treeRes.json();
 
-  // Create commit
+  // Create commit (without parent since repo is empty)
   const commitRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/commits`, {
     method: "POST",
     headers: {
@@ -437,10 +884,17 @@ Open [http://localhost:3000](http://localhost:3000)
       tree: treeData.sha,
     }),
   });
+
+  if (!commitRes.ok) {
+    const error = await commitRes.json();
+    console.error("Failed to create commit:", error);
+    throw new Error("Failed to create git commit");
+  }
+
   const commitData = await commitRes.json();
 
-  // Update main branch reference
-  await fetch(`https://api.github.com/repos/${repoFullName}/git/refs/heads/main`, {
+  // Create the main branch reference (POST to create new ref)
+  const refRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/refs`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${githubToken}`,
@@ -452,4 +906,10 @@ Open [http://localhost:3000](http://localhost:3000)
       sha: commitData.sha,
     }),
   });
+
+  if (!refRes.ok) {
+    const error = await refRes.json();
+    console.error("Failed to create ref:", error);
+    throw new Error("Failed to create main branch");
+  }
 }

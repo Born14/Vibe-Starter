@@ -102,14 +102,24 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       }),
     });
 
+    const repoData = await repoResponse.json();
+
     if (!repoResponse.ok && repoResponse.status !== 422) {
-      const errorData = await repoResponse.json();
-      console.error("GitHub repo creation failed:", errorData);
+      console.error("GitHub repo creation failed:", repoData);
       throw new Error("Failed to create GitHub repository");
     }
 
-    const repoData = await repoResponse.json();
-    const repoFullName = repoData.full_name || `${repoData.owner?.login}/${session.appName}`;
+    // Get GitHub username to construct repo full name
+    const userResponse = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${githubToken}`,
+        Accept: "application/vnd.github.v3+json",
+      },
+    });
+    const userData = await userResponse.json();
+    const repoFullName = repoData.full_name || `${userData.login}/${session.appName}`;
+
+    console.log("Repo full name:", repoFullName);
 
     // Update deployment with repo info
     await db
@@ -829,9 +839,67 @@ npm run db:studio  # Open database UI
 async function pushTemplateCode(githubToken: string, repoFullName: string, appName: string, aiProvider: string) {
   const files = getTemplateFiles(appName, aiProvider);
 
-  // Create blobs for each file
+  // For empty repos, we need to use the Contents API to create the first file
+  // This initializes the repo with a commit, then we can use Git Data API for the rest
+
+  // First, create README.md to initialize the repo
+  const readmeFile = files.find(f => f.path === "README.md")!;
+  const initRes = await fetch(`https://api.github.com/repos/${repoFullName}/contents/README.md`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${githubToken}`,
+      Accept: "application/vnd.github.v3+json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message: "Initial commit from Vibe Starter",
+      content: Buffer.from(readmeFile.content).toString("base64"),
+    }),
+  });
+
+  if (!initRes.ok) {
+    const error = await initRes.json();
+    console.error("Failed to initialize repo:", error);
+    throw new Error("Failed to initialize repository");
+  }
+
+  // Now get the commit SHA we just created
+  const refRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/ref/heads/main`, {
+    headers: {
+      Authorization: `Bearer ${githubToken}`,
+      Accept: "application/vnd.github.v3+json",
+    },
+  });
+
+  if (!refRes.ok) {
+    const error = await refRes.json();
+    console.error("Failed to get ref:", error);
+    throw new Error("Failed to get main branch reference");
+  }
+
+  const refData = await refRes.json();
+  const baseCommitSha = refData.object.sha;
+
+  // Get the tree SHA from the commit
+  const commitInfoRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/commits/${baseCommitSha}`, {
+    headers: {
+      Authorization: `Bearer ${githubToken}`,
+      Accept: "application/vnd.github.v3+json",
+    },
+  });
+
+  if (!commitInfoRes.ok) {
+    throw new Error("Failed to get commit info");
+  }
+
+  const commitInfo = await commitInfoRes.json();
+  const baseTreeSha = commitInfo.tree.sha;
+
+  // Now create blobs for all other files (excluding README which we already created)
+  const otherFiles = files.filter(f => f.path !== "README.md");
+
   const blobs = await Promise.all(
-    files.map(async (file) => {
+    otherFiles.map(async (file) => {
       const blobRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/blobs`, {
         method: "POST",
         headers: {
@@ -856,7 +924,7 @@ async function pushTemplateCode(githubToken: string, repoFullName: string, appNa
     })
   );
 
-  // Create tree
+  // Create tree with base_tree to preserve README
   const treeRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/trees`, {
     method: "POST",
     headers: {
@@ -865,6 +933,7 @@ async function pushTemplateCode(githubToken: string, repoFullName: string, appNa
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      base_tree: baseTreeSha,
       tree: blobs.map((blob) => ({
         path: blob.path,
         mode: "100644",
@@ -882,8 +951,8 @@ async function pushTemplateCode(githubToken: string, repoFullName: string, appNa
 
   const treeData = await treeRes.json();
 
-  // Create commit (without parent since repo is empty)
-  const commitRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/commits`, {
+  // Create commit with parent
+  const newCommitRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/commits`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${githubToken}`,
@@ -891,36 +960,36 @@ async function pushTemplateCode(githubToken: string, repoFullName: string, appNa
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      message: "Initial commit from Vibe Starter",
+      message: "Add starter template files",
       tree: treeData.sha,
+      parents: [baseCommitSha],
     }),
   });
 
-  if (!commitRes.ok) {
-    const error = await commitRes.json();
+  if (!newCommitRes.ok) {
+    const error = await newCommitRes.json();
     console.error("Failed to create commit:", error);
     throw new Error("Failed to create git commit");
   }
 
-  const commitData = await commitRes.json();
+  const newCommitData = await newCommitRes.json();
 
-  // Create the main branch reference (POST to create new ref)
-  const refRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/refs`, {
-    method: "POST",
+  // Update the main branch reference
+  const updateRefRes = await fetch(`https://api.github.com/repos/${repoFullName}/git/refs/heads/main`, {
+    method: "PATCH",
     headers: {
       Authorization: `Bearer ${githubToken}`,
       Accept: "application/vnd.github.v3+json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      ref: "refs/heads/main",
-      sha: commitData.sha,
+      sha: newCommitData.sha,
     }),
   });
 
-  if (!refRes.ok) {
-    const error = await refRes.json();
-    console.error("Failed to create ref:", error);
-    throw new Error("Failed to create main branch");
+  if (!updateRefRes.ok) {
+    const error = await updateRefRes.json();
+    console.error("Failed to update ref:", error);
+    throw new Error("Failed to update main branch");
   }
 }

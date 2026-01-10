@@ -26,15 +26,18 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
     setLoading(true);
 
     try {
+      // Clean up the URL - remove quotes and whitespace
+      const cleanUrl = databaseUrl.trim().replace(/^['"]|['"]$/g, '');
+
       // Validate format
-      if (!databaseUrl.startsWith("postgresql://") || !databaseUrl.includes("neon.tech")) {
+      if (!cleanUrl.startsWith("postgresql://") || !cleanUrl.includes("neon.tech")) {
         throw new Error("Connection string should start with postgresql:// and contain neon.tech");
       }
 
       const res = await fetch("/api/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "databaseUrl", value: databaseUrl }),
+        body: JSON.stringify({ sessionId, field: "databaseUrl", value: cleanUrl }),
       });
 
       if (!res.ok) throw new Error("Failed to save connection string");

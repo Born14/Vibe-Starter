@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { deployments } from "@/lib/db/schema";
+import { deployments, wizardSessions } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { decrypt } from "@/lib/encryption";
 
 export async function GET(
   request: NextRequest,
@@ -24,6 +25,90 @@ export async function GET(
     let step = 0;
     if (deployment.error?.startsWith("step:")) {
       step = parseInt(deployment.error.split(":")[1], 10);
+    }
+
+    // If status is "building", poll Vercel to check if deployment is ready
+    if (deployment.status === "building" && deployment.vercelProject) {
+      // Get the session to access the Vercel token
+      const [session] = await db
+        .select()
+        .from(wizardSessions)
+        .where(eq(wizardSessions.licenseKeyId, deployment.licenseKeyId))
+        .limit(1);
+
+      if (session?.vercelToken) {
+        try {
+          const vercelToken = decrypt(session.vercelToken);
+
+          const deploymentsRes = await fetch(
+            `https://api.vercel.com/v6/deployments?projectId=${deployment.vercelProject}&limit=1`,
+            {
+              headers: { Authorization: `Bearer ${vercelToken}` },
+            }
+          );
+
+          if (deploymentsRes.ok) {
+            const deploymentsData = await deploymentsRes.json();
+            const latestDeployment = deploymentsData.deployments?.[0];
+
+            if (latestDeployment?.readyState === "READY") {
+              // Deployment is complete! Update DB and clean up
+              await db
+                .update(deployments)
+                .set({
+                  status: "success",
+                  completedAt: new Date(),
+                })
+                .where(eq(deployments.id, id));
+
+              // Clean up sensitive session data
+              await db
+                .update(wizardSessions)
+                .set({
+                  githubToken: null,
+                  vercelToken: null,
+                  clerkPublishable: null,
+                  clerkSecret: null,
+                  databaseUrl: null,
+                  aiKey: null,
+                })
+                .where(eq(wizardSessions.id, session.id));
+
+              return NextResponse.json({
+                status: "success",
+                step: 7,
+                appUrl: `https://${deployment.appName}.vercel.app`,
+                repoUrl: `https://github.com/${deployment.githubRepo}`,
+              });
+            } else if (latestDeployment?.readyState === "ERROR") {
+              // Deployment failed
+              await db
+                .update(deployments)
+                .set({
+                  status: "failed",
+                  error: "Vercel deployment failed",
+                  completedAt: new Date(),
+                })
+                .where(eq(deployments.id, id));
+
+              return NextResponse.json({
+                status: "failed",
+                step: 6,
+                error: "Vercel deployment failed. Check Vercel dashboard for details.",
+              });
+            } else {
+              // Still building - return step 6 (deploying)
+              return NextResponse.json({
+                status: "building",
+                step: 6,
+              });
+            }
+          }
+        } catch (pollError) {
+          console.error("Error polling Vercel:", pollError);
+          // Continue with normal response if polling fails
+        }
+      }
     }
 
     const response: {

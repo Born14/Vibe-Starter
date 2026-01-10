@@ -4,8 +4,8 @@ import { wizardSessions, deployments, licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { decrypt } from "@/lib/encryption";
 
-// Increase max duration for deployment (Vercel Pro: 300s, Hobby: 60s)
-export const maxDuration = 60;
+// Reduced timeout since we return early and let frontend poll Vercel
+export const maxDuration = 30;
 
 export async function POST(request: NextRequest) {
   try {
@@ -195,64 +195,21 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       });
     }
 
-    // Step 5: Setup database tables (trigger via first deploy)
+    // Step 5: All setup complete - Vercel will auto-deploy from GitHub
     await updateDeploymentStep(deploymentId, 5);
 
-    // Step 6: Trigger deploy
-    await updateDeploymentStep(deploymentId, 6);
-
-    // Deploy is triggered automatically by Vercel when connected to GitHub
-    // Wait for it to complete
-    let deploymentComplete = false;
-    let attempts = 0;
-
-    while (!deploymentComplete && attempts < 45) {
-      await new Promise((resolve) => setTimeout(resolve, 4000));
-
-      const deploymentsRes = await fetch(
-        `https://api.vercel.com/v6/deployments?projectId=${vercelProject.id}&limit=1`,
-        {
-          headers: { Authorization: `Bearer ${vercelToken}` },
-        }
-      );
-
-      const deploymentsData = await deploymentsRes.json();
-      const latestDeployment = deploymentsData.deployments?.[0];
-
-      if (latestDeployment?.readyState === "READY") {
-        deploymentComplete = true;
-      } else if (latestDeployment?.readyState === "ERROR") {
-        throw new Error("Vercel deployment failed");
-      }
-
-      attempts++;
-    }
-
-    if (!deploymentComplete) {
-      throw new Error("Deploy timed out - check Vercel dashboard");
-    }
-
-    // Step 7: Final checks
-    await updateDeploymentStep(deploymentId, 7);
-
-    const appUrl = `https://${session.appName}.vercel.app`;
-
-    // Verify app is accessible
-    const verifyResponse = await fetch(appUrl);
-    if (!verifyResponse.ok) {
-      console.warn("App verification returned non-200, but continuing...");
-    }
-
-    // Mark deployment as successful
+    // Store that we're now waiting for Vercel to build
+    // The frontend will poll the status endpoint which checks Vercel directly
     await db
       .update(deployments)
       .set({
-        status: "success",
-        completedAt: new Date(),
+        status: "building",
+        // Store vercel project ID for status polling
+        vercelProject: vercelProject.id,
       })
       .where(eq(deployments.id, deploymentId));
 
-    // Mark license as used
+    // Mark license as used now (deployment is essentially complete on our end)
     await db
       .update(licenseKeys)
       .set({
@@ -260,19 +217,6 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
         usedAt: new Date(),
       })
       .where(eq(licenseKeys.id, session.licenseKeyId));
-
-    // Delete sensitive session data
-    await db
-      .update(wizardSessions)
-      .set({
-        githubToken: null,
-        vercelToken: null,
-        clerkPublishable: null,
-        clerkSecret: null,
-        databaseUrl: null,
-        aiKey: null,
-      })
-      .where(eq(wizardSessions.id, session.id));
 
   } catch (error) {
     console.error("Deployment failed:", error);

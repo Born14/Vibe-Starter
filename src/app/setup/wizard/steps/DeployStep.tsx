@@ -16,9 +16,9 @@ const DEPLOY_STEPS = [
   { id: 2, label: "Adding your app's code" },
   { id: 3, label: "Connecting to Vercel" },
   { id: 4, label: "Setting up environment variables" },
-  { id: 5, label: "Setting up database tables" },
-  { id: 6, label: "Deploying to the internet" },
-  { id: 7, label: "Running final checks" },
+  { id: 5, label: "Triggering deployment" },
+  { id: 6, label: "Building your app", sublabel: "This takes 1-2 minutes..." },
+  { id: 7, label: "Going live!" },
 ];
 
 export default function DeployStep({ sessionId, session }: StepProps) {
@@ -65,6 +65,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
         }
 
         if (status.status === "success") {
+          setCurrentDeployStep(7);
           setDeployComplete(true);
           setDeployResult({
             appUrl: status.appUrl,
@@ -75,6 +76,11 @@ export default function DeployStep({ sessionId, session }: StepProps) {
 
         if (status.status === "failed") {
           throw new Error(status.error || "Deploy failed");
+        }
+
+        // Handle "building" status - Vercel is building the app
+        if (status.status === "building") {
+          setCurrentDeployStep(6);
         }
 
         attempts++;
@@ -280,16 +286,37 @@ export default function DeployStep({ sessionId, session }: StepProps) {
                 ) : (
                   <span className="text-white/30">○</span>
                 )}
-                <span
-                  className={
-                    step.id <= currentDeployStep ? "text-white" : "text-white/40"
-                  }
-                >
-                  {step.label}
-                </span>
+                <div className="flex-1">
+                  <span
+                    className={
+                      step.id <= currentDeployStep ? "text-white" : "text-white/40"
+                    }
+                  >
+                    {step.label}
+                  </span>
+                  {step.id === currentDeployStep && "sublabel" in step && (
+                    <p className="text-sm text-white/50 mt-0.5">{step.sublabel}</p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
+
+          {/* Building animation when on step 6 */}
+          {currentDeployStep === 6 && (
+            <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
+              <div className="flex items-center gap-3">
+                <div className="relative w-10 h-10">
+                  <div className="absolute inset-0 border-2 border-emerald-400/30 rounded-full"></div>
+                  <div className="absolute inset-0 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+                <div>
+                  <p className="text-white font-medium">Vercel is building your app</p>
+                  <p className="text-sm text-white/50">Installing dependencies, compiling code...</p>
+                </div>
+              </div>
+            </div>
+          )}
 
           <p className="mt-6 text-center text-sm text-white/40">
             Please wait... Don&apos;t close this window.

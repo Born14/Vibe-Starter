@@ -4,6 +4,9 @@ import { wizardSessions, deployments, licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { decrypt } from "@/lib/encryption";
 
+// Increase max duration for deployment (Vercel Pro: 300s, Hobby: 60s)
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   try {
     const { sessionId } = await request.json();
@@ -49,12 +52,20 @@ export async function POST(request: NextRequest) {
       })
       .returning();
 
-    // Start async deployment (non-blocking)
-    startDeployment(deployment.id, session);
+    // Run deployment and wait for it (maxDuration=60s covers this)
+    // We must await or Vercel will kill the function after returning
+    await startDeployment(deployment.id, session);
+
+    // Get final status
+    const [finalDeployment] = await db
+      .select()
+      .from(deployments)
+      .where(eq(deployments.id, deployment.id))
+      .limit(1);
 
     return NextResponse.json({
       deploymentId: deployment.id,
-      status: "deploying",
+      status: finalDeployment?.status || "deploying",
     });
   } catch (error) {
     console.error("Deploy error:", error);

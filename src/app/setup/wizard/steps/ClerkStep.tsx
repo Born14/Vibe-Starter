@@ -105,12 +105,14 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
             </ol>
           </div>
 
-          <button
-            onClick={openClerk}
-            className="w-full bg-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-purple-500 transition-colors mb-6"
+          <a
+            href="https://dashboard.clerk.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-purple-500 transition-colors mb-6 block text-center"
           >
             Open Clerk Dashboard →
-          </button>
+          </a>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>

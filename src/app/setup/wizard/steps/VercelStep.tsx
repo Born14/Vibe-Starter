@@ -144,7 +144,8 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
               <li>Click the button below to open your tokens page</li>
               <li>Click <strong>&quot;Create&quot;</strong></li>
               <li>Name it anything (e.g., &quot;Vibe Starter&quot;)</li>
-              <li>Leave scope as &quot;Full Account&quot;</li>
+              <li>For Scope, select <strong>your account name</strong> (not &quot;Full Account&quot;)</li>
+              <li>Leave Expiration as &quot;No Expiration&quot; or choose any</li>
               <li>Click <strong>&quot;Create Token&quot;</strong></li>
               <li>Copy the token and paste it below</li>
             </ol>

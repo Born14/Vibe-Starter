@@ -67,6 +67,10 @@ export async function POST(request: NextRequest) {
 
     // Map field names to database columns and validation
     const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; validate?: (v: string) => boolean }> = {
+      vercelToken: {
+        column: "vercelToken",
+        validate: (v) => v.length > 10, // Vercel tokens are long strings
+      },
       clerkPublishable: {
         column: "clerkPublishable",
         validate: (v) => v.startsWith("pk_test_") || v.startsWith("pk_live_"),
@@ -104,7 +108,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Encrypt sensitive fields
-    const sensitiveFields = ["clerkPublishable", "clerkSecret", "databaseUrl", "aiKey"];
+    const sensitiveFields = ["vercelToken", "clerkPublishable", "clerkSecret", "databaseUrl", "aiKey"];
     const finalValue = sensitiveFields.includes(field) ? encrypt(value) : value;
 
     // Update the session

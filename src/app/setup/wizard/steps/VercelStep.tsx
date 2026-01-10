@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 interface SessionData {
   hasVercel: boolean;
 }
@@ -8,13 +10,55 @@ interface StepProps {
   sessionId: string;
   session: SessionData | null;
   onNext: () => void;
+  onRefresh: () => void;
 }
 
-export default function VercelStep({ sessionId, session, onNext }: StepProps) {
+export default function VercelStep({ sessionId, session, onNext, onRefresh }: StepProps) {
+  const [vercelToken, setVercelToken] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const isConnected = session?.hasVercel;
 
-  const handleConnect = () => {
-    window.location.href = `/api/auth/vercel?session=${sessionId}`;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      // Validate token by making a test API call
+      const testRes = await fetch("/api/verify-vercel-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: vercelToken }),
+      });
+
+      const testData = await testRes.json();
+
+      if (!testRes.ok || !testData.valid) {
+        throw new Error(testData.error || "Invalid Vercel token");
+      }
+
+      // Save the token
+      const res = await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, field: "vercelToken", value: vercelToken }),
+      });
+
+      if (!res.ok) throw new Error("Failed to save token");
+
+      onRefresh();
+      onNext();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const openVercel = () => {
+    window.open("https://vercel.com/account/tokens", "_blank");
   };
 
   return (
@@ -49,23 +93,54 @@ export default function VercelStep({ sessionId, session, onNext }: StepProps) {
         </div>
       ) : (
         <>
+          {/* Instructions */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
+            <h4 className="font-semibold mb-3">Quick Steps:</h4>
+            <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside">
+              <li>Click &quot;Open Vercel&quot; below</li>
+              <li>Sign up with GitHub if you don&apos;t have an account</li>
+              <li>Click &quot;Create&quot; to create a new token</li>
+              <li>Name it &quot;Vibe Starter&quot; and click &quot;Create Token&quot;</li>
+              <li>Copy the token and paste it below</li>
+            </ol>
+          </div>
+
           <button
-            onClick={handleConnect}
-            className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center gap-3 mb-4"
+            onClick={openVercel}
+            className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center gap-3 mb-6"
           >
             <svg className="w-5 h-5" viewBox="0 0 76 65" fill="currentColor">
               <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
             </svg>
-            Connect with Vercel
+            Open Vercel Tokens Page →
           </button>
 
-          <p className="text-center text-sm text-white/60 mb-2">
-            <strong>Tip:</strong> Sign up with your GitHub account for easiest setup.
-          </p>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Access Token
+              </label>
+              <input
+                type="password"
+                value={vercelToken}
+                onChange={(e) => setVercelToken(e.target.value)}
+                placeholder="Paste your Vercel token here..."
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
+              />
+            </div>
 
-          <p className="text-center text-sm text-white/40 mb-8">
-            Don&apos;t have a Vercel account? You&apos;ll create one when you click above.
-          </p>
+            {error && (
+              <p className="text-red-400 text-sm">{error}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading || !vercelToken}
+              className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Verifying..." : "Save & Continue →"}
+            </button>
+          </form>
         </>
       )}
 
@@ -86,6 +161,14 @@ export default function VercelStep({ sessionId, session, onNext }: StepProps) {
             <span>Gives you a URL like your-app.vercel.app</span>
           </li>
         </ul>
+      </div>
+
+      {/* Security Note */}
+      <div className="mt-4 p-4 bg-emerald-400/10 border border-emerald-400/20 rounded-lg">
+        <p className="text-emerald-400 text-sm">
+          <strong>Your token is encrypted</strong> and deleted after setup completes.
+          We only use it to create your project.
+        </p>
       </div>
     </div>
   );

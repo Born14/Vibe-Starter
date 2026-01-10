@@ -99,7 +99,9 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
             <h4 className="font-semibold mb-3">Quick Steps:</h4>
             <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside">
               <li>Click &quot;Open Clerk&quot; below to create an account</li>
-              <li>Click &quot;Create Application&quot; and name it (e.g., &quot;My App&quot;)</li>
+              <li>Click <strong>&quot;Create Application&quot;</strong> and name it (e.g., &quot;My App&quot;)</li>
+              <li>Click <strong>&quot;Configure&quot;</strong> at the top of the page</li>
+              <li>Scroll down to find <strong>&quot;API Keys&quot;</strong></li>
               <li>Copy your <strong>Publishable Key</strong> and <strong>Secret Key</strong></li>
               <li>Paste them below</li>
             </ol>
@@ -159,8 +161,8 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
       {/* Help */}
       <div className="mt-8 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
         <p className="text-blue-400 text-sm">
-          <strong>Where are the keys?</strong> After creating your app in Clerk,
-          look for &quot;API Keys&quot; in the left sidebar.
+          <strong>Can&apos;t find the keys?</strong> After creating your app, click
+          &quot;Configure&quot; at the top, then scroll down to the &quot;API Keys&quot; section.
         </p>
       </div>
     </div>

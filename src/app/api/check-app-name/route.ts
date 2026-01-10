@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { wizardSessions } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import { decrypt } from "@/lib/encryption";
 
 export async function POST(request: NextRequest) {
   try {
-    const { sessionId, appName } = await request.json();
+    const { appName } = await request.json();
 
-    if (!sessionId || !appName) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    if (!appName) {
+      return NextResponse.json({ error: "Missing app name" }, { status: 400 });
     }
 
     // Validate app name format
@@ -20,47 +16,11 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Get session to retrieve Vercel token
-    const [session] = await db
-      .select()
-      .from(wizardSessions)
-      .where(eq(wizardSessions.id, sessionId))
-      .limit(1);
-
-    if (!session || !session.vercelToken) {
-      return NextResponse.json({ error: "Session not found or Vercel not connected" }, { status: 400 });
-    }
-
-    // Decrypt Vercel token
-    const vercelToken = decrypt(session.vercelToken);
-
-    // Check if project name is available on Vercel
-    const checkResponse = await fetch(`https://api.vercel.com/v9/projects/${appName}`, {
-      headers: {
-        Authorization: `Bearer ${vercelToken}`,
-      },
-    });
-
-    // 404 means the name is available
-    if (checkResponse.status === 404) {
-      return NextResponse.json({
-        available: true,
-        preview: `${appName}.vercel.app`,
-      });
-    }
-
-    // If we get the project, it already exists
-    if (checkResponse.ok) {
-      return NextResponse.json({
-        available: false,
-        error: "This app name is already taken on your Vercel account",
-      });
-    }
-
-    // Other errors
+    // Since we use manual Vercel deployment, we can't check availability via API
+    // Just validate the format and let the user proceed
     return NextResponse.json({
-      available: false,
-      error: "Could not verify app name availability",
+      available: true,
+      preview: `${appName}.vercel.app`,
     });
   } catch (error) {
     console.error("App name check error:", error);

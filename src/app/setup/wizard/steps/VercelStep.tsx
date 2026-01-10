@@ -14,39 +14,41 @@ interface StepProps {
 }
 
 export default function VercelStep({ sessionId, session, onNext, onRefresh }: StepProps) {
-  const [vercelToken, setVercelToken] = useState("");
+  const [appUrl, setAppUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [step, setStep] = useState<"deploy" | "confirm">("deploy");
 
   const isConnected = session?.hasVercel;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const openVercelImport = () => {
+    // Direct link to import from GitHub
+    window.open("https://vercel.com/new", "_blank");
+    setStep("confirm");
+  };
+
+  const handleConfirm = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      // Validate token by making a test API call
-      const testRes = await fetch("/api/verify-vercel-token", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: vercelToken }),
-      });
-
-      const testData = await testRes.json();
-
-      if (!testRes.ok || !testData.valid) {
-        throw new Error(testData.error || "Invalid Vercel token");
+      // Basic URL validation
+      if (!appUrl.includes("vercel.app")) {
+        throw new Error("Please enter your Vercel app URL (ends with .vercel.app)");
       }
 
-      // Save the token
+      // Extract app name from URL
+      const cleanUrl = appUrl.replace("https://", "").replace("http://", "").replace(".vercel.app", "").split("/")[0];
+
+      // Save as "connected" - we just need to know they deployed
       const res = await fetch("/api/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "vercelToken", value: vercelToken }),
+        body: JSON.stringify({ sessionId, field: "vercelToken", value: `deployed:${cleanUrl}` }),
       });
 
-      if (!res.ok) throw new Error("Failed to save token");
+      if (!res.ok) throw new Error("Failed to save");
 
       onRefresh();
       onNext();
@@ -57,10 +59,6 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
     }
   };
 
-  const openVercel = () => {
-    window.open("https://vercel.com/account/tokens", "_blank");
-  };
-
   return (
     <div>
       <div className="text-center mb-8">
@@ -69,9 +67,9 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
             <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
           </svg>
         </div>
-        <h2 className="text-3xl font-bold mb-2">Connect Vercel</h2>
+        <h2 className="text-3xl font-bold mb-2">Deploy to Vercel</h2>
         <p className="text-white/60">
-          Vercel puts your app on the internet. Push code, site updates automatically.
+          Vercel puts your app on the internet. One click.
         </p>
       </div>
 
@@ -81,7 +79,7 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            <span className="font-medium">Vercel Connected</span>
+            <span className="font-medium">Deployed to Vercel</span>
           </div>
 
           <button
@@ -91,42 +89,70 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
             Continue →
           </button>
         </div>
-      ) : (
+      ) : step === "deploy" ? (
         <>
-          {/* Instructions */}
+          {/* Simple instructions */}
           <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
-            <h4 className="font-semibold mb-3">Quick Steps:</h4>
-            <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside">
-              <li>Click &quot;Open Vercel&quot; below</li>
-              <li>Sign up with GitHub if you don&apos;t have an account</li>
-              <li>Click &quot;Create&quot; to create a new token</li>
-              <li>Name it &quot;Vibe Starter&quot; and click &quot;Create Token&quot;</li>
-              <li>Copy the token and paste it below</li>
+            <h4 className="font-semibold mb-3">What to do:</h4>
+            <ol className="space-y-3 text-white/70">
+              <li className="flex gap-3">
+                <span className="bg-white/20 w-6 h-6 rounded-full flex items-center justify-center text-sm flex-shrink-0">1</span>
+                <span>Click the button below to open Vercel</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="bg-white/20 w-6 h-6 rounded-full flex items-center justify-center text-sm flex-shrink-0">2</span>
+                <span>Sign up with GitHub (one click)</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="bg-white/20 w-6 h-6 rounded-full flex items-center justify-center text-sm flex-shrink-0">3</span>
+                <span>Find your repo and click <strong>Import</strong></span>
+              </li>
+              <li className="flex gap-3">
+                <span className="bg-white/20 w-6 h-6 rounded-full flex items-center justify-center text-sm flex-shrink-0">4</span>
+                <span>Click <strong>Deploy</strong></span>
+              </li>
+              <li className="flex gap-3">
+                <span className="bg-white/20 w-6 h-6 rounded-full flex items-center justify-center text-sm flex-shrink-0">5</span>
+                <span>Come back here when it&apos;s done!</span>
+              </li>
             </ol>
           </div>
 
           <button
-            onClick={openVercel}
-            className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center gap-3 mb-6"
+            onClick={openVercelImport}
+            className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-colors flex items-center justify-center gap-3"
           >
             <svg className="w-5 h-5" viewBox="0 0 76 65" fill="currentColor">
               <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
             </svg>
-            Open Vercel Tokens Page →
+            Open Vercel →
           </button>
+        </>
+      ) : (
+        <>
+          {/* Confirm deployment */}
+          <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-5 mb-6">
+            <p className="text-emerald-400">
+              <strong>Did Vercel finish deploying?</strong> Paste your app URL below.
+            </p>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleConfirm} className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">
-                Access Token
+                Your Vercel App URL
               </label>
               <input
-                type="password"
-                value={vercelToken}
-                onChange={(e) => setVercelToken(e.target.value)}
-                placeholder="Paste your Vercel token here..."
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
+                type="text"
+                value={appUrl}
+                onChange={(e) => setAppUrl(e.target.value)}
+                placeholder="my-app.vercel.app"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40"
+                autoFocus
               />
+              <p className="mt-2 text-xs text-white/40">
+                Copy this from your browser after Vercel finishes deploying
+              </p>
             </div>
 
             {error && (
@@ -135,40 +161,40 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
 
             <button
               type="submit"
-              disabled={loading || !vercelToken}
+              disabled={loading || !appUrl}
               className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Verifying..." : "Save & Continue →"}
+              {loading ? "Saving..." : "Continue →"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setStep("deploy")}
+              className="w-full text-white/60 py-2 text-sm hover:text-white"
+            >
+              ← Go back to instructions
             </button>
           </form>
         </>
       )}
 
-      {/* Trust Box */}
+      {/* What Vercel does */}
       <div className="bg-white/5 border border-white/10 rounded-xl p-5 mt-8">
         <h4 className="text-sm font-semibold text-white/60 mb-3">WHAT VERCEL DOES:</h4>
         <ul className="space-y-2 text-sm text-white/70">
           <li className="flex items-start gap-2">
-            <span className="text-emerald-400 mt-0.5">→</span>
-            <span>Hosts your app for free (generous free tier)</span>
+            <span className="text-emerald-400 mt-0.5">✓</span>
+            <span>Free hosting for your app</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-emerald-400 mt-0.5">→</span>
-            <span>Auto-deploys when you push to GitHub</span>
+            <span className="text-emerald-400 mt-0.5">✓</span>
+            <span>Auto-updates when you push to GitHub</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-emerald-400 mt-0.5">→</span>
-            <span>Gives you a URL like your-app.vercel.app</span>
+            <span className="text-emerald-400 mt-0.5">✓</span>
+            <span>Your URL: your-app.vercel.app</span>
           </li>
         </ul>
-      </div>
-
-      {/* Security Note */}
-      <div className="mt-4 p-4 bg-emerald-400/10 border border-emerald-400/20 rounded-lg">
-        <p className="text-emerald-400 text-sm">
-          <strong>Your token is encrypted</strong> and deleted after setup completes.
-          We only use it to create your project.
-        </p>
       </div>
     </div>
   );

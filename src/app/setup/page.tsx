@@ -96,10 +96,12 @@ function SetupForm() {
           <div className="text-sm text-white/60">
             <p className="font-medium text-white mb-2">What happens next:</p>
             <ul className="space-y-1 list-disc list-inside">
-              <li>Connect GitHub & Vercel (OAuth)</li>
-              <li>Set up Clerk & Neon (guided)</li>
-              <li>Name your app</li>
-              <li>Deploy (~2 minutes)</li>
+              <li>Connect GitHub (for your code)</li>
+              <li>Set up Vercel (free hosting)</li>
+              <li>Set up Clerk (user sign-in)</li>
+              <li>Set up Neon (database)</li>
+              <li>Add AI key (Claude or Gemini)</li>
+              <li>Name your app & deploy</li>
             </ul>
             <p className="mt-3 text-white/40">Total time: ~20 minutes</p>
           </div>

@@ -592,30 +592,92 @@ export default async function DashboardPage() {
   const user = await currentUser();
 
   return (
-    <main className="min-h-screen p-8">
-      <header className="max-w-4xl mx-auto flex items-center justify-between mb-12">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+    <main className="min-h-screen p-8 bg-gray-50">
+      <header className="max-w-4xl mx-auto flex items-center justify-between mb-8">
+        <h1 className="text-2xl font-bold">${appName}</h1>
         <UserButton afterSignOutUrl="/" />
       </header>
 
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-xl shadow-sm border p-6 mb-6">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* Welcome */}
+        <div className="bg-white rounded-xl shadow-sm border p-6">
           <h2 className="text-xl font-semibold mb-2">
             Welcome, {user?.firstName || "there"}!
           </h2>
           <p className="text-gray-600">
-            Your app is working. Start building your features!
+            Your app is live and ready to build on.
           </p>
         </div>
 
+        {/* Your Stack */}
         <div className="bg-white rounded-xl shadow-sm border p-6">
-          <h3 className="font-semibold mb-4">Quick Start</h3>
-          <ul className="space-y-2 text-gray-600">
-            <li>1. Open PROMPT.md in your project</li>
-            <li>2. Paste it into Claude</li>
-            <li>3. Tell Claude what you want to build</li>
-            <li>4. Push to GitHub - your site updates!</li>
-          </ul>
+          <h3 className="font-semibold mb-4">Your Stack</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <div className="text-2xl mb-1">🔐</div>
+              <div className="font-medium text-sm">Auth</div>
+              <div className="text-xs text-gray-500">Clerk</div>
+            </div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <div className="text-2xl mb-1">🗄️</div>
+              <div className="font-medium text-sm">Database</div>
+              <div className="text-xs text-gray-500">Neon Postgres</div>
+            </div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <div className="text-2xl mb-1">🤖</div>
+              <div className="font-medium text-sm">AI</div>
+              <div className="text-xs text-gray-500">${aiProvider === "gemini" ? "Gemini" : "Claude"}</div>
+            </div>
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <div className="text-2xl mb-1">🚀</div>
+              <div className="font-medium text-sm">Hosting</div>
+              <div className="text-xs text-gray-500">Vercel</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Start Building */}
+        <div className="bg-white rounded-xl shadow-sm border p-6">
+          <h3 className="font-semibold mb-4">Start Building</h3>
+          <div className="space-y-4">
+            <a
+              href="https://github.dev/\${process.env.NEXT_PUBLIC_GITHUB_REPO || ''}"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+            >
+              Open in GitHub.dev (Browser IDE)
+            </a>
+            <div className="text-center text-sm text-gray-500">or</div>
+            <div className="bg-gray-100 rounded-lg p-3 font-mono text-sm text-gray-700 text-center">
+              git clone https://github.com/YOUR_USERNAME/${appName}
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Start */}
+        <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100 p-6">
+          <h3 className="font-semibold mb-4 flex items-center gap-2">
+            <span>💡</span> How to Build Features
+          </h3>
+          <ol className="space-y-2 text-gray-700">
+            <li className="flex gap-3">
+              <span className="font-bold text-purple-600">1.</span>
+              <span>Open <code className="bg-white px-1 rounded">PROMPT.md</code> in your project</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-purple-600">2.</span>
+              <span>Paste it into Claude (or your AI of choice)</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-purple-600">3.</span>
+              <span>Describe what you want: <em>"Add a notes page"</em></span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-purple-600">4.</span>
+              <span>Commit & push — your site updates automatically!</span>
+            </li>
+          </ol>
         </div>
       </div>
     </main>

@@ -268,38 +268,43 @@ export default function DeployStep({ sessionId, session }: StepProps) {
         <>
           {/* Deploy Progress */}
           <div className="space-y-3">
-            {DEPLOY_STEPS.map((step) => (
-              <div
-                key={step.id}
-                className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
-                  step.id < currentDeployStep
-                    ? "bg-emerald-400/10"
-                    : step.id === currentDeployStep
-                    ? "bg-white/10"
-                    : "bg-white/5"
-                }`}
-              >
-                {step.id < currentDeployStep ? (
-                  <span className="text-emerald-400">✓</span>
-                ) : step.id === currentDeployStep ? (
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                  <span className="text-white/30">○</span>
-                )}
-                <div className="flex-1">
-                  <span
-                    className={
-                      step.id <= currentDeployStep ? "text-white" : "text-white/40"
-                    }
-                  >
-                    {step.label}
-                  </span>
-                  {step.id === currentDeployStep && "sublabel" in step && (
-                    <p className="text-sm text-white/50 mt-0.5">{step.sublabel}</p>
+            {DEPLOY_STEPS.map((step) => {
+              const isComplete = step.id < currentDeployStep || (step.id === 7 && deployComplete);
+              const isCurrent = step.id === currentDeployStep && !deployComplete;
+
+              return (
+                <div
+                  key={step.id}
+                  className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
+                    isComplete
+                      ? "bg-emerald-400/10"
+                      : isCurrent
+                      ? "bg-white/10"
+                      : "bg-white/5"
+                  }`}
+                >
+                  {isComplete ? (
+                    <span className="text-emerald-400">✓</span>
+                  ) : isCurrent ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    <span className="text-white/30">○</span>
                   )}
+                  <div className="flex-1">
+                    <span
+                      className={
+                        isComplete || isCurrent ? "text-white" : "text-white/40"
+                      }
+                    >
+                      {step.label}
+                    </span>
+                    {isCurrent && "sublabel" in step && (
+                      <p className="text-sm text-white/50 mt-0.5">{step.sublabel}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Building animation when on step 6 */}

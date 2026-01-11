@@ -52,6 +52,11 @@ export async function GET(
             const latestDeployment = deploymentsData.deployments?.[0];
 
             if (latestDeployment?.readyState === "READY") {
+              // Get the actual production URL from Vercel (handles cases like telos-ivory.vercel.app)
+              const actualUrl = latestDeployment.url
+                ? `https://${latestDeployment.url}`
+                : `https://${deployment.appName}.vercel.app`;
+
               // Deployment is complete! Update DB and clean up
               await db
                 .update(deployments)
@@ -77,7 +82,7 @@ export async function GET(
               return NextResponse.json({
                 status: "success",
                 step: 7,
-                appUrl: `https://${deployment.appName}.vercel.app`,
+                appUrl: actualUrl,
                 repoUrl: `https://github.com/${deployment.githubRepo}`,
               });
             } else if (latestDeployment?.readyState === "ERROR") {

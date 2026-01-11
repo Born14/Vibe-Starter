@@ -33,3 +33,5 @@ cd "c:\Users\mccar\VIBE STARTER\vibe-starter" && npx tsx scripts/create-license.
 3. Vercel deployment trigger requires numeric `repoId` from GitHub API
 4. Clerk middleware syntax: `auth().protect()` not `await auth.protect()`
 5. Frontend uses 2-second polling with 90 max attempts (3 min timeout) for Vercel builds
+6. Database connection uses fallback dummy string during build to prevent TypeScript errors when DATABASE_URL is not set
+7. Production branch explicitly set to "main" in Vercel project creation for auto-deployment on push

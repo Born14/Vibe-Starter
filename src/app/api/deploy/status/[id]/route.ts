@@ -52,10 +52,18 @@ export async function GET(
             const latestDeployment = deploymentsData.deployments?.[0];
 
             if (latestDeployment?.readyState === "READY") {
-              // Get the actual production URL from Vercel (handles cases like telos-ivory.vercel.app)
-              const actualUrl = latestDeployment.url
-                ? `https://${latestDeployment.url}`
-                : `https://${deployment.appName}.vercel.app`;
+              // Get the production domain from alias array (e.g., artios-ten.vercel.app)
+              // The 'url' field is deployment-specific (includes hash), 'alias' has clean domains
+              // Pick the shortest alias ending in .vercel.app (usually the production domain)
+              const vercelAliases = (latestDeployment.alias || []).filter(
+                (a: string) => a.endsWith('.vercel.app')
+              );
+              const productionAlias = vercelAliases.length > 0
+                ? vercelAliases.reduce((shortest: string, current: string) =>
+                    current.length < shortest.length ? current : shortest
+                  )
+                : `${deployment.appName}.vercel.app`;
+              const actualUrl = `https://${productionAlias}`;
 
               // Deployment is complete! Update DB and clean up
               await db

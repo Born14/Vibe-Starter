@@ -162,27 +162,81 @@ export default function DeployStep({ sessionId, session }: StepProps) {
 
         {/* Next Steps */}
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-left max-w-lg mx-auto">
-          <h3 className="font-semibold mb-4">What&apos;s Next?</h3>
-          <div className="space-y-4 text-sm text-white/70">
-            <div>
-              <p className="text-white font-medium mb-1">From your laptop:</p>
-              <ol className="list-decimal list-inside space-y-1">
-                <li>Download VS Code or Cursor</li>
-                <li>Clone your repo</li>
-                <li>Open PROMPT.md and paste it into Claude</li>
-                <li>Start building!</li>
-              </ol>
+          <h3 className="font-semibold mb-4 text-center">Start Building Features</h3>
+
+          <p className="text-white/70 mb-4 text-center text-sm">
+            Your app has user login and a database. Now you can add features by talking to Claude - from your phone, laptop, or anywhere.
+          </p>
+
+          {/* Example features they can build */}
+          <div className="space-y-2 mb-4">
+            <div className="bg-white/10 rounded-lg p-3">
+              <div className="text-xs text-white/50 mb-1">Try saying to Claude:</div>
+              <div className="text-white text-sm font-medium">&quot;Add a page where users can save notes&quot;</div>
             </div>
-            <div>
-              <p className="text-white font-medium mb-1">From your phone:</p>
-              <ol className="list-decimal list-inside space-y-1">
-                <li>Open Claude app</li>
-                <li>Paste PROMPT.md contents</li>
-                <li>Describe what you want to build</li>
-                <li>Push to GitHub — site updates!</li>
-              </ol>
+            <div className="bg-white/10 rounded-lg p-3">
+              <div className="text-xs text-white/50 mb-1">Or:</div>
+              <div className="text-white text-sm font-medium">&quot;Create a form to collect user feedback&quot;</div>
+            </div>
+            <div className="bg-white/10 rounded-lg p-3">
+              <div className="text-xs text-white/50 mb-1">Or:</div>
+              <div className="text-white text-sm font-medium">&quot;Add a page where users can upload photos&quot;</div>
             </div>
           </div>
+
+          {/* How to get started */}
+          <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-4">
+            <p className="font-medium mb-3 text-sm">Quick Start Guide:</p>
+            <ol className="space-y-2 text-sm text-white/80">
+              <li className="flex gap-2">
+                <span className="text-emerald-400 font-bold">1.</span>
+                <span>Open Claude (mobile app, Cursor, or web)</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-emerald-400 font-bold">2.</span>
+                <span>Connect to your GitHub repo: <strong className="text-white">{session?.appName}</strong></span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-emerald-400 font-bold">3.</span>
+                <span>Open and copy the <code className="bg-white/10 px-1 rounded">PROMPT.md</code> file for project context</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-emerald-400 font-bold">4.</span>
+                <span>Describe what you want to build</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-emerald-400 font-bold">5.</span>
+                <span>Claude writes and commits the code → your site updates! 🎉</span>
+              </li>
+            </ol>
+          </div>
+
+          {/* PROMPT.md link */}
+          <a
+            href={`${deployResult.repoUrl}/blob/main/PROMPT.md`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full text-center bg-emerald-400 text-black py-3 rounded-lg font-semibold hover:bg-emerald-300 transition-colors mb-3"
+          >
+            View PROMPT.md →
+          </a>
+
+          <p className="text-xs text-white/50 text-center">
+            💡 Works great with Claude mobile, Cursor, or any AI coding tool
+          </p>
+
+          {/* Optional: Laptop workflow */}
+          <details className="mt-4">
+            <summary className="cursor-pointer text-sm text-white/60 hover:text-white text-center">
+              Prefer to work from your laptop? Click here →
+            </summary>
+            <div className="mt-3 p-3 bg-white/5 rounded-lg space-y-2 text-sm text-white/70">
+              <p>1. Install <a href="https://cursor.sh" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Cursor</a> or <a href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">VS Code</a></p>
+              <p>2. Clone your repo locally</p>
+              <p>3. Use Claude/AI directly in your editor</p>
+              <p className="pt-2 text-xs text-white/50">Or use <a href={`https://github.dev/${deployResult.repoUrl.replace('https://github.com/', '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">github.dev</a> to edit in your browser (no install needed)</p>
+            </div>
+          </details>
         </div>
 
         {/* Revoke Access */}

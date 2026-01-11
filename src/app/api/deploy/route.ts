@@ -195,8 +195,34 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       });
     }
 
-    // Step 5: All setup complete - Vercel will auto-deploy from GitHub
+    // Step 5: Trigger deployment explicitly
     await updateDeploymentStep(deploymentId, 5);
+
+    // Trigger a deployment from the GitHub repo
+    // The gitRepository link doesn't always auto-trigger the first build
+    const deployTriggerRes = await fetch("https://api.vercel.com/v13/deployments", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${vercelToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: session.appName,
+        project: vercelProject.id,
+        gitSource: {
+          type: "github",
+          repo: repoFullName,
+          ref: "main",
+        },
+        target: "production",
+      }),
+    });
+
+    if (!deployTriggerRes.ok) {
+      const errorData = await deployTriggerRes.json();
+      console.error("Failed to trigger deployment:", errorData);
+      // Don't throw - the webhook might still trigger it
+    }
 
     // Store that we're now waiting for Vercel to build
     // The frontend will poll the status endpoint which checks Vercel directly

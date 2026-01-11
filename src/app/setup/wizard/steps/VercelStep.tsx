@@ -79,6 +79,14 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
             </p>
           </div>
 
+          {/* Important note about project access */}
+          <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 mb-6">
+            <p className="text-amber-400 text-sm">
+              <strong>When Vercel asks about project access:</strong> Select <strong>&quot;All Projects&quot;</strong> —
+              we need this to create your NEW project. We only use it once to deploy, then delete our access immediately.
+            </p>
+          </div>
+
           <button
             onClick={handleConnect}
             className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors mb-6 flex items-center justify-center gap-3"
@@ -90,7 +98,7 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
           </button>
 
           {/* What is Vercel? */}
-          <div className="mt-8 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+          <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
             <p className="text-blue-400 text-sm">
               <strong>What is Vercel?</strong> It&apos;s free web hosting that automatically
               updates your site whenever you push code to GitHub. No server setup needed.

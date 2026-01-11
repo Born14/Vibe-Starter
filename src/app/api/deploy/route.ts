@@ -166,6 +166,25 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       .set({ vercelProject: vercelProject.id })
       .where(eq(deployments.id, deploymentId));
 
+    // Explicitly set production branch to 'main' for auto-deployment
+    // This ensures all pushes to main trigger production deployments
+    try {
+      await fetch(`https://api.vercel.com/v9/projects/${vercelProject.id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${vercelToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productionBranch: "main",
+          autoExposeSystemEnvs: true, // Expose VERCEL_* env vars
+        }),
+      });
+    } catch (error) {
+      console.error("Failed to set production branch (non-fatal):", error);
+      // Don't throw - the project still works, just log the error
+    }
+
     // Step 4: Set environment variables
     await updateDeploymentStep(deploymentId, 4);
 

@@ -52,7 +52,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
 
       // Poll for status
       let attempts = 0;
-      const maxAttempts = 60; // 2 minutes max
+      const maxAttempts = 90; // 3 minutes max (Vercel builds can take a while)
 
       while (attempts < maxAttempts) {
         await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -87,7 +87,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
       }
 
       if (attempts >= maxAttempts) {
-        throw new Error("Deploy timed out");
+        throw new Error("Deploy is taking longer than expected. Check your Vercel dashboard - the build may still complete!");
       }
     } catch (err) {
       setDeployError(err instanceof Error ? err.message : "Deploy failed");

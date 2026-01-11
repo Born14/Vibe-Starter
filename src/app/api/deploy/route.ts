@@ -118,8 +118,9 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     });
     const userData = await userResponse.json();
     const repoFullName = repoData.full_name || `${userData.login}/${session.appName}`;
+    const repoId = repoData.id; // Numeric GitHub repo ID needed for Vercel API
 
-    console.log("Repo full name:", repoFullName);
+    console.log("Repo full name:", repoFullName, "Repo ID:", repoId);
 
     // Update deployment with repo info
     await db
@@ -211,7 +212,7 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
         project: vercelProject.id,
         gitSource: {
           type: "github",
-          repo: repoFullName,
+          repoId: repoId, // Numeric repo ID required by Vercel API
           ref: "main",
         },
         target: "production",
@@ -222,6 +223,8 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       const errorData = await deployTriggerRes.json();
       console.error("Failed to trigger deployment:", errorData);
       // Don't throw - the webhook might still trigger it
+    } else {
+      console.log("Deployment triggered successfully");
     }
 
     // Store that we're now waiting for Vercel to build

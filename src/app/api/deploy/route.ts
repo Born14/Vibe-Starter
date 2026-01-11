@@ -536,8 +536,16 @@ export default async function Home() {
 
 export default function SignInPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center p-8">
-      <SignIn />
+    <main className="min-h-screen flex flex-col items-center justify-center p-8">
+      <h1 className="text-2xl font-bold mb-6">Sign in to ${appName}</h1>
+      <SignIn
+        appearance={{
+          elements: {
+            headerTitle: { display: "none" },
+            headerSubtitle: { display: "none" },
+          },
+        }}
+      />
     </main>
   );
 }
@@ -551,8 +559,16 @@ export default function SignInPage() {
 
 export default function SignUpPage() {
   return (
-    <main className="min-h-screen flex items-center justify-center p-8">
-      <SignUp />
+    <main className="min-h-screen flex flex-col items-center justify-center p-8">
+      <h1 className="text-2xl font-bold mb-6">Sign up for ${appName}</h1>
+      <SignUp
+        appearance={{
+          elements: {
+            headerTitle: { display: "none" },
+            headerSubtitle: { display: "none" },
+          },
+        }}
+      />
     </main>
   );
 }

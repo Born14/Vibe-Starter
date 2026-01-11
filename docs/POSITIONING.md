@@ -1,5 +1,26 @@
 # Vibe Starter: Product Positioning & Messaging Guide
 
+## How to Use This Guide
+
+This document defines **product-focused messaging** for Vibe Starter. Use this when:
+- Creating product marketing content (Phase 2)
+- Writing landing page copy
+- Responding to "What is Vibe Starter?" questions
+- Creating ads or Product Hunt descriptions
+
+**IMPORTANT:** This is NOT for movement content (Phase 1).
+
+For movement content, focus on **demonstrating the shift** without selling Vibe Starter. See:
+- PRODUCT-VISION.md for the philosophical foundation
+- VIDEO-SCRIPTS.md > Phase 1 for movement content strategy
+
+**The sequence:**
+1. **Weeks 1-4:** Movement content (demonstrate, don't sell)
+2. **Weeks 5-6:** Soft transition (introduce Vibe Starter)
+3. **Week 7+:** Use THIS guide for product-focused messaging
+
+---
+
 ## Core Value Proposition
 
 **What Vibe Starter Does:**

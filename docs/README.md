@@ -6,6 +6,23 @@ This folder contains everything you need to take Vibe Starter from "working prod
 
 ## 📁 What's in Here
 
+### 🧭 [PRODUCT-VISION.md](./PRODUCT-VISION.md)
+**The strategic foundation and product philosophy.**
+
+Includes:
+- The foundational shift: Why now is different
+- Market opportunity: Who this is for
+- Product architecture: What we're building and why
+- Technical stack: Service choices and justifications
+- Content strategy: How we demonstrate the shift
+- Success metrics: What we're measuring
+- Risk analysis: What could go wrong and how to mitigate
+- Timeline: Phased approach to building the product
+
+**Use this when:** Understanding the strategic vision, onboarding team members, talking to investors, making architectural decisions
+
+---
+
 ### 🎯 [NEXT-7-DAYS.md](./NEXT-7-DAYS.md) ⭐ START HERE
 **Your critical path for the next week.**
 
@@ -67,6 +84,21 @@ Includes:
 - When to pivot vs. when to double down
 
 **Use this when:** Planning beyond Week 1, deciding where to focus
+
+---
+
+### 📄 [CREATION-THRESHOLD.md](./CREATION-THRESHOLD.md)
+**White paper on the democratization of software development.**
+
+Includes:
+- Historical context: Why software creation was restricted to developers
+- The convergence: AI models + deployment platforms + mobile capability
+- The new reality: How anyone can now build software
+- Platform vs. ownership models
+- Economic, educational, and social implications
+- Future directions (2026-2030+)
+
+**Use this when:** Understanding the "why" behind Vibe Starter, writing thought leadership content, positioning yourself as an expert, guest posts, or lead magnets
 
 ---
 

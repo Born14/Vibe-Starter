@@ -11,179 +11,330 @@
 
 ## Immediate Next Steps (Week 1)
 
-### Priority 1: Create Hero Demo Video ⭐ CRITICAL
-**Why:** All marketing flows from this video
-**Timeline:** Complete by Day 3
+### Priority 1: Start Creating Movement Content ⭐ CRITICAL
+**Why:** Build credibility and demonstrate the shift BEFORE selling
+**Timeline:** Start Day 1, ongoing
 
 **Action items:**
-1. Record 90-second hero demo (see VIDEO-SCRIPTS.md)
-2. Edit with captions and music
-3. Create 3 versions:
-   - 16:9 for YouTube/landing page
-   - 1:1 for Twitter
-   - 9:16 for TikTok/Reels
-4. Test with 5 people outside of tech - do they understand it?
+1. Create 3-5 "I Just Shipped This" clips (M1 from VIDEO-SCRIPTS.md)
+   - Phone only, 15-30 seconds
+   - Build silly/simple projects from different locations
+   - Raw, unpolished, authentic
+2. Post to TikTok, Reels, Twitter, YouTube Shorts
+3. NO product CTAs yet—just demonstrate possibility
 
-**Success criteria:** Someone who's never coded says "Oh, I could do that"
+**Success criteria:** People comment "how did you do this?" or "I didn't know this was possible"
+
+**See:** VIDEO-SCRIPTS.md > Phase 1: Movement Content > M1
 
 ---
 
-### Priority 2: Build Simple Landing Page
-**Why:** Need somewhere to send traffic
-**Timeline:** Complete by Day 5
+### Priority 2: Build Minimal Landing Page
+**Why:** Need somewhere to point curious people
+**Timeline:** Complete by Day 3-4
 
 **Required sections:**
-1. Hero (headline + demo video)
-2. Problem/Solution (before/after)
-3. What You Get (features list)
-4. Pricing ($39 once)
-5. FAQ (5 most common objections)
-6. CTA (Start Building button → Gumroad)
+1. Hero headline (focused on the shift, not the product)
+2. Brief explanation of the new reality
+3. "How I do this" section (mentions Vibe Starter)
+4. Waitlist or "notify me" (build interest)
+5. Link to your social media (where movement content lives)
 
-**Tools:** Use your own Vibe Starter deployment to build it (dogfooding!)
+**Tone:** Educational and invitational, not salesy
 
-**Copy source:** Pull from POSITIONING.md
+**Copy source:** Pull from PRODUCT-VISION.md and POSITIONING.md
 
----
-
-### Priority 3: Soft Launch to Communities
-**Why:** Get first real users and feedback
-**Timeline:** Day 6-7
-
-**Communities to post in:**
-- r/SideProject (Saturday morning, 9am EST)
-- r/ClaudeAI (focus on mobile workflow)
-- r/webdev (be humble, ask for feedback)
-- Indie Hackers (Product Showcase)
-- Twitter with #buildinpublic
-
-**Post template:**
-> "Spent [timeframe] building a wizard that deploys production Next.js apps in 20 minutes. Auth, database, hosting - all wired together. Then you use AI to build features. Would love feedback: [link]"
-
-**Offer for early users:**
-- First 20 users: Free (need testimonials)
-- Next 30 users: $19 (early bird pricing)
-- After that: $39
-
-**Goal:** 50 people try it, 30 deploy successfully, 10 come back and build something
+**Optional:** Can skip landing page initially—just use link-in-bio tools pointing to social profiles
 
 ---
 
-## Week 2-4: Validation & Iteration
+### Priority 3: Double Down on What Resonates
+**Why:** Let audience tell you what works
+**Timeline:** Days 5-7
+
+**Analyze early content:**
+- Which "I Just Shipped This" clips got the most engagement?
+- What questions are people asking?
+- What surprised people the most?
+
+**Make more of what works:**
+- If "building from coffee shop" resonated → do 3 more location-based builds
+- If "silly projects" got traction → lean into playful builds
+- If people ask "how?" → create "How This Works" explainer (M3)
+
+**Still no direct product push:** Focus on demonstrating and educating
+
+**Goal:** Build a small engaged audience (100-200 followers) who are curious about the shift
+
+---
+
+## Weeks 2-4: Movement Content Phase
 
 ### Goals
-- Get to 50 paying customers
-- Collect video testimonials
-- Build example gallery
-- Identify ideal customer profile
+- Build awareness of the shift (not the product yet)
+- Grow engaged following (500+ across platforms)
+- Establish credibility through demonstration
+- Generate organic curiosity ("how are you doing this?")
 
 ---
 
-### Action 1: Content Marketing (Daily)
+### Action 1: Consistent Movement Content (Daily)
 
-**Twitter Strategy:**
-Post daily, mix of:
-- 🎥 Demo clips (30 sec from hero video)
-- 📊 Progress updates (#buildinpublic)
-- 🎓 Tips (How to use Claude mobile, PROMPT.md tips)
-- 🎉 User wins (retweet people using it)
+**Content Calendar (see VIDEO-SCRIPTS.md Phase 1):**
 
-**Posting schedule:**
-- Monday: Progress update
-- Tuesday: Demo clip
-- Wednesday: User testimonial/retweet
-- Thursday: Tip/tutorial
-- Friday: Week recap
-- Weekend: Aspirational content
+**Monday/Wednesday/Friday:**
+- "I Just Shipped This" clips (M1)
+- 15-30 seconds, phone only
+- Different locations, different projects
+- Goal: Proof of possibility
 
-**Goal:** Grow to 500 followers in 30 days
+**Tuesday:**
+- "Building in 20 Minutes" (M2) OR "How This Works" explainer (M3)
+- 2-5 minutes, educational
+- Show the full process, mistakes included
+- Goal: Demonstrate the reality
 
----
+**Thursday:**
+- "Silly Builds" (M4)
+- 1-2 minutes, playful and fun
+- Low-stakes projects that make people smile
+- Goal: Show that building can be joyful
 
-**YouTube Strategy:**
-Create 1 video per week:
-1. Week 2: "What You Get for $39" walkthrough
-2. Week 3: "Build Your First Feature" tutorial
-3. Week 4: "Mobile Building Deep Dive"
-4. Week 5: "5 Apps You Can Build With Vibe Starter"
+**Bi-weekly:**
+- "Freedom Layer" reflection (M5)
+- 2-4 minutes, philosophical
+- Who gets to build now? What changes?
+- Goal: Plant seeds about the bigger shift
 
-**SEO targets:**
-- "How to deploy Next.js with AI"
-- "Build apps with Claude mobile"
-- "Next.js starter template with auth"
+**Tone across all content:**
+- Unpolished over produced
+- Demonstration over explanation
+- Ordinary over expert
+- Invitation over persuasion
 
-**Goal:** 1,000 views across all videos
+**Soft mentions of Vibe Starter:**
+- Weeks 1-2: Zero mentions
+- Weeks 3-4: "I use Vibe Starter for setup, link in bio"
+- Week 5+: Start transition to product content
 
----
-
-**Blog/SEO Content:**
-Write 2 articles per week:
-- How-to guides (How to build X with Vibe Starter)
-- Use case studies (Building a notes app, building a SaaS)
-- Comparison articles (Vibe Starter vs manual setup)
-
-**Goal:** Rank for "next.js ai deployment" type queries
+**Goal:** 500+ engaged followers asking "how can I do this?"
 
 ---
 
-### Action 2: User Research (Ongoing)
+**Distribution Strategy:**
 
-**Interview every user who deploys:**
-- 15-minute Zoom call (offer $20 gift card incentive)
+**Twitter/X:**
+- Post 1-2x daily (mix of clips + reflections)
+- Engage with AI tool communities (Claude, Cursor, Vercel)
+- #buildinpublic but focus on the shift, not the product
+- Reply to everyone who asks "how?"
+
+**TikTok/Reels:**
+- 3x per week minimum
+- Prioritize "I Just Shipped This" and "Silly Builds"
+- Optimize for first 1 second hook
+- CTA: "Ask me how" in text overlay
+
+**YouTube:**
+- 1-2 longer videos per week
+- "Building in 20 Minutes" and "How This Works" series
+- SEO targets: "build apps with AI", "code from phone", "AI software development"
+- Playlist: "Building in the Margins"
+
+**Goal:** Movement content performing = people understand the shift is real
+
+---
+
+### Action 2: Build Showcase Projects Publicly
+
+**Document everything:**
+- Build 3-5 simple apps using the movement content format
+- Share the full process: idea → build → deploy → iterate
+- Use these as examples in your content
+
+**Projects to build:**
+1. "An app that only says no" (silly build)
+2. Random excuse generator (silly build)
+3. Simple todo app (practical build)
+4. Color palette generator (useful tool)
+5. "Is it Friday yet?" single-purpose site (silly build)
+
+**Why this matters:**
+- Generates content (each build = 3-5 videos)
+- Shows the process authentically
+- Gives you examples to reference
+- Demonstrates consistency
+
+**DON'T:** Call these "Vibe Starter showcase apps" yet
+**DO:** Call them "things I built this month from my phone"
+
+---
+
+### Action 3: Engage With the Community
+
+**Be genuinely helpful:**
+- Answer questions in r/ClaudeAI about mobile workflows
+- Share tips on using PROMPT.md effectively
+- Help others set up their GitHub/Vercel workflow
+- Document learnings publicly
+
+**Join conversations:**
+- Reply to posts about AI coding tools
+- Share what's working (and what's not)
+- Ask questions, be curious
+- Build relationships, not just followers
+
+**NO SPAMMING:**
+- Don't drop Vibe Starter links everywhere
+- Don't make every comment about your product
+- Focus on being valuable first
+
+**Goal:** Become known as "that person who builds from their phone" not "that person who sells Vibe Starter"
+
+---
+
+## Weeks 5-6: Transition to Product
+
+### Signals You're Ready
+
+**Movement content is working if:**
+- ✅ 500+ followers across platforms
+- ✅ Consistent comments asking "how do you do this?"
+- ✅ DMs from people wanting to learn
+- ✅ Content getting shared organically
+- ✅ Other creators referencing your work
+
+**If you're NOT seeing these signals:** Don't transition yet. Keep making movement content, refine your message.
+
+**If you ARE seeing these signals:** Time to introduce Vibe Starter.
+
+---
+
+### How to Transition
+
+**Week 5: Soft Introduction**
+
+Add mentions to your content:
+- End cards: "I use Vibe Starter to set all this up quickly"
+- Bio update: "Building from my phone with Vibe Starter"
+- Respond to "how?" questions: "I use Vibe Starter for the initial setup, then Claude to build. Link in bio."
+
+Create your first product-focused video:
+- M3 Video 3: "What Vibe Starter Actually Does" (see VIDEO-SCRIPTS.md)
+- Honest, educational, not salesy
+- Gives people the choice: manual setup or Vibe Starter
+
+**Week 6: Build Product Marketing Assets**
+
+Now that you have credibility and audience:
+- Create PM1: Hero Demo video (90 seconds)
+- Create PM3: Setup Time-Lapse (30 seconds)
+- Update landing page with demo video
+- Add pricing and clear CTA
+
+**First product-focused post:**
+Post to r/SideProject or Indie Hackers:
+> "I've been building apps from my phone for the past month (you may have seen my videos). Built a tool that automates the setup in 20 minutes. Would love feedback: [link]"
+
+**Tone:** Still humble, still helpful, now with a clear product.
+
+**Goal:** First 10-20 paying customers from people who've been following the movement content
+
+---
+
+## Weeks 7-12: Hybrid Strategy (60% Movement, 40% Product)
+
+By now you have:
+- Credibility from 4-6 weeks of movement content
+- Engaged audience who understands the shift
+- Product-focused assets (hero demo, landing page)
+- First customers and testimonials
+
+### Content Mix
+
+**Continue movement content (60%):**
+- 2x "I Just Shipped This" per week
+- 1x "Building in 20 Minutes" per week
+- 1x "Silly Builds" per week
+- Bi-weekly "Freedom Layer" reflections
+
+This maintains your credibility and continues attracting new audience.
+
+**Add product content (40%):**
+- 1x Hero Demo clip per week (for new audiences)
+- 1x User testimonial/case study per week
+- 1x "What You Get" walkthrough per month
+
+This converts the aware audience into customers.
+
+**Balance:** Never abandon movement content. It's your differentiation.
+
+---
+
+### Launch Product Marketing Campaigns
+
+**Now you can do traditional marketing:**
+
+**Product Hunt:**
+- Wait until you have 10+ testimonials
+- Use your movement content as social proof
+- Position as "the tool behind the movement"
+
+**Paid Ads (small budget test):**
+- $300-500 Twitter/YouTube ads
+- Target: AI tool users, no-code community
+- Creative: Use clips from movement content + CTA
+
+**Community Posts:**
+- Share on r/SideProject, Indie Hackers, r/ClaudeAI
+- Lead with value (what you learned building in public)
+- Product mention is secondary
+
+**Partnerships:**
+- Reach out to AI YouTubers with affiliate offer
+- Guest post on AI/no-code blogs
+- Sponsor relevant newsletters
+
+---
+
+### User Research & Iteration
+
+**Interview early customers:**
+- 15-minute calls (offer $20 gift card)
 - Questions:
-  - Why did you buy?
-  - What almost stopped you?
-  - Did you build anything after deploying?
-  - If not, why not?
+  - What convinced you to buy?
+  - How did you discover Vibe Starter?
+  - Did you complete the wizard? Any issues?
+  - Have you built features post-deployment?
   - What would make this more valuable?
 
 **Track in spreadsheet:**
-- Demographics (technical level, day job, location)
+- Source (movement content, paid ad, community post)
+- Demographics (technical level, background)
 - Use case (what they wanted to build)
-- Outcome (deployed successfully? built features? abandoned?)
-- Feedback (what confused them, what delighted them)
+- Outcome (successful deployment? building features?)
 
-**Goal:** Find the pattern - who gets the most value?
-
----
-
-### Action 3: Example Gallery
-
-**Build 5 showcase apps:**
-Pay freelancers or build yourself:
-1. Note-taking app
-2. Habit tracker
-3. Recipe sharing site
-4. Product waitlist page
-5. Link-in-bio tool
-
-**Each example includes:**
-- Live demo link
-- GitHub repo (public)
-- "Built with Vibe Starter in [X] hours" badge
-- Tutorial video showing how it was made
-
-**Why this matters:** People can't visualize what they can build. Show them.
+**Goal:** Find your ideal customer profile (ICP)
 
 ---
 
-### Action 4: Collect Social Proof
+### Collect Testimonials
 
-**Video testimonials:**
-Offer $50 to users who record 30-second testimonial:
+**Video testimonials (offer $25 gift card):**
 - Show their deployed app
-- Explain what they built
+- What they built with it
 - Why they chose Vibe Starter
 
 **Written testimonials:**
-Email all successful deployments:
-> "Hey! Saw you deployed [app name]. Would love to feature you on our site. Can you answer: (1) What did you build? (2) How was the experience? (3) Would you recommend it?"
+- Email all successful deployments
+- Feature on landing page
+- Share on social media
 
-**Goal:** 10 video testimonials, 25 written quotes
+**Goal:** 10 video testimonials, 25+ written quotes by end of Week 12
 
 ---
 
-## Month 2: Scale What Works
+## Month 3-4: Scale What Works
 
 By now you should know:
 - ✅ Do people actually pay? (validation)
@@ -501,31 +652,45 @@ Track these weekly:
 
 ---
 
-## The 30-Day Validation Test
+## The 90-Day Validation Test
 
-**Hypothesis:** There are at least 50 people willing to pay $39 for this in the next 30 days.
+**Hypothesis:** A movement-first content strategy will build awareness and credibility that converts into 50+ paying customers within 90 days.
 
 **How to test:**
-1. Make hero demo video (Week 1)
-2. Build landing page (Week 1)
-3. Post to 10 communities (Week 1-2)
-4. Run Twitter campaign (Week 1-4)
-5. Post YouTube video (Week 2)
-6. Offer early bird pricing ($19 first 30 users)
 
-**Success criteria (30 days):**
-- ✅ 50+ license keys sold
+**Weeks 1-4: Movement (Build Awareness)**
+1. Create 15-20 "I Just Shipped This" clips
+2. Create 4-6 "Building in 20 Minutes" videos
+3. Create 4-6 "Silly Builds"
+4. Post across TikTok, Reels, Twitter, YouTube
+5. Zero product CTAs—just demonstrate
+
+**Weeks 5-6: Transition (Soft Introduction)**
+6. Add soft mentions of Vibe Starter
+7. Create "What Vibe Starter Actually Does" video
+8. Build product marketing assets (hero demo, landing page)
+9. First product-focused community post
+
+**Weeks 7-12: Hybrid (Convert Awareness)**
+10. 60% movement content, 40% product content
+11. Run small paid ad tests ($500 total)
+12. Product Hunt launch (with testimonials)
+13. Community posts with product focus
+
+**Success criteria (90 days):**
+- ✅ 1,000+ followers across platforms (awareness)
+- ✅ 50+ license keys sold (validation)
 - ✅ 35+ successful deployments (70% success rate)
-- ✅ 10+ users build at least one feature
-- ✅ 5+ unprompted testimonials/social shares
+- ✅ 10+ users build features post-deployment (engagement)
+- ✅ 10+ video testimonials (social proof)
+- ✅ Organic mentions/shares from non-customers (movement spreading)
 
-**If you hit this:** You have product-market fit. Double down.
+**If you hit this:** You've validated both the movement and the product. Double down.
 
-**If you miss this:** Doesn't mean it's dead, but need to:
-- Interview users who didn't deploy (why?)
-- Interview users who deployed but didn't build (why?)
-- Test different positioning
-- Test different pricing ($29? $49? Free tier?)
+**If you miss this:** Diagnose which phase failed:
+- **Phase 1 failed (no awareness):** Movement content isn't resonating. Refine message, try different content formats.
+- **Phase 2 failed (awareness but no conversion):** Product-market fit issue. Interview followers who didn't buy.
+- **Phase 3 failed (customers but bad experience):** Product quality issue. Fix wizard, improve onboarding.
 
 ---
 
@@ -624,18 +789,33 @@ If validation succeeds, consider:
 
 ## The Most Important Thing
 
-**Ship the hero demo video THIS WEEK.**
+**Start making movement content TODAY.**
 
-Everything else flows from that:
-- Landing page uses it
-- Twitter posts clip it
-- YouTube hosts the full version
-- Reddit posts link it
-- Product Hunt showcases it
+Not the hero demo. Not the landing page. Not a Product Hunt launch.
 
-Without the video, you're explaining with words. With the video, you're showing.
+Start with "I Just Shipped This" clips:
+- Build something small on your phone
+- Record it (15-30 seconds)
+- Post it to TikTok, Reels, Twitter
+- No CTA, no product mention
+- Just: "I built this 10 minutes ago from a coffee shop"
 
-**Make the video. Launch next week. Iterate based on feedback.**
+Do this 3-5 times this week.
+
+**Why this matters:**
+- Tests if your message resonates (do people care?)
+- Builds your confidence creating content
+- Starts attracting your audience
+- Low stakes, high learning
+- Builds credibility before you sell
+
+**The hero demo comes later** (Week 6, after you've built awareness).
+
+**The traditional launch comes later** (Week 7+, after you have an audience).
+
+Trust the process. Lead with movement. Earn attention before you ask for money.
+
+**Make your first "I Just Shipped This" clip today. Post it tomorrow. Repeat.**
 
 That's the roadmap. Now execute.
 

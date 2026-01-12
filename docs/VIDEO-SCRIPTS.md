@@ -1,608 +1,768 @@
-# Video Scripts for Vibe Starter
+# Video Content Strategy for Vibe Starter
 
-## Video 1: The Hero Demo (90 seconds)
-**Purpose:** Primary marketing video for landing page, Twitter, Product Hunt
-**Format:** Screen recording (desktop + mobile split screen)
-**Goal:** Show complete value prop in under 2 minutes
+## Content Philosophy
+
+**Core principle:** Content is not marketing. Content is demonstration of the shift.
+
+The goal is to show people that building software is now accessible to anyone with a phone and an idea. Vibe Starter is the natural answer to "how do I start?" but the content focuses on the possibility, not the product.
+
+### The Message
+
+**"This is possible now, for regular people, in the time you already have."**
+
+### Tone Guidelines
+
+- **Unpolished** over produced
+- **Demonstration** over explanation
+- **Ordinary** over expert
+- **Invitation** over persuasion
+- **Raw authenticity** over professional polish
+
+Show, don't sell. Let people discover the product through watching you build.
+
+---
+
+## Content Pillars
+
+From PRODUCT-VISION.md, all content should align with one of these five pillars:
+
+### 1. Proof of Possibility
+Short clips showing the full loop: idea → conversation with AI → PR → merge → live. Real locations, real constraints, real time.
+
+*"I just shipped this from [ordinary location]. Took [short time]."*
+
+### 2. Building in the Margins
+Longer explorations of building small projects in fragmented time. Show the AI conversation, the thinking, the iteration.
+
+*"I had 20 minutes. Here's what I made."*
+
+### 3. The Stack Explained
+Educational content about why this setup works. Not a pitch—just transparency about the tools and how they connect.
+
+*"Here's how changes on my phone end up live on the internet."*
+
+### 4. Not So Serious Projects
+A series of small, fun, low-stakes builds. Demonstrates that building doesn't have to be serious or commercial.
+
+*"I'm making an app that [silly idea]. Follow along."*
+
+### 5. The Freedom Layer
+Philosophical content about what this shift means. Who gets to build now. What changes when the barrier drops.
+
+*"You have access to something that didn't exist two years ago."*
+
+---
+
+## Two-Phase Strategy
+
+### Phase 1: Movement Content (Weeks 1-6)
+Build awareness, credibility, and demonstrate the shift. Vibe Starter mentioned as "how I do this" but not the focus.
+
+**Goal:** Get people asking "how are you doing this?"
+
+### Phase 2: Product Marketing (Month 2+)
+Convert awareness into customers with direct product-focused content.
+
+**Goal:** Answer "how can I do this?" with clear path to Vibe Starter
+
+---
+
+# Phase 1: Movement Content
+
+These videos demonstrate that the shift is real. They're unpolished, authentic, and focused on the possibility rather than the product.
+
+## M1: "I Just Shipped This" Series (15-30 seconds)
+
+**Pillar:** Proof of Possibility
+**Purpose:** Rapid-fire proof that building from phone is real
+**Format:** Vertical (9:16), phone screen recording only
+**Frequency:** 2-3x per week
+
+### Script Template
+
+**Location varies:** Coffee shop, train, waiting room, couch, park bench
+
+**[0:00-0:03] Hook**
+> Screen: Show the deployed app/feature working
+>
+> Text overlay: "Built this 10 minutes ago from [location]"
+
+**[0:03-0:10] Quick Demo**
+> Show the feature working (form submission, button click, page navigation)
+>
+> No voiceover. Just UI interaction.
+
+**[0:10-0:20] The Build (Timelapse)**
+> Screen recording: Claude conversation at 3x speed
+>
+> Show: Request → Code generation → Commit → Deploy notification
+
+**[0:20-0:25] The Proof**
+> Back to deployed app, show timestamp/date
+>
+> Text overlay: "Anyone can do this now"
+
+**[0:25-0:30] Soft CTA**
+> Text overlay: "Ask me how" or "Link in bio"
+
+### Production Notes
+- No fancy editing, no music, just raw screen recording
+- Film in real locations with real constraints (bad wifi, noisy background)
+- Authenticity over production value
+- Phone in hand, thumb typing visible when possible
+
+### Example Builds
+- Todo list app from train
+- Meme generator from lunch break
+- Tip calculator from waiting room
+- Quote randomizer from park
+- Simple form from coffee shop
+
+**Distribution:** TikTok, Reels, Twitter, YouTube Shorts
+
+---
+
+## M2: "Building in 20 Minutes" Series (3-5 minutes)
+
+**Pillar:** Building in the Margins
+**Purpose:** Show the full creative process in fragmented time
+**Format:** Horizontal (16:9), unedited screen recording
+**Frequency:** 1x per week
+
+### Script Template
+
+**[0:00-0:30] The Idea**
+> Facecam or voiceover: "I have 20 minutes before [real constraint]. I want to build [simple idea]."
+>
+> Show: Clock/timer starting
+
+**[0:30-4:00] The Build (Real-time)**
+> Split screen: Claude conversation + deployed app preview
+>
+> Narrate your thinking:
+> - "Let me ask Claude to..."
+> - "Hmm, that's not quite right..."
+> - "Ok, let me try..."
+>
+> Show mistakes, iteration, real problem-solving
+
+**[4:00-4:30] The Result**
+> Show the working feature
+>
+> Honest assessment: "Not perfect, but it works"
+
+**[4:30-5:00] Reflection**
+> What you learned, what surprised you, what you'd do differently
+>
+> End on: "Total time: [X] minutes" with timer
+
+### Production Notes
+- Minimal editing—just cut dead space
+- Keep the mistakes and iteration visible
+- Conversational tone, like talking to a friend
+- Real-time constraints add tension and authenticity
+
+### Example Projects
+- Build a URL shortener in 20 minutes
+- Build a markdown preview tool in 20 minutes
+- Build a color palette generator in 20 minutes
+- Build a countdown timer app in 20 minutes
+
+**Distribution:** YouTube, Twitter, blog embed
+
+---
+
+## M3: "How This Works" Explainer Series (2-3 minutes)
+
+**Pillar:** The Stack Explained
+**Purpose:** Demystify how phone-to-production actually works
+**Format:** Horizontal (16:9), screen recording + diagrams
+**Frequency:** 1x per week (alternating with M2)
+
+### Video 1: "How Changes on My Phone Go Live"
+
+**[0:00-0:20] The Question**
+> "People keep asking: how does code I write on my phone end up live on the internet?"
+
+**[0:20-1:00] The Stack (Visual)**
+> Show diagram of: Phone → Claude → GitHub → Vercel → Live Site
+>
+> Explain each step simply:
+> - Phone: Where I describe what I want
+> - Claude: Translates to code, creates PR
+> - GitHub: Stores the code
+> - Vercel: Builds and deploys automatically
+> - Live site: Anyone can visit
+
+**[1:00-2:00] Live Demo**
+> Make a trivial change on phone
+>
+> Show each step happening in real-time:
+> - Claude conversation
+> - GitHub PR created
+> - Vercel deployment
+> - Change appears live
+
+**[2:00-2:30] The Reality**
+> "Two years ago, this required a laptop, terminal commands, and hours of setup. Now it's just conversation."
+
+### Video 2: "Why I Don't Need a Laptop Anymore"
+
+**[0:00-0:30] The Claim**
+> "I haven't opened my laptop in two weeks. Here's what changed."
+
+**[0:30-1:30] What Used To Require a Laptop**
+> List with screen recordings:
+> - Writing code → Now: describe to Claude
+> - Running git commands → Now: Claude handles it
+> - Deploying → Now: automatic on push
+> - Checking logs → Now: Vercel mobile app
+
+**[1:30-2:00] What Still Needs a Laptop**
+> Be honest about limitations:
+> - Complex debugging
+> - Large refactors
+> - Visual design work
+> - Reading lots of code
+
+**[2:00-2:30] The Shift**
+> "The question isn't 'can I do everything on phone?' It's 'can I do enough on phone to keep building?' And the answer is yes."
+
+### Video 3: "What Vibe Starter Actually Does"
+
+**[0:00-0:30] The Problem**
+> "To build from your phone, you need GitHub, Vercel, a database, auth... setting that up used to take hours."
+
+**[0:30-1:30] The Solution (Screen Recording)**
+> Timelapse of wizard:
+> - OAuth connections
+> - Service provisioning
+> - Auto-deployment setup
+>
+> "Vibe Starter does this setup in 20 minutes. Then you own everything."
+
+**[1:30-2:00] What You Get**
+> Show the deployed app, GitHub repo, connected services
+>
+> "After this, I never need Vibe Starter again. I just use Claude to build."
+
+**[2:00-2:30] The Choice**
+> "You can set this up manually for free. Takes 3+ hours. Or use Vibe Starter, $39 once, done in 20 minutes. Your choice."
+
+**Production Notes:**
+- Simple diagrams, not flashy animations
+- Honest about tradeoffs and limitations
+- Educational, not salesy
+- Give people the knowledge to make their own choice
+
+**Distribution:** YouTube (SEO-optimized), blog, Twitter
+
+---
+
+## M4: "Silly Builds" Series (1-2 minutes)
+
+**Pillar:** Not So Serious Projects
+**Purpose:** Show that building can be fun, low-stakes, experimental
+**Format:** Vertical (9:16), casual and playful
+**Frequency:** 1x per week
+
+### Ideas
+
+**"An App That Only Says No"**
+> Build a site where you ask yes/no questions and it always says no
+>
+> Show: Building it, deploying it, asking silly questions
+
+**"Random Excuse Generator"**
+> For when you need to skip meetings
+>
+> Show: Building it, testing ridiculous excuses, sending to friends
+
+**"Is It Friday Yet?"**
+> Single-purpose site that answers one question
+>
+> Show: Building it, showing friends, their reactions
+
+**"Compliment Generator"**
+> Generates overly specific compliments
+>
+> Example: "Your ability to alphabetize is inspiring"
+
+**"My Pet Rock's Status Page"**
+> A status dashboard for a rock
+>
+> Status: Always "operational, doing rock things"
+
+### Script Template
+
+**[0:00-0:10] The Dumb Idea**
+> "I'm going to build [silly thing] because why not"
+
+**[0:10-0:40] Building It**
+> Quick timelapse of Claude conversation
+>
+> Narrate: "This is so stupid. I love it."
+
+**[0:40-1:00] The Result**
+> Demo the silly app working
+>
+> Genuine laughter/enjoyment
+
+**[1:00-1:15] The Point**
+> "You can just... make stuff now. Doesn't have to be serious. Doesn't have to make money."
+
+### Production Notes
+- Pure fun—no business case needed
+- Show that creation can be playful
+- Low pressure, high creativity
+- Invite others to share their silly builds
+
+**Distribution:** TikTok, Reels, Twitter (high viral potential)
+
+---
+
+## M5: "The Freedom Layer" Series (2-4 minutes)
+
+**Pillar:** The Freedom Layer
+**Purpose:** Philosophical reflection on what this shift means
+**Format:** Horizontal (16:9), conversational direct-to-camera or voiceover with B-roll
+**Frequency:** 1-2x per month
+
+### Video 1: "Who Gets To Build Now"
+
+**[0:00-0:30] The Old Gate**
+> "For 50 years, creating software required specialized knowledge. You needed to learn programming, understand systems, have dedicated equipment."
+
+**[0:30-1:30] The Gate Opening**
+> "Three things converged:
+> - AI that writes code from descriptions
+> - Platforms that deploy with zero config
+> - Phones powerful enough for the full loop
+>
+> The barrier isn't knowledge anymore. It's imagination."
+
+**[1:30-2:30] What Changes**
+> "When anyone can build, who builds what changes.
+>
+> Tools for tiny communities. Personal automation. Scratching specific itches. Things that don't scale but matter to someone.
+>
+> The long tail of software gets longer."
+
+**[2:30-3:00] The Invitation**
+> "You don't need permission. You don't need to call yourself a developer. You just need to want to make something."
+
+### Video 2: "Building in the Margins"
+
+**[0:00-0:30] The Constraint**
+> "Most people don't have 4-hour blocks to code. They have 15 minutes on the train. 20 minutes before bed. Lunch breaks."
+
+**[0:30-1:30] The Shift**
+> "Building used to require dedicated focus time. Setup, context loading, deep work.
+>
+> Now? Open phone, describe change, merge, close phone. The entire loop fits in stolen moments."
+
+**[1:30-2:30] What This Enables**
+> "Parents building after kids sleep. Commuters shipping features from trains. People with day jobs building side projects in fragments.
+>
+> The constraint isn't time anymore. It's desire."
+
+**[2:30-3:00] The Challenge**
+> "What would you build if you could build in the time you already have?"
+
+### Video 3: "Platform vs. Ownership"
+
+**[0:00-0:45] The Easy Path**
+> "Platforms like Replit and Bolt make building trivial. Describe what you want, it builds it for you. Fast. Frictionless.
+>
+> But you're renting. They control pricing, features, access. Switching costs are high."
+
+**[0:45-1:45] The Harder Path**
+> "Ownership takes more setup. Create accounts, connect services, understand the stack.
+>
+> But once it's done, it's yours. Your GitHub repo. Your Vercel account. Your database. Standard tools, portable, replaceable."
+
+**[1:45-2:30] The Choice**
+> "Both are valid. Speed vs. independence. It depends on your goals, your risk tolerance.
+>
+> But only ownership delivers the full promise: build and operate software without permission from any single vendor."
+
+**[2:30-3:00] Where Vibe Starter Fits**
+> "Vibe Starter automates the hard setup. 20 minutes, then you own everything. It's the ownership path, but faster."
+
+### Production Notes
+- Thoughtful, not preachy
+- Acknowledge tradeoffs honestly
+- Invite reflection, not agreement
+- Plant seeds, don't push conclusions
+
+**Distribution:** YouTube (longer form), Twitter (thread version), blog
+
+---
+
+# Phase 2: Product Marketing Content
+
+After 4-6 weeks of movement content, shift to direct product marketing. By now, you've built credibility and awareness. Time to convert.
+
+## PM1: The Hero Demo (90 seconds)
+
+**Purpose:** Primary conversion video for landing page, Product Hunt, ads
+**Format:** Horizontal (16:9), polished screen recording
+**Goal:** Show complete value prop: setup → build → own
 
 ### Script
 
 **[0:00-0:10] Hook**
 > Screen: Empty browser tab
 >
-> VOICEOVER: "I'm going to build and deploy a full-stack app in 20 minutes. Then add a feature from my phone."
->
-> Visual: Navigate to vibestarter.app
+> VOICEOVER: "I'm going to deploy a full-stack app in 20 minutes, then add a feature from my phone."
 
----
+**[0:10-0:30] The Setup (Timelapse)**
+> Screen: Vibe Starter wizard at 3x speed
+>
+> VOICEOVER: "Vibe Starter connects GitHub, Vercel, database, and auth. One wizard."
+>
+> Timer overlay: "20 min → 20 sec"
 
-**[0:10-0:15] The Problem**
-> Screen: Show typical developer setup (multiple tabs: GitHub, Vercel docs, Clerk docs, database setup)
+**[0:30-0:45] The Result**
+> Screen: Deployed app loading, user signup flow, dashboard
 >
-> VOICEOVER: "Usually this takes hours of setup. GitHub, hosting, auth, database..."
->
-> Visual: Close all tabs
+> VOICEOVER: "Working app with authentication and database. Everything in your GitHub account."
 
----
+**[0:45-1:00] The Mobile Build**
+> Screen: iPhone showing Claude conversation
+>
+> VOICEOVER: "Now I add a notes feature... from my phone."
+>
+> Show: Claude response, PR, merge
 
-**[0:15-0:30] The Wizard (Time-lapse)**
-> Screen: Vibe Starter wizard
+**[1:00-1:15] The Payoff**
+> Screen: Refresh app, new feature appears, it works
 >
-> VOICEOVER: "Vibe Starter does it all in one wizard."
->
-> Visual:
-> - Click through steps quickly (2x speed)
-> - Pause on key moments: GitHub OAuth, Vercel connect, app name
-> - Show progress: "Step 6 of 8"
->
-> Timer overlay in corner: "20 minutes → 15 seconds"
+> VOICEOVER: "Two minutes later, it's live."
 
----
-
-**[0:30-0:40] Deployment**
-> Screen: Deploy step with progress indicators
->
-> VOICEOVER: "Creating repo... deploying... going live..."
->
-> Visual:
-> - Show deployment steps completing
-> - Final screen: "Your App is Live!" with URL
-> - Click the URL
-
----
-
-**[0:40-0:50] The Result**
-> Screen: Deployed app loading
->
-> VOICEOVER: "Working app with user login and database."
->
-> Visual:
-> - Show landing page
-> - Click "Sign Up"
-> - Create account (fast forward)
-> - Show dashboard
-
----
-
-**[0:50-1:00] The Mobile Transition**
-> Screen: Split screen - close laptop, pick up phone
->
-> VOICEOVER: "Now I'm going to add a feature... from my phone."
->
-> Visual:
-> - Close laptop animation
-> - Pick up phone (transition to iPhone screen recording)
-
----
-
-**[1:00-1:15] Building on Mobile**
-> Screen: iPhone - Claude mobile app
->
-> VOICEOVER: "I open Claude, connect to my repo, and describe what I want."
->
-> Visual:
-> - Open Claude app
-> - Tap project selector
-> - Select the new repo
-> - Type: "Add a page where users can create and save notes"
-> - Show Claude responding and writing code
-> - Show commit confirmation
-
----
-
-**[1:15-1:25] The Payoff**
-> Screen: iPhone - Safari browser
->
-> VOICEOVER: "Two minutes later..."
->
-> Visual:
-> - Open Safari
-> - Navigate to the app
-> - Show new "Notes" menu item
-> - Click it
-> - Create a note
-> - Save it
-> - It works!
-
----
-
-**[1:25-1:30] Call to Action**
-> Screen: vibestarter.app landing page
->
-> VOICEOVER: "From zero to deployed app in 20 minutes. Then build from anywhere. That's Vibe Starter."
->
-> Text overlay:
-> - "vibestarter.app"
+**[1:15-1:30] The CTA**
+> Text overlays:
+> - "Deploy in 20 minutes"
+> - "Own everything forever"
 > - "$39 once"
-> - "Own everything"
-
----
+> - "vibestarter.app"
 
 ### Production Notes
-- **Music:** Upbeat, modern (like product hunt videos)
-- **Pacing:** Fast cuts, no dead air
-- **Text overlays:** Reinforce key points ("20 minutes", "$39 once", "Own everything")
-- **Captions:** Full captions for social media (most watch muted)
+- Professional but not overproduced
+- Clear, confident voiceover
+- Fast pacing, no dead air
+- Full captions for muted viewing
+
+**Distribution:** Landing page hero, Product Hunt, Twitter launch, YouTube
 
 ---
 
-## Video 2: Mobile Building Deep Dive (60 seconds)
-**Purpose:** TikTok, Instagram Reels, Twitter - mobile-first audience
-**Format:** Vertical video (9:16), all iPhone screen recording
-**Goal:** Show the "build from your phone" workflow
+## PM2: "What You Get" Walkthrough (2-3 minutes)
+
+**Purpose:** Educational product tour for landing page, YouTube
+**Format:** Horizontal (16:9), screen recording with narration
+**Goal:** Detailed explanation of deliverables
+
+### Script
+
+**[0:00-0:20] Intro**
+> "I just completed Vibe Starter. Let me show you exactly what you get for $39."
+
+**[0:20-0:50] The Deployed App**
+> Tour the live site:
+> - Landing page
+> - Sign up flow
+> - User dashboard
+> - Connected services display
+
+**[0:50-1:20] Your GitHub Repo**
+> Show file structure:
+> - Next.js app directory
+> - Database schema
+> - PROMPT.md file
+>
+> "This is all yours. In your account. Download it, modify it, move it anywhere."
+
+**[1:20-1:50] The Integrations**
+> Show connections:
+> - Vercel dashboard (auto-deploys on push)
+> - Neon database (connection string in env)
+> - Clerk dashboard (user management)
+>
+> "Everything is in your name. Vibe Starter has no ongoing access."
+
+**[1:50-2:20] PROMPT.md Deep Dive**
+> Show the AI context file:
+> - Stack description
+> - File structure map
+> - Example prompts
+>
+> "This tells Claude how your project works. Copy this into any conversation."
+
+**[2:20-2:40] Next Steps**
+> "From here, you use Claude or any AI tool to add features. Push to GitHub, it auto-deploys."
+>
+> Show quick example
+
+**[2:40-3:00] The Value**
+> "Production app, your accounts, your code, forever. One-time $39. No monthly fees."
+>
+> CTA: vibestarter.app
+
+### Production Notes
+- Calm, educational pacing
+- Show real deployed app, not mockups
+- Emphasize ownership at every step
+- Build trust through transparency
+
+**Distribution:** Landing page embed, YouTube (SEO: "vibe starter review"), email to interested users
+
+---
+
+## PM3: Setup Time-Lapse (30 seconds)
+
+**Purpose:** Proof of "20 minutes" claim for Twitter, Product Hunt
+**Format:** Horizontal (16:9), fast-cut timelapse
+**Goal:** Credible demonstration of speed
 
 ### Script
 
 **[0:00-0:05] Hook**
-> VOICEOVER: "I'm going to add a feature to my website... from my phone, on the train."
+> Text overlay: "Watch me deploy a production app in 20 minutes"
 >
-> Visual: iPhone homescreen, open Claude app
+> Visual: Start wizard, timer begins
 
----
-
-**[0:05-0:15] Setup**
-> VOICEOVER: "My site already has user login and a database. I just want to add a notes feature."
+**[0:05-0:25] The Wizard (Timelapse)**
+> 10x speed through:
+> - GitHub OAuth
+> - Vercel connect
+> - Database creation
+> - Auth setup
+> - Deploy
 >
-> Visual:
-> - Show the deployed site in Safari (quickly scroll through it)
-> - Swipe up, open Claude
+> Real-time timer in corner
 
----
-
-**[0:15-0:25] The Request**
-> VOICEOVER: "I tell Claude what I want."
->
-> Visual:
-> - Tap project selector, select repo
-> - Type: "Add a notes page where users can create, view, and delete notes. Make it look nice with Tailwind."
-> - Hit send
-
----
-
-**[0:25-0:40] The Build**
-> VOICEOVER: "Claude writes all the code and commits it to GitHub."
->
-> Visual:
-> - Show Claude writing code (scroll through the response)
-> - Show file creation: "Created src/app/notes/page.tsx"
-> - Show commit message
-> - Pause on: "Changes pushed to main branch"
-
----
-
-**[0:40-0:50] The Result**
-> VOICEOVER: "Vercel automatically deploys it. Let me check..."
->
-> Visual:
-> - Wait 10 seconds (show timer counting up)
-> - Open Safari
-> - Refresh the site
-> - New "Notes" link appears
-> - Click it
-
----
-
-**[0:50-0:60] The Payoff**
-> VOICEOVER: "And it works. From idea to deployed feature in 90 seconds."
->
-> Visual:
-> - Create a note: "Build this on the train"
-> - Save it
-> - Shows in list
-> - Delete it
-> - Works perfectly
->
-> Text overlay: "vibestarter.app"
-
----
-
-### Production Notes
-- **Format:** Vertical 9:16 for TikTok/Reels
-- **Text overlays:** Large, readable on small screens
-- **Music:** Trending TikTok sound or upbeat instrumental
-- **Hooks:** First 3 seconds must grab attention
-
----
-
-## Video 3: Setup Time-Lapse (30 seconds)
-**Purpose:** Twitter, Product Hunt - show speed claim
-**Format:** Screen recording (horizontal)
-**Goal:** Prove "20 minutes" claim with actual timer
-
-### Script
-
-**[0:00-0:05] Hook**
-> Screen: vibestarter.app homepage
->
-> Text overlay: "Watch me set up a production app in 20 minutes"
->
-> Visual: Click "Start Building", enter license key
-
----
-
-**[0:05-0:25] Time-lapse**
-> Screen: Wizard at 10x speed
->
-> Visual:
-> - Timer in corner (real time: 20 min → video time: 20 sec)
-> - Quick cuts through each step:
->   - GitHub OAuth
->   - Vercel connect
->   - Clerk keys
->   - Neon database
->   - AI provider
->   - App name
->   - Deploy
-> - Show deployment progress bars
-> - End on: "Your App is Live!"
-
----
-
-**[0:25-0:30] Result**
-> Screen: Deployed app dashboard
+**[0:25-0:30] The Result**
+> Screen: "Your App is Live!" with URL
 >
 > Text overlays:
 > - "20 minutes"
 > - "Full-stack app"
-> - "Auth ✓ Database ✓ Hosting ✓"
-> - "vibestarter.app"
-
----
+> - "Auth ✓ Database ✓ Deploy ✓"
 
 ### Production Notes
-- **Must be real:** Don't fake the timer
-- **Speed up wisely:** Pause briefly on important moments (OAuth screens, final success)
-- **No voice:** Just text overlays + music
+- Must be real—no faking timer
+- Pause briefly on key moments (OAuth, final success)
+- No voiceover, just text + music
+- Honest about actual time
+
+**Distribution:** Twitter, Product Hunt, ads
 
 ---
 
-## Video 4: Before/After Comparison (45 seconds)
-**Purpose:** Landing page, ads - show value contrast
-**Format:** Split screen
-**Goal:** Highlight time saved vs manual setup
+## PM4: Before/After Comparison (45 seconds)
+
+**Purpose:** Value contrast for ads, landing page
+**Format:** Horizontal (16:9), split screen
+**Goal:** Highlight time and complexity savings
 
 ### Script
 
 **[0:00-0:05] Setup**
-> Screen: Split screen intro
->
-> Text:
-> - Left: "Traditional Setup"
+> Split screen title cards:
+> - Left: "Manual Setup"
 > - Right: "With Vibe Starter"
 
----
+**[0:05-0:35] Parallel Workflows**
 
-**[0:05-0:40] Parallel Workflows**
+| Time | Left (Manual) | Right (Vibe Starter) |
+|------|---------------|----------------------|
+| 0:05 | Google "how to deploy Next.js" | Click "Start Building" |
+| 0:10 | Read Vercel docs | OAuth to GitHub |
+| 0:15 | Create GitHub repo manually | OAuth to Vercel |
+| 0:20 | Try to connect Vercel | Database provisioned |
+| 0:25 | Google "Clerk setup" | Auth configured |
+| 0:30 | Copy environment variables | Choose app name |
+| 0:35 | **Still not deployed** | **"Your App is Live!"** |
 
-| Time | Left (Traditional) | Right (Vibe Starter) |
-|------|-------------------|---------------------|
-| 0:05 | Open GitHub, create repo | Click "Start Building" |
-| 0:10 | Search "how to deploy Next.js" | OAuth to GitHub |
-| 0:15 | Read Vercel docs | OAuth to Vercel |
-| 0:20 | Create Vercel account | Enter Clerk keys |
-| 0:25 | Try to link GitHub | Enter database URL |
-| 0:30 | Google "Clerk setup" | Choose app name |
-| 0:35 | Copy environment variables | Click "Deploy" |
-| 0:40 | **Still not deployed** | **"Your App is Live!"** |
-
-**Visual approach:**
-- Left side: Realistic developer workflow (googling, switching tabs, copy-pasting)
-- Right side: Smooth wizard progression
-- Left side freezes at 0:40 (still stuck)
-- Right side shows success screen
-
----
-
-**[0:40-0:45] Payoff**
+**[0:35-0:45] The Payoff**
 > Text overlay:
 > - Left: "3+ hours (if you know what you're doing)"
-> - Right: "20 minutes (guided wizard)"
+> - Right: "20 minutes (guided)"
 >
 > CTA: "vibestarter.app - $39 once"
 
----
-
 ### Production Notes
-- **Authenticity:** Left side should feel real (actual docs, actual confusion)
-- **Contrast:** Right side smooth and fast
-- **Timing:** Left side gets more chaotic, right side stays calm
+- Left side: realistic struggle (real docs, confusion)
+- Right side: smooth, confident
+- Contrast builds over time
+- Authentic, not exaggerated
+
+**Distribution:** Landing page, Facebook/Instagram ads, YouTube
 
 ---
 
-## Video 5: "What You Get" Walkthrough (2 minutes)
-**Purpose:** Landing page embed, YouTube - full product tour
-**Format:** Screen recording with facecam (optional)
-**Goal:** Detailed walkthrough of deployed app
+## PM5: User Testimonials (30 seconds each)
 
-### Script
-
-**[0:00-0:15] Intro**
-> "Hey, I just finished the Vibe Starter wizard and I want to show you what you actually get for $39. This is a real app, deployed and live."
-
----
-
-**[0:15-0:30] The Landing Page**
-> Visual: Show deployed app
->
-> "Here's the landing page. It's basic right now, but you can customize everything with AI."
->
-> - Click "Sign Up"
-
----
-
-**[0:30-0:50] Authentication**
-> Visual: Clerk sign-up flow
->
-> "User authentication is fully working. This is Clerk - the same auth used by big companies."
->
-> - Create account
-> - Get redirected to dashboard
-
----
-
-**[0:50-1:10] Dashboard**
-> Visual: Explore dashboard
->
-> "You land on a dashboard. Right now it shows your connected services. But this is where you'll build your actual app features."
->
-> - Show "Your app is connected to: GitHub, Vercel, Clerk, Neon"
-
----
-
-**[1:10-1:30] The GitHub Repo**
-> Visual: Open GitHub repo in new tab
->
-> "Everything is in YOUR GitHub account. You own this code."
->
-> - Show file structure
-> - Open PROMPT.md
-> - Scroll through it
-
----
-
-**[1:30-1:45] PROMPT.md Explained**
-> Visual: Keep PROMPT.md open
->
-> "This is the secret weapon. It tells Claude exactly how your project is structured and what it can do."
->
-> - Highlight sections:
->   - Stack description
->   - File structure
->   - Example requests
-
----
-
-**[1:45-2:00] Call to Action**
-> Visual: Split screen - deployed app + code
->
-> "So you get a production app with auth and database, ready to customize. All for $39, one time. Links in description."
-
----
-
-### Production Notes
-- **Authenticity:** Show a real deployed app, not a mock-up
-- **Pacing:** Slower than other videos - this is educational
-- **Annotations:** Use arrows/highlights to point out features
-- **Optional facecam:** Builds trust and personality
-
----
-
-## Video 6: User Testimonial Template (30 seconds)
 **Purpose:** Social proof for landing page
-**Format:** User-submitted or guided recording
-**Goal:** Real people showing real results
+**Format:** User-submitted, vertical or horizontal
+**Goal:** Real people, real results
 
-### Script Template (for users to follow)
+### Template for Users
 
-**[0:00-0:05] Intro**
-> "I just used Vibe Starter to deploy my first app and I'm honestly shocked how easy it was."
+**[0:00-0:10] Who & Why**
+> "I'm [name], I [background]. I used Vibe Starter to [goal]."
 
----
-
-**[0:05-0:15] The Experience**
-> Visual: Show their deployed app
+**[0:10-0:20] The Experience**
+> Show deployed app
 >
-> "I went through the wizard, it took about 20 minutes, and now I have a live website with user login."
+> "The wizard took [time]. I was surprised by [specific detail]."
 
----
-
-**[0:15-0:25] What They Built**
-> Visual: Show a feature they added
+**[0:20-0:30] What They Built**
+> Show added feature
 >
-> "I already added [specific feature] using Claude. It took me like 5 minutes."
+> "I already built [specific feature] using Claude. It just worked."
+
+### Collection Strategy
+- Email every user post-deployment
+- Offer $25 gift card for testimonial video
+- Provide template but encourage natural language
+- Prioritize non-technical users
+- Diversity of backgrounds and use cases
+
+**Distribution:** Landing page carousel, Twitter shares, Product Hunt comments
 
 ---
 
-**[0:25-0:30] Recommendation**
-> Visual: Back to camera
->
-> "If you have an app idea but don't know how to code, this is perfect. I'm serious."
+## Content Calendar Strategy
+
+### Weeks 1-4: Pure Movement
+- **Mon/Wed/Fri:** "I Just Shipped This" clips (M1)
+- **Tuesday:** "Building in 20 Minutes" or "How This Works" (M2/M3)
+- **Thursday:** "Silly Builds" (M4)
+- **Bi-weekly:** "Freedom Layer" reflection (M5)
+
+**No product CTAs.** Just build, demonstrate, invite.
+
+### Weeks 5-6: Transition
+- Continue movement content
+- Add soft mentions: "I use Vibe Starter for setup, link in bio"
+- Start collecting interest: "Want to learn how? Drop a comment"
+
+### Week 7+: Hybrid
+- **60% Movement:** Keep demonstrating the shift
+- **40% Product:** Hero demo, walkthroughs, testimonials
+- Alternate: 2 movement pieces, 1 product piece
+
+### Ongoing
+- Movement content builds awareness and credibility
+- Product content converts awareness to customers
+- Never fully abandon movement—it's your differentiation
 
 ---
 
-### Production Notes
-- **Authenticity > Quality:** Phone recording is fine, raw is better than polished
-- **Diversity:** Get different types of users (mobile-first, laptop, technical, non-technical)
-- **Specificity:** "I added a notes page" is better than "I added features"
+## Metrics That Matter
+
+### Movement Content
+- Comments asking "how?"
+- Shares and saves (signal of value)
+- Profile visits from content
+- DMs asking about process
+
+### Product Content
+- Click-through to landing page
+- License key purchases attributed to video
+- Wizard completion rate from video traffic
+- Time from video view to purchase
+
+### Quality Signals
+- Non-technical people saying "I could do that"
+- Developers sharing with non-developer friends
+- Other creators making similar content (idea spreading)
 
 ---
 
-## Video 7: The "Mobile Commuter" Story (45 seconds)
-**Purpose:** Aspirational lifestyle content for TikTok/Reels
-**Format:** Vertical video with b-roll + screen recording
-**Goal:** Sell the dream of building anywhere
+## Equipment & Tools
 
-### Script
+### Minimum Viable
+- **iPhone:** Built-in screen recording
+- **Mac/PC:** QuickTime or OBS for desktop recording
+- **Editing:** iMovie or DaVinci Resolve (free)
+- **Audio:** Built-in mic (upgrade later)
 
-**[0:00-0:10] Setup**
-> Visual: B-roll of commute (train, coffee shop, couch)
->
-> VOICEOVER: "I built three features for my app this week. I don't own a laptop."
+### Quality Upgrade
+- **Microphone:** Blue Yeti USB ($100)
+- **Screen Recording:** Loom or ScreenFlow
+- **Editing:** Final Cut Pro or Premiere
+- **Camera:** Any modern smartphone (for facecam)
 
----
+### For Movement Content
+- Phone is sufficient
+- No external mic needed
+- Minimal editing (cuts only)
+- Raw > polished
 
-**[0:10-0:20] The Workflow**
-> Visual: Screen recording of Claude mobile
->
-> VOICEOVER: "Monday morning, added user profiles."
->
-> - Show quick commit
-
----
-
-**[0:20-0:30] Multiple Iterations**
-> Visual: More screen recordings
->
-> VOICEOVER: "Tuesday, added a comments section. Wednesday, fixed some bugs."
->
-> - Quick cuts of different features
-
----
-
-**[0:30-0:40] The Result**
-> Visual: Screen recording of deployed app with all features
->
-> VOICEOVER: "Friday, my app has everything I wanted."
-
----
-
-**[0:40-0:45] The Pitch**
-> Visual: Person using phone on train/bus
->
-> VOICEOVER: "Started with Vibe Starter. Built everything from my phone."
->
-> Text: "vibestarter.app"
-
----
-
-### Production Notes
-- **Aspirational:** Sell the lifestyle of building anywhere
-- **Aesthetic:** Clean, modern, slightly cinematic
-- **Music:** Motivational/inspiring
-
----
-
-## Video Priorities
-
-**Launch Week:**
-1. **Video 1** (Hero Demo) - Primary marketing asset
-2. **Video 3** (Time-lapse) - Proof of speed claim
-3. **Video 2** (Mobile Deep Dive) - Differentiation
-
-**First Month:**
-4. **Video 5** (What You Get) - Educational, SEO
-5. **Video 4** (Before/After) - Conversion tool for ads
-
-**Ongoing:**
-6. **Video 6** (Testimonials) - Social proof, collect continuously
-7. **Video 7** (Aspirational) - Viral potential
-
----
-
-## Technical Specs for Each Platform
-
-### YouTube
-- Resolution: 1080p minimum, 4K ideal
-- Format: 16:9
-- Length: 1-10 minutes
-- Captions: Auto-generated + manual review
-- Thumbnail: High-contrast text, faces work well
-
-### Twitter/X
-- Resolution: 1080p
-- Format: 16:9 or 1:1
-- Length: Under 2:20 (max)
-- Captions: Burned in (most watch muted)
-- First 3 seconds: Must hook
-
-### TikTok/Reels/Shorts
-- Resolution: 1080x1920 (9:16)
-- Format: Vertical
-- Length: 15-60 seconds
-- Captions: Burned in, large text
-- Hook: First 1 second critical
-
-### Landing Page
-- Resolution: 1080p
-- Format: 16:9
-- Length: 60-120 seconds
-- Autoplay: Yes (muted by default)
-- Loop: Consider for hero section
-
----
-
-## Equipment Needed
-
-**Minimum:**
-- iPhone (screen recording built-in)
-- QuickTime (Mac) or OBS (Windows) for desktop recording
-- iMovie or DaVinci Resolve (free) for editing
-
-**Ideal:**
-- 4K monitor for crisp screen recordings
-- Blue Yeti or similar USB mic (better voiceover)
-- Screen recording: Loom, ScreenFlow, or Camtasia
-- Editing: Final Cut Pro or Adobe Premiere
-
-**For B-roll (Video 7):**
-- Any modern smartphone
-- Natural lighting
-- Stabilizer/gimbal (optional but nice)
+### For Product Marketing
+- Better audio matters
+- Clean screen recordings
+- Professional but not overproduced
+- Captions always
 
 ---
 
 ## Distribution Checklist
 
-When you publish a video:
+### Every Video Posted
 
 **YouTube:**
-- [ ] SEO title: Include "Next.js", "AI", "deployment", "Claude"
-- [ ] Description: Links, timestamps, full explanation
-- [ ] Tags: nextjs, claude, ai coding, deployment, vercel
-- [ ] Thumbnail: High contrast, readable text
-- [ ] End screen: Link to website, subscribe button
+- [ ] SEO title with target keywords
+- [ ] Detailed description with links
+- [ ] Timestamps for longer videos
+- [ ] Custom thumbnail (faces work)
+- [ ] End screen with CTA
 
-**Twitter:**
-- [ ] Tweet text: Hook in first line
-- [ ] Hashtags: #buildinpublic #indiehackers #nextjs
-- [ ] Pin to profile (if it's the hero video)
-- [ ] Reply with link to landing page
+**Twitter/X:**
+- [ ] Hook in first line of tweet
+- [ ] Hashtags: #buildinpublic #indiehackers
+- [ ] Reply with additional context
+- [ ] Pin if it's performing well
 
 **TikTok/Reels:**
-- [ ] Captions burned in
-- [ ] Trending audio (if appropriate)
-- [ ] Hashtags: #coding #tech #ai #startup
+- [ ] Captions burned in (large, readable)
+- [ ] Trending audio (if fits tone)
 - [ ] Cross-post to Instagram, YouTube Shorts
+- [ ] Hashtags: #coding #tech #ai
 
 **Landing Page:**
-- [ ] Host on Vimeo or Wistia (better player, no YT branding)
-- [ ] Optimize file size (under 10MB)
-- [ ] Add play button overlay
-- [ ] A/B test with/without autoplay
+- [ ] Hero demo embedded above fold
+- [ ] "What You Get" in features section
+- [ ] Testimonials throughout
+- [ ] Before/After for value prop
 
 ---
 
-## Measurement
+## The First Video You Should Make
 
-Track these metrics per video:
+**Start with M1: "I Just Shipped This"**
 
-- **Views:** How many people saw it
-- **Completion rate:** % who watched to end
-- **Clicks:** Link clicks / signups generated
-- **Conversion:** Purchases attributed to this video
+Why:
+- Easiest to produce (phone only, 30 seconds)
+- Tests if your message resonates
+- Low stakes, high learning
+- Can make 3-5 of these before anything else
 
-**Best performers:** Double down and make more like them
-**Worst performers:** Analyze why and iterate
+Don't start with the hero demo. Start with proof of possibility.
+
+Once you have 5-10 "I Just Shipped This" clips performing well, you'll know your message works. Then invest in the hero demo.
 
 ---
 
-## The Video You MUST Make First
+## Final Note: Trust the Process
 
-**Video 1 (Hero Demo)** is non-negotiable. This becomes:
-- Landing page hero video
-- Twitter launch post
-- Product Hunt demo
-- YouTube channel trailer
-- Email signature link
+**Phase 1** feels like you're not selling. That's correct. You're demonstrating the shift and building credibility.
 
-Make it once, use it everywhere. Get this right before making others.
+**Phase 2** feels more direct. But by then, people already trust you and understand the possibility.
+
+The movement earns attention. The product converts it.
+
+Both matter. Lead with movement.

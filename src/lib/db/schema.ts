@@ -40,6 +40,10 @@ export const wizardSessions = pgTable("wizard_sessions", {
   aiProvider: text("ai_provider"), // claude, gemini, openai
   aiKey: text("ai_key"),
   appName: text("app_name"),
+  // Track which optional components were skipped
+  skippedClerk: boolean("skipped_clerk").default(false).notNull(),
+  skippedNeon: boolean("skipped_neon").default(false).notNull(),
+  skippedAi: boolean("skipped_ai").default(false).notNull(),
   currentStep: integer("current_step").default(1).notNull(),
   expiresAt: timestamp("expires_at").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

@@ -26,18 +26,36 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
 
-    // Verify all required fields
+    // Verify required fields (GitHub, Vercel, App Name)
     if (
       !session.githubToken ||
       !session.vercelToken ||
-      !session.clerkPublishable ||
-      !session.clerkSecret ||
-      !session.databaseUrl ||
-      !session.aiKey ||
       !session.appName
     ) {
       return NextResponse.json(
         { error: "Missing required configuration. Please complete all steps." },
+        { status: 400 }
+      );
+    }
+
+    // Verify optional fields are either provided or explicitly skipped
+    if (!session.skippedClerk && (!session.clerkPublishable || !session.clerkSecret)) {
+      return NextResponse.json(
+        { error: "Missing Clerk configuration. Please complete Clerk setup or skip it." },
+        { status: 400 }
+      );
+    }
+
+    if (!session.skippedNeon && !session.databaseUrl) {
+      return NextResponse.json(
+        { error: "Missing database configuration. Please complete Neon setup or skip it." },
+        { status: 400 }
+      );
+    }
+
+    if (!session.skippedAi && !session.aiKey) {
+      return NextResponse.json(
+        { error: "Missing AI configuration. Please complete AI setup or skip it." },
         { status: 400 }
       );
     }

@@ -22,6 +22,9 @@ export async function GET(request: NextRequest) {
         hasNeon: wizardSessions.databaseUrl,
         hasAi: wizardSessions.aiKey,
         appName: wizardSessions.appName,
+        skippedClerk: wizardSessions.skippedClerk,
+        skippedNeon: wizardSessions.skippedNeon,
+        skippedAi: wizardSessions.skippedAi,
         expiresAt: wizardSessions.expiresAt,
       })
       .from(wizardSessions)
@@ -46,6 +49,9 @@ export async function GET(request: NextRequest) {
       hasNeon: !!session.hasNeon,
       hasAi: !!session.hasAi,
       appName: session.appName,
+      skippedClerk: session.skippedClerk,
+      skippedNeon: session.skippedNeon,
+      skippedAi: session.skippedAi,
     });
   } catch (error) {
     console.error("Session fetch error:", error);
@@ -66,34 +72,46 @@ export async function POST(request: NextRequest) {
     const { encrypt } = await import("@/lib/encryption");
 
     // Map field names to database columns and validation
-    const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; validate?: (v: string) => boolean }> = {
+    const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; validate?: (v: string | boolean) => boolean }> = {
       vercelToken: {
         column: "vercelToken",
-        validate: (v) => v.length > 10, // Vercel tokens are long strings
+        validate: (v) => typeof v === "string" && v.length > 10, // Vercel tokens are long strings
       },
       clerkPublishable: {
         column: "clerkPublishable",
-        validate: (v) => v.startsWith("pk_test_") || v.startsWith("pk_live_"),
+        validate: (v) => typeof v === "string" && (v.startsWith("pk_test_") || v.startsWith("pk_live_")),
       },
       clerkSecret: {
         column: "clerkSecret",
-        validate: (v) => v.startsWith("sk_test_") || v.startsWith("sk_live_"),
+        validate: (v) => typeof v === "string" && (v.startsWith("sk_test_") || v.startsWith("sk_live_")),
       },
       databaseUrl: {
         column: "databaseUrl",
-        validate: (v) => v.startsWith("postgresql://") && v.includes("neon.tech"),
+        validate: (v) => typeof v === "string" && v.startsWith("postgresql://") && v.includes("neon.tech"),
       },
       aiKey: {
         column: "aiKey",
-        validate: (v) => v.startsWith("sk-ant-") || v.startsWith("AIza"), // Claude or Gemini
+        validate: (v) => typeof v === "string" && (v.startsWith("sk-ant-") || v.startsWith("AIza")), // Claude or Gemini
       },
       aiProvider: {
         column: "aiProvider",
-        validate: (v) => ["claude", "gemini", "openai"].includes(v),
+        validate: (v) => typeof v === "string" && ["claude", "gemini", "openai"].includes(v),
       },
       appName: {
         column: "appName",
-        validate: (v) => /^[a-z0-9-]{3,50}$/.test(v),
+        validate: (v) => typeof v === "string" && /^[a-z0-9-]{3,50}$/.test(v),
+      },
+      skipClerk: {
+        column: "skippedClerk",
+        validate: (v) => typeof v === "boolean",
+      },
+      skipNeon: {
+        column: "skippedNeon",
+        validate: (v) => typeof v === "boolean",
+      },
+      skipAi: {
+        column: "skippedAi",
+        validate: (v) => typeof v === "boolean",
       },
     };
 
@@ -116,8 +134,11 @@ export async function POST(request: NextRequest) {
       vercelToken: 4,      // After Vercel, go to Clerk (step 4)
       clerkPublishable: 4, // Still on Clerk step
       clerkSecret: 5,      // After Clerk secret, go to Neon (step 5)
+      skipClerk: 5,        // Skip Clerk, go to Neon (step 5)
       databaseUrl: 6,      // After Neon, go to AI (step 6)
+      skipNeon: 6,         // Skip Neon, go to AI (step 6)
       aiKey: 7,            // After AI, go to App Name (step 7)
+      skipAi: 7,           // Skip AI, go to App Name (step 7)
       appName: 8,          // After App Name, go to Deploy (step 8)
     };
 

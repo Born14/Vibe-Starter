@@ -4,6 +4,7 @@ import { useState } from "react";
 
 interface SessionData {
   hasAi: boolean;
+  skippedAi: boolean;
 }
 
 interface StepProps {
@@ -18,8 +19,10 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
   const [aiKey, setAiKey] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showSetup, setShowSetup] = useState(false);
 
   const isConnected = session?.hasAi;
+  const isSkipped = session?.skippedAi;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,6 +63,28 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
     }
   };
 
+  const handleSkip = async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, field: "skipAi", value: true }),
+      });
+
+      if (!res.ok) throw new Error("Failed to skip step");
+
+      onRefresh();
+      onNext();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const openClaude = () => {
     window.open("https://console.anthropic.com/", "_blank");
   };
@@ -74,20 +99,28 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
         <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-3xl">🤖</span>
         </div>
-        <h2 className="text-3xl font-bold mb-2">Set Up AI</h2>
+        <h2 className="text-3xl font-bold mb-2">AI Features (Optional)</h2>
         <p className="text-white/60">
           Connect an AI to power your app&apos;s intelligent features.
         </p>
       </div>
 
-      {isConnected ? (
+      {isConnected || isSkipped ? (
         <div className="text-center">
           <div className="inline-flex items-center gap-2 bg-emerald-400/20 text-emerald-400 px-4 py-2 rounded-full mb-6">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            <span className="font-medium">AI Connected</span>
+            <span className="font-medium">
+              {isSkipped ? "AI Skipped" : "AI Connected"}
+            </span>
           </div>
+
+          {isSkipped && (
+            <p className="text-white/60 text-sm mb-6">
+              Your app will deploy without AI features. You can add AI capabilities later if needed.
+            </p>
+          )}
 
           <button
             onClick={onNext}
@@ -96,6 +129,66 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
             Continue →
           </button>
         </div>
+      ) : !showSetup ? (
+        <>
+          {/* Educational Content */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-6">
+            <h3 className="font-semibold mb-4">Do you need AI features?</h3>
+
+            <div className="space-y-4 text-sm text-white/70">
+              <div>
+                <div className="font-medium text-white mb-2">✅ You&apos;ll need AI if:</div>
+                <ul className="list-disc list-inside space-y-1 ml-2">
+                  <li>Your app uses AI chat or generation</li>
+                  <li>You&apos;re building AI-powered features</li>
+                  <li>You need text analysis, summaries, or suggestions</li>
+                  <li>You want AI to help build your app features</li>
+                </ul>
+              </div>
+
+              <div>
+                <div className="font-medium text-white mb-2">⏭️ Skip AI if:</div>
+                <ul className="list-disc list-inside space-y-1 ml-2">
+                  <li>Your app doesn&apos;t use AI features</li>
+                  <li>You&apos;re building a traditional app (CRUD, SaaS)</li>
+                  <li>You&apos;ll add AI later when you need it</li>
+                  <li>You&apos;re not sure yet what AI features you want</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Recommendation */}
+          <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-5 mb-6">
+            <p className="text-blue-400 text-sm">
+              <strong>💡 You can always add AI later.</strong> If you&apos;re not building
+              AI features right now, skip this step. You can add Claude or Gemini anytime.
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            <button
+              onClick={handleSkip}
+              disabled={loading}
+              className="px-6 py-4 bg-white/10 border border-white/20 rounded-xl font-semibold hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? "Skipping..." : "Skip for now"}
+            </button>
+
+            <button
+              onClick={() => setShowSetup(true)}
+              disabled={loading}
+              className="px-6 py-4 bg-orange-600 text-white rounded-xl font-semibold hover:bg-orange-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Set up AI
+            </button>
+          </div>
+
+          {error && (
+            <p className="text-red-400 text-sm text-center">{error}</p>
+          )}
+        </>
       ) : (
         <>
           {/* Provider Selection */}
@@ -128,7 +221,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
             </button>
           </div>
 
-          {/* Instructions */}
+          {/* Setup Instructions */}
           <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
             <h4 className="font-semibold mb-3">
               Get your {aiProvider === "claude" ? "Claude" : "Gemini"} API Key:

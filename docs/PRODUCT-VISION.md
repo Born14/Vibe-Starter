@@ -3,7 +3,9 @@
 ## Overview
 We are at an inflection point in software creation. The tools required to build, deploy, and iterate on software have converged in a way that removes the historical barrier: technical knowledge.
 
-This document defines the shift, the opportunity it creates, and how Vibe Starter positions itself as the on-ramp for the general public to participate in this new era.
+**The barrier isn't knowledge anymore. It's imagination.**
+
+This document defines the shift, the opportunity it creates, and how Vibe Starter serves as **the guide** that helps people build their creative foundation and teaches them how to thrive in this new era.
 
 ---
 
@@ -70,7 +72,7 @@ They don't identify as technical. They're not trying to become developers. **The
 
 ### What It Is
 
-A guided setup wizard that creates a production-ready application stack in ~20 minutes. The user owns all accounts. One-time $39 payment. No ongoing dependency.
+A guided setup wizard that helps you build your creative foundation in ~20 minutes—GitHub, deployment, database, auth—all connected and working. You own all accounts. One-time $39 payment. We teach you how it works. No ongoing dependency on us.
 
 ### Core Value Proposition
 
@@ -187,6 +189,110 @@ Philosophical content about what this shift means. Who gets to build now. What c
 
 ---
 
+## Positioning: The Guide, Not The Infrastructure
+
+### What We're NOT
+
+We are not an "AI tool." We're not AWS. We're not selling infrastructure.
+
+**"Infrastructure layer"** sounds like:
+- A B2B SaaS product
+- Something technical and sterile
+- A vendor providing services
+
+It misses the human transformation, the educational mission, the movement we're building.
+
+### What We Actually Are
+
+**We're the guide that helps people build their creative foundation—then teaches them how to use it.**
+
+Looking at our own principles:
+- CREATION-THRESHOLD.md: "Who gets to build now. The barrier isn't knowledge anymore. It's imagination."
+- EDUCATION-FRAMEWORK.md: "Teaching users to leave proves ownership is real."
+- This document: "The Builder Who Doesn't Know They Can Build. They just want to make things."
+
+None of this is about infrastructure. It's about **human empowerment through understanding.**
+
+### The Right Framing
+
+**Our role:**
+- 🎓 **Guide** - We show the way
+- 👨‍🏫 **Teacher** - We explain how things work
+- 🌉 **Bridge** - We connect people to possibility
+- 🗝️ **Enabler** - We give people the keys, then teach them to drive
+
+**Our language:**
+- Use: "Foundation," "guide," "teach," "help you build," "show you how"
+- Avoid: "Infrastructure layer," "interface," "substrate," technical abstractions
+
+### Connecting to the AI Frontier
+
+**The Core Reality:**
+
+AI gets better every month. This is the floor, not the ceiling.
+
+**Our Message:**
+
+"Vibe Starter helps you build the foundation for creating with AI—and teaches you how to ride the frontier as it accelerates."
+
+**Why This Matters:**
+
+- AI capabilities improve continuously (Claude → GPT → Gemini → whatever's next)
+- Users with a solid foundation benefit from every improvement automatically
+- They're not locked to one AI model or one platform
+- They own their setup and understand how it works
+
+**The Three-Part Promise:**
+
+1. **Show** - Content demonstrates the new reality (software creation is now accessible)
+2. **Help** - Product automates the foundation setup (20 minutes instead of 3+ hours)
+3. **Teach** - Education delivers independence (understand your stack, own your future)
+
+### How We Talk About This
+
+**Bad (Technical):**
+> "We provide the stable infrastructure layer that lets you access whatever the current AI frontier is."
+
+**Good (Human):**
+> "We help you set up your creative foundation—then you use whatever AI is currently best to create."
+
+**Better (Educational):**
+> "We get you set up in 20 minutes, teach you how it works, and show you how to build as AI capabilities accelerate."
+
+**Best (Movement):**
+> "You build your foundation once. You ride the AI wave forever. We teach you how."
+
+### The Test: User Language
+
+Would someone say:
+- ❌ "I need a stable infrastructure layer"
+- ✅ "I want to build something but don't know how to set things up"
+
+Would they say:
+- ❌ "I'm looking for an interface to the AI frontier"
+- ✅ "I want to use AI to build, but the technical setup is overwhelming"
+
+Would they say:
+- ❌ "I require model-agnostic deployment abstraction"
+- ✅ "I want to own my stuff and not be locked in"
+
+**We speak in the language of the second column—human, accessible, empowering.**
+
+### Why Education is the Differentiator
+
+Everyone else **hides complexity** to maintain dependency.
+Vibe Starter **teaches complexity** to enable independence.
+
+This is not a feature. This is the moat.
+
+- Replit, Bolt, v0: Keep users on their platform
+- Vibe Starter: Teach users to leave (proving ownership is real)
+
+We're not the experienced engineer who does it for you.
+We're the experienced friend who shows you how, explains why, and cheers you on.
+
+---
+
 ## Success Metrics
 
 ### Product
@@ -288,15 +394,25 @@ Everyone else hides complexity to maintain dependency. Vibe Starter teaches comp
 
 The barrier to software creation has collapsed. Most people don't know yet.
 
-**Vibe Starter is the on-ramp:** a 20-minute wizard that gives anyone a production stack they own, that they can iterate on from their phone, forever.
+**Vibe Starter is the guide:** We help people build their creative foundation in 20 minutes, then teach them how to ride the AI wave as capabilities accelerate.
 
 **The three pillars:**
 
-1. **The Product:** Automates 3 hours of infrastructure setup into 20 minutes
-2. **The Content:** Demonstrates the shift and attracts the new generation of builders
-3. **The Education:** Teaches users what they own so independence is real, not marketing
+1. **The Content:** Shows the new reality—software creation is now accessible to everyone
+2. **The Product:** Helps people get set up—20 minutes instead of 3+ hours
+3. **The Education:** Teaches how it works—independence through understanding, not dependency
 
-The content shows the world this is real. The product makes it accessible. The education delivers on the freedom promise.
+**How they work together:**
+
+Content demonstrates the shift. Product makes it accessible. Education delivers the freedom promise.
+
+**We're not selling infrastructure. We're teaching independence.**
+
+You build your foundation once. AI capabilities improve monthly. You benefit automatically. No platform lock-in. No AI model lock-in. Just a foundation you own and the knowledge to use it.
+
+**This is educational, not transactional.**
+
+We're the experienced friend who helps you get set up, shows you how it works, and teaches you to build as the frontier accelerates.
 
 **Deploy your app in 20 minutes. Understand your stack. Own your future.**
 

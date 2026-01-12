@@ -697,33 +697,111 @@ export default async function DashboardPage() {
           </p>
         </div>
 
-        {/* Mobile-First Instructions */}
-        <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 mb-8 border border-purple-100">
-          <h3 className="font-semibold text-gray-900 mb-4">
-            Building from your phone?
+        {/* Setup Status Check */}
+        <div className="bg-green-50 rounded-xl p-6 mb-8 border border-green-200">
+          <h3 className="font-semibold text-green-900 mb-4 flex items-center gap-2">
+            <span className="text-xl">✓</span> Everything is Ready
           </h3>
-          <ol className="space-y-3 text-sm text-gray-700">
-            <li className="flex gap-3">
-              <span className="font-bold text-purple-600 flex-shrink-0">1.</span>
-              <span>Open <a href="https://claude.ai" target="_blank" className="underline font-medium">Claude mobile app</a></span>
-            </li>
-            <li className="flex gap-3">
-              <span className="font-bold text-purple-600 flex-shrink-0">2.</span>
-              <span>Start a new Code chat and select your GitHub repo</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="font-bold text-purple-600 flex-shrink-0">3.</span>
-              <span>Describe what you want or paste one of the ideas above</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="font-bold text-purple-600 flex-shrink-0">4.</span>
-              <span>Review and merge the pull request • Site updates automatically</span>
-            </li>
-          </ol>
+          <div className="grid sm:grid-cols-2 gap-3 text-sm">
+            <div className="flex items-center gap-3">
+              <span className="text-green-600 text-lg">✓</span>
+              <div>
+                <div className="font-medium text-gray-900">Authentication</div>
+                <div className="text-xs text-gray-600">Clerk • You're logged in!</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-green-600 text-lg">✓</span>
+              <div>
+                <div className="font-medium text-gray-900">Database</div>
+                <div className="text-xs text-gray-600">Neon Postgres • Connected</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-green-600 text-lg">✓</span>
+              <div>
+                <div className="font-medium text-gray-900">Hosting</div>
+                <div className="text-xs text-gray-600">Vercel • Auto-deploys on push</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-green-600 text-lg">✓</span>
+              <div>
+                <div className="font-medium text-gray-900">AI Ready</div>
+                <div className="text-xs text-gray-600">${aiProvider === "gemini" ? "Gemini" : "Claude"} • API configured</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <div className="mt-4 pt-4 border-t border-purple-200">
-            <p className="text-xs text-gray-600 mb-2">On a laptop?</p>
-            <p className="text-sm text-gray-700">Use <a href="https://cursor.com" target="_blank" className="underline">Cursor</a>, VS Code, or <a href="https://github.dev" target="_blank" className="underline">GitHub.dev</a> in your browser</p>
+        {/* Building Options */}
+        <div className="grid sm:grid-cols-2 gap-4 mb-8">
+          {/* Phone Option */}
+          <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border border-purple-100">
+            <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <span className="text-xl">📱</span> Build from Your Phone
+            </h3>
+            <ol className="space-y-2 text-sm text-gray-700 mb-4">
+              <li className="flex gap-2">
+                <span className="font-bold text-purple-600 flex-shrink-0">1.</span>
+                <span>Open Claude mobile app</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-purple-600 flex-shrink-0">2.</span>
+                <span>Tap Code → Select your repo</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-purple-600 flex-shrink-0">3.</span>
+                <span>Describe what you want</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="font-bold text-purple-600 flex-shrink-0">4.</span>
+                <span>Merge PR → Goes live</span>
+              </li>
+            </ol>
+            <a
+              href="https://claude.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center bg-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors"
+            >
+              Open Claude App →
+            </a>
+          </div>
+
+          {/* Laptop Option */}
+          <div className="bg-gradient-to-br from-gray-50 to-slate-50 rounded-xl p-6 border border-gray-200">
+            <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <span className="text-xl">💻</span> Build from Your Laptop
+            </h3>
+            <p className="text-sm text-gray-700 mb-4">
+              Click to open your repo in an editor:
+            </p>
+            <div className="space-y-2">
+              <a
+                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`vscode://vscode.git/clone?url=https://github.com/\${process.env.NEXT_PUBLIC_GITHUB_REPO}.git\` : '#'}"
+                className="block w-full text-center bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+              >
+                Open in VS Code
+              </a>
+              <a
+                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`cursor://clone?url=https://github.com/\${process.env.NEXT_PUBLIC_GITHUB_REPO}.git\` : '#'}"
+                className="block w-full text-center bg-black text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
+              >
+                Open in Cursor
+              </a>
+              <a
+                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`https://github.dev/\${process.env.NEXT_PUBLIC_GITHUB_REPO}\` : '#'}"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center border-2 border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:border-gray-400 transition-colors"
+              >
+                Open in Browser IDE
+              </a>
+            </div>
+            <p className="text-xs text-gray-500 mt-3 text-center">
+              No setup needed • Installs editor if missing
+            </p>
           </div>
         </div>
 

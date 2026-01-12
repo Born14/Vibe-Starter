@@ -27,18 +27,17 @@ export default function Home() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6">
-            From AI code to
+            Deploy your app in 20 minutes.
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-              live app
+              Own your stack.
             </span>
             <br />
-            in 20 minutes
+            Ship from anywhere.
           </h1>
 
           <p className="text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
-            AI can generate code. But code isn&apos;t an app. Vibe Starter sets up your entire system —
-            auth, database, hosting — so you can build from anywhere. Phone, browser, laptop. Push to GitHub, site updates.
+            We help you build your creative foundation—GitHub, hosting, database, auth—all connected and working. Then build features with AI from your phone, laptop, or browser. Push to GitHub, site updates automatically.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

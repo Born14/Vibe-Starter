@@ -221,23 +221,66 @@ Philosophical content about what this shift means. Who gets to build now. What c
 
 ---
 
+## Education as Core Pillar
+
+**The Ownership Paradox:**
+
+Vibe Starter promises ownership and independence. But if users don't understand what they own or how to use it, they're not actually free—they're just dependent on Vibe Starter instead of Replit.
+
+**Education isn't a feature. Education is how we deliver on the freedom promise.**
+
+### Three Layers of Education
+
+**Layer 1: Understanding** (During setup)
+- Brief explanations during wizard: "This is GitHub—where your code lives. You own it."
+- 30-second videos explaining each service
+- Visual diagrams showing how pieces connect
+- Goal: User understands what's being created
+
+**Layer 2: Operating** (Post-deployment)
+- Dashboard "Learn Your Stack" section with guides
+- Common tasks tutorials (adding features, debugging, etc.)
+- M3 "How This Works" video series (movement content that educates)
+- Goal: User can build and maintain independently
+
+**Layer 3: Independence** (Advanced)
+- "How to Migrate Away from Vibe Starter" explicit guide
+- Running locally, switching providers, full customization
+- Proving ownership is real by teaching people to leave
+- Goal: User achieves complete technical independence
+
+**Why this matters:**
+
+Everyone else hides complexity to maintain dependency. Vibe Starter teaches complexity to enable independence. This is the differentiator.
+
+**See:** EDUCATION-FRAMEWORK.md for complete strategy
+
+---
+
 ## Timeline
 
 ### Phase 1: Foundation (Now)
 - Finalize wizard with skip functionality
+- **Add educational explanations to each wizard step**
 - Add Stripe as optional step
 - Ship v1 template with graceful handling of missing env vars
+- **Create 3-5 short explainer videos for in-wizard use**
 - Soft launch, gather feedback
 
-### Phase 2: Content (Ongoing)
-- Begin "ship from anywhere" content
+### Phase 2: Content & Education (Ongoing)
+- Begin "ship from anywhere" movement content
+- **M3 "How This Works" educational video series**
+- **Build "Your Stack" dashboard section with guides**
 - Document builds publicly
+- **Write 10 "Common Tasks" tutorials**
 - Let content drive awareness
 
-### Phase 3: Iteration (Based on feedback)
+### Phase 3: Iteration & Independence (Based on feedback)
 - Additional templates (landing page only, full SaaS, etc.)
-- Community features (showcase, Discord)
-- Potential "what to do next" education layer
+- Community features (showcase, Discord for peer learning)
+- **Advanced guides: "Migrating Away," "Running Locally," etc.**
+- **Monthly office hours / live Q&A sessions**
+- **Interactive tutorials in dashboard (if validated)**
 
 ---
 
@@ -247,9 +290,15 @@ The barrier to software creation has collapsed. Most people don't know yet.
 
 **Vibe Starter is the on-ramp:** a 20-minute wizard that gives anyone a production stack they own, that they can iterate on from their phone, forever.
 
-The content shows the world this is real. The product makes it accessible.
+**The three pillars:**
 
-**Deploy your app in 20 minutes. Own your stack. Ship from anywhere.**
+1. **The Product:** Automates 3 hours of infrastructure setup into 20 minutes
+2. **The Content:** Demonstrates the shift and attracts the new generation of builders
+3. **The Education:** Teaches users what they own so independence is real, not marketing
+
+The content shows the world this is real. The product makes it accessible. The education delivers on the freedom promise.
+
+**Deploy your app in 20 minutes. Understand your stack. Own your future.**
 
 ---
 

@@ -600,6 +600,7 @@ export default function SignUpPage() {
       content: `import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -611,92 +612,156 @@ export default async function DashboardPage() {
   const user = await currentUser();
 
   return (
-    <main className="min-h-screen p-8 bg-gray-50">
-      <header className="max-w-4xl mx-auto flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold">${appName}</h1>
-        <UserButton afterSignOutUrl="/" />
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+          <h1 className="text-lg font-semibold text-gray-900">${appName}</h1>
+          <UserButton afterSignOutUrl="/" />
+        </div>
       </header>
 
-      <div className="max-w-4xl mx-auto space-y-6">
-        {/* Welcome */}
-        <div className="bg-white rounded-xl shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-2">
-            Welcome, {user?.firstName || "there"}!
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Hero CTA */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+            Welcome to ${appName}
           </h2>
-          <p className="text-gray-600">
-            Your app is live and ready to build on.
+          <p className="text-lg text-gray-600 mb-8">
+            Your app is live. You're logged in. Let's build something.
+          </p>
+
+          <a
+            href="https://claude.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block w-full sm:w-auto px-8 py-4 bg-black text-white text-lg font-semibold rounded-xl hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+          >
+            Add Your First Feature
+          </a>
+        </div>
+
+        {/* Quick Win Ideas */}
+        <div className="mb-12">
+          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
+            Try one of these
+          </h3>
+          <div className="grid sm:grid-cols-3 gap-3">
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText("Add a notes page where I can save personal thoughts");
+              }}
+              className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
+            >
+              <div className="text-2xl mb-2">💬</div>
+              <div className="text-sm font-medium text-gray-900 mb-1">
+                Notes Page
+              </div>
+              <div className="text-xs text-gray-500">
+                Save personal thoughts
+              </div>
+            </button>
+
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText("Create a user profile page with avatar upload");
+              }}
+              className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
+            >
+              <div className="text-2xl mb-2">👤</div>
+              <div className="text-sm font-medium text-gray-900 mb-1">
+                Profile Page
+              </div>
+              <div className="text-xs text-gray-500">
+                With avatar upload
+              </div>
+            </button>
+
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText("Add a feedback form so users can contact me");
+              }}
+              className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
+            >
+              <div className="text-2xl mb-2">📝</div>
+              <div className="text-sm font-medium text-gray-900 mb-1">
+                Feedback Form
+              </div>
+              <div className="text-xs text-gray-500">
+                Let users contact you
+              </div>
+            </button>
+          </div>
+          <p className="text-xs text-gray-500 text-center mt-3">
+            Click to copy • Paste into Claude • Watch it build
           </p>
         </div>
 
-        {/* Your Stack */}
-        <div className="bg-white rounded-xl shadow-sm border p-6">
-          <h3 className="font-semibold mb-4">Your Stack</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl mb-1">🔐</div>
-              <div className="font-medium text-sm">Auth</div>
-              <div className="text-xs text-gray-500">Clerk</div>
-            </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl mb-1">🗄️</div>
-              <div className="font-medium text-sm">Database</div>
-              <div className="text-xs text-gray-500">Neon Postgres</div>
-            </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl mb-1">🤖</div>
-              <div className="font-medium text-sm">AI</div>
-              <div className="text-xs text-gray-500">${aiProvider === "gemini" ? "Gemini" : "Claude"}</div>
-            </div>
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl mb-1">🚀</div>
-              <div className="font-medium text-sm">Hosting</div>
-              <div className="text-xs text-gray-500">Vercel</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Start Building */}
-        <div className="bg-white rounded-xl shadow-sm border p-6">
-          <h3 className="font-semibold mb-4">Start Building</h3>
-          <div className="space-y-4">
-            <a
-              href="https://github.dev/\${process.env.NEXT_PUBLIC_GITHUB_REPO || ''}"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full text-center bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors"
-            >
-              Open in GitHub.dev (Browser IDE)
-            </a>
-            <div className="text-center text-sm text-gray-500">or</div>
-            <div className="bg-gray-100 rounded-lg p-3 font-mono text-sm text-gray-700 text-center">
-              git clone https://github.com/YOUR_USERNAME/${appName}
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Start */}
-        <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100 p-6">
-          <h3 className="font-semibold mb-4 flex items-center gap-2">
-            <span>💡</span> How to Build Features
+        {/* Mobile-First Instructions */}
+        <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 mb-8 border border-purple-100">
+          <h3 className="font-semibold text-gray-900 mb-4">
+            Building from your phone?
           </h3>
-          <ol className="space-y-2 text-gray-700">
+          <ol className="space-y-3 text-sm text-gray-700">
             <li className="flex gap-3">
-              <span className="font-bold text-purple-600">1.</span>
-              <span>Open <code className="bg-white px-1 rounded">PROMPT.md</code> in your project</span>
+              <span className="font-bold text-purple-600 flex-shrink-0">1.</span>
+              <span>Open <a href="https://claude.ai" target="_blank" className="underline font-medium">Claude mobile app</a></span>
             </li>
             <li className="flex gap-3">
-              <span className="font-bold text-purple-600">2.</span>
-              <span>Paste it into Claude (or your AI of choice)</span>
+              <span className="font-bold text-purple-600 flex-shrink-0">2.</span>
+              <span>Start a new Code chat and select your GitHub repo</span>
             </li>
             <li className="flex gap-3">
-              <span className="font-bold text-purple-600">3.</span>
-              <span>Describe what you want: <em>"Add a notes page"</em></span>
+              <span className="font-bold text-purple-600 flex-shrink-0">3.</span>
+              <span>Describe what you want or paste one of the ideas above</span>
             </li>
             <li className="flex gap-3">
-              <span className="font-bold text-purple-600">4.</span>
-              <span>Commit & push — your site updates automatically!</span>
+              <span className="font-bold text-purple-600 flex-shrink-0">4.</span>
+              <span>Review and merge the pull request • Site updates automatically</span>
             </li>
           </ol>
+
+          <div className="mt-4 pt-4 border-t border-purple-200">
+            <p className="text-xs text-gray-600 mb-2">On a laptop?</p>
+            <p className="text-sm text-gray-700">Use <a href="https://cursor.com" target="_blank" className="underline">Cursor</a>, VS Code, or <a href="https://github.dev" target="_blank" className="underline">GitHub.dev</a> in your browser</p>
+          </div>
+        </div>
+
+        {/* Proof of Ownership - Minimal */}
+        <div className="bg-white rounded-xl border p-6">
+          <h3 className="text-sm font-semibold text-gray-700 mb-4">Your App</h3>
+          <div className="space-y-3 text-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">Users</span>
+              <span className="font-mono font-semibold text-gray-900">1 (you!)</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">Database</span>
+              <span className="font-mono font-semibold text-gray-900">Ready</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-gray-600">Auto-deploys from</span>
+              <a
+                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`https://github.com/\${process.env.NEXT_PUBLIC_GITHUB_REPO}\` : '#'}"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                GitHub →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Links */}
+        <div className="mt-8 pt-6 border-t text-center">
+          <p className="text-xs text-gray-500">
+            <a href="https://clerk.com" target="_blank" className="hover:text-gray-700">Manage users</a>
+            {" • "}
+            <a href="https://neon.tech" target="_blank" className="hover:text-gray-700">View database</a>
+            {" • "}
+            <a href="https://vercel.com" target="_blank" className="hover:text-gray-700">Deployment logs</a>
+          </p>
         </div>
       </div>
     </main>

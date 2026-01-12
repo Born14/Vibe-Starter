@@ -23,6 +23,23 @@ Includes:
 
 ---
 
+### 🎓 [EDUCATION-FRAMEWORK.md](./EDUCATION-FRAMEWORK.md)
+**How education delivers on the ownership promise.**
+
+Includes:
+- Why education is mission-critical (not optional)
+- Three layers: Understanding, Operating, Independence
+- Implementation across product lifecycle (wizard, dashboard, content, docs)
+- How education differentiates Vibe Starter from platforms
+- Teaching users to leave (proving ownership is real)
+- Metrics, roadmap, and budget considerations
+
+**Use this when:** Building wizard flows, creating dashboard guides, writing documentation, making product decisions about user empowerment
+
+**Key insight:** If you sell ownership but don't teach people what they own, they're not free—they're just dependent on you instead of another platform. Education is how you deliver genuine independence.
+
+---
+
 ### 🎯 [NEXT-7-DAYS.md](./NEXT-7-DAYS.md) ⭐ START HERE
 **Your critical path for the next week.**
 

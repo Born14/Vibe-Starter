@@ -594,6 +594,72 @@ export default function SignUpPage() {
 `,
     },
 
+    // src/components/QuickWinIdeas.tsx
+    {
+      path: "src/components/QuickWinIdeas.tsx",
+      content: `"use client";
+
+export function QuickWinIdeas() {
+  return (
+    <div className="mb-12">
+      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
+        Try one of these
+      </h3>
+      <div className="grid sm:grid-cols-3 gap-3">
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText("Add a notes page where I can save personal thoughts");
+          }}
+          className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
+        >
+          <div className="text-2xl mb-2">💬</div>
+          <div className="text-sm font-medium text-gray-900 mb-1">
+            Notes Page
+          </div>
+          <div className="text-xs text-gray-500">
+            Save personal thoughts
+          </div>
+        </button>
+
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText("Create a user profile page with avatar upload");
+          }}
+          className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
+        >
+          <div className="text-2xl mb-2">👤</div>
+          <div className="text-sm font-medium text-gray-900 mb-1">
+            Profile Page
+          </div>
+          <div className="text-xs text-gray-500">
+            With avatar upload
+          </div>
+        </button>
+
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText("Add a feedback form so users can contact me");
+          }}
+          className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
+        >
+          <div className="text-2xl mb-2">📝</div>
+          <div className="text-sm font-medium text-gray-900 mb-1">
+            Feedback Form
+          </div>
+          <div className="text-xs text-gray-500">
+            Let users contact you
+          </div>
+        </button>
+      </div>
+      <p className="text-xs text-gray-500 text-center mt-3">
+        Click to copy • Paste into Claude • Watch it build
+      </p>
+    </div>
+  );
+}
+`,
+    },
+
     // src/app/dashboard/page.tsx
     {
       path: "src/app/dashboard/page.tsx",
@@ -601,6 +667,7 @@ export default function SignUpPage() {
 import { redirect } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { QuickWinIdeas } from "@/components/QuickWinIdeas";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -641,61 +708,8 @@ export default async function DashboardPage() {
           </a>
         </div>
 
-        {/* Quick Win Ideas */}
-        <div className="mb-12">
-          <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
-            Try one of these
-          </h3>
-          <div className="grid sm:grid-cols-3 gap-3">
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText("Add a notes page where I can save personal thoughts");
-              }}
-              className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
-            >
-              <div className="text-2xl mb-2">💬</div>
-              <div className="text-sm font-medium text-gray-900 mb-1">
-                Notes Page
-              </div>
-              <div className="text-xs text-gray-500">
-                Save personal thoughts
-              </div>
-            </button>
-
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText("Create a user profile page with avatar upload");
-              }}
-              className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
-            >
-              <div className="text-2xl mb-2">👤</div>
-              <div className="text-sm font-medium text-gray-900 mb-1">
-                Profile Page
-              </div>
-              <div className="text-xs text-gray-500">
-                With avatar upload
-              </div>
-            </button>
-
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText("Add a feedback form so users can contact me");
-              }}
-              className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
-            >
-              <div className="text-2xl mb-2">📝</div>
-              <div className="text-sm font-medium text-gray-900 mb-1">
-                Feedback Form
-              </div>
-              <div className="text-xs text-gray-500">
-                Let users contact you
-              </div>
-            </button>
-          </div>
-          <p className="text-xs text-gray-500 text-center mt-3">
-            Click to copy • Paste into Claude • Watch it build
-          </p>
-        </div>
+        {/* Quick Win Ideas - Now a Client Component */}
+        <QuickWinIdeas />
 
         {/* Setup Status Check */}
         <div className="bg-green-50 rounded-xl p-6 mb-8 border border-green-200">

@@ -100,7 +100,7 @@ function SetupForm() {
               <li>Set up Vercel (free hosting)</li>
               <li>Set up Clerk (user sign-in)</li>
               <li>Set up Neon (database)</li>
-              <li>Add AI key (Claude or Gemini)</li>
+              <li>Add AI key (Claude, Gemini, or OpenAI)</li>
               <li>Name your app & deploy</li>
             </ul>
             <p className="mt-3 text-white/40">Total time: ~20 minutes</p>

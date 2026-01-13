@@ -84,6 +84,9 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     const aiKey = decrypt(session.aiKey!);
     const aiProvider = session.aiProvider || "claude";
 
+    console.log(`Starting deployment with AI provider: ${aiProvider}`);
+    console.log(`Session data - aiProvider: ${session.aiProvider}, has aiKey: ${!!session.aiKey}`);
+
     // Step 1: Create GitHub repo
     await updateDeploymentStep(deploymentId, 1);
 
@@ -190,6 +193,8 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
 
     const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : "ANTHROPIC_API_KEY";
 
+    console.log(`Setting AI provider: ${aiProvider}, key name: ${aiKeyName}`);
+
     const envVars = [
       { key: "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", value: clerkPublishable },
       { key: "CLERK_SECRET_KEY", value: clerkSecret },
@@ -200,7 +205,13 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     ];
 
     for (const envVar of envVars) {
-      await fetch(`https://api.vercel.com/v10/projects/${vercelProject.id}/env`, {
+      if (!envVar.value) {
+        console.error(`Skipping env var ${envVar.key} - value is empty`);
+        continue;
+      }
+
+      console.log(`Setting env var: ${envVar.key}`);
+      const envRes = await fetch(`https://api.vercel.com/v10/projects/${vercelProject.id}/env`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${vercelToken}`,
@@ -213,6 +224,14 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
           target: ["production", "preview", "development"],
         }),
       });
+
+      if (!envRes.ok) {
+        const errorData = await envRes.json();
+        console.error(`Failed to set env var ${envVar.key}:`, errorData);
+        // Don't throw - continue with other vars, but log the error
+      } else {
+        console.log(`Successfully set env var: ${envVar.key}`);
+      }
     }
 
     // Step 5: Trigger deployment explicitly

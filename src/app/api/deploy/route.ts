@@ -761,6 +761,13 @@ export default async function DashboardPage() {
           </ul>
         </div>
 
+        {/* Ready to customize */}
+        <div className="bg-gray-50 rounded-lg p-4 mb-8 border border-gray-200">
+          <p className="text-sm text-gray-700 text-center">
+            <strong>Tip:</strong> This dashboard is optional. Replace <code className="bg-white px-2 py-1 rounded text-xs border">src/app/dashboard/page.tsx</code> when you're ready to build your own UI.
+          </p>
+        </div>
+
         {/* Building Options */}
         <div className="grid sm:grid-cols-2 gap-4 mb-8">
           {/* Phone Option */}
@@ -1001,6 +1008,16 @@ export async function GET() {
   return NextResponse.json({ data: "..." });
 }
 \`\`\`
+
+## Customizing the Dashboard
+
+The default \`/dashboard\` page is just a starting point to help you understand your stack.
+
+**To replace it:**
+- Edit \`src/app/dashboard/page.tsx\` with your own content
+- Or delete it entirely and build your landing page at \`src/app/page.tsx\`
+
+This is your app - the dashboard is optional scaffolding.
 
 ## Current Database Schema
 

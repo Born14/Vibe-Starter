@@ -63,6 +63,28 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
     }
   };
 
+  const handleSkip = async () => {
+    setError("");
+    setLoading(true);
+
+    try {
+      // Mark as skipped by setting hasAi to true but leaving keys null
+      const res = await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, field: "hasAi", value: true }),
+      });
+      if (!res.ok) throw new Error("Failed to skip AI setup");
+
+      onRefresh();
+      onNext();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const openClaude = () => {
     window.open("https://console.anthropic.com/", "_blank");
   };
@@ -218,6 +240,15 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
               {loading ? "Saving..." : "Save & Continue →"}
             </button>
           </form>
+
+          {/* Skip button */}
+          <button
+            onClick={handleSkip}
+            disabled={loading}
+            className="w-full mt-4 py-3 rounded-xl font-medium text-white/60 hover:text-white hover:bg-white/5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Skip for now - Add AI later
+          </button>
         </>
       )}
 

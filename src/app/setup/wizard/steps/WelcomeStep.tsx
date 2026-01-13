@@ -29,7 +29,7 @@ export default function WelcomeStep({ onNext }: StepProps) {
             { icon: "🌐", label: "Vercel", desc: "Puts your app on the internet" },
             { icon: "🔐", label: "Clerk", desc: "User sign-up and sign-in" },
             { icon: "💾", label: "Neon", desc: "Database for your data" },
-            { icon: "🤖", label: "AI", desc: "Claude to help you build" },
+            { icon: "🤖", label: "AI", desc: "Claude, Gemini, or OpenAI to help you build" },
           ].map((item, i) => (
             <li key={i} className="flex items-center gap-3">
               <span className="text-xl">{item.icon}</span>

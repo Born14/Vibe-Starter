@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
       },
       aiKey: {
         column: "aiKey",
-        validate: (v) => v.startsWith("sk-ant-") || v.startsWith("AIza"), // Claude or Gemini
+        validate: (v) => v.startsWith("sk-ant-") || v.startsWith("AIza") || v.startsWith("sk-"), // Claude, Gemini, or OpenAI
       },
       aiProvider: {
         column: "aiProvider",
@@ -117,6 +117,7 @@ export async function POST(request: NextRequest) {
       clerkPublishable: 4, // Still on Clerk step
       clerkSecret: 5,      // After Clerk secret, go to Neon (step 5)
       databaseUrl: 6,      // After Neon, go to AI (step 6)
+      // aiProvider does not advance step - only aiKey does
       aiKey: 7,            // After AI, go to App Name (step 7)
       appName: 8,          // After App Name, go to Deploy (step 8)
     };
@@ -127,10 +128,14 @@ export async function POST(request: NextRequest) {
       updateData.currentStep = stepMap[field];
     }
 
+    console.log(`Session update - field: ${field}, value: ${field === 'aiProvider' ? value : '[REDACTED]'}, column: ${fieldConfig.column}, encrypted: ${sensitiveFields.includes(field)}`);
+
     await db
       .update(wizardSessions)
       .set(updateData)
       .where(eq(wizardSessions.id, sessionId));
+
+    console.log(`Successfully updated session ${sessionId} with field ${field}`);
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -20,7 +20,7 @@ This document defines the shift, the opportunity it creates, and how Vibe Starte
 - The phone was a consumption device, not a creation device
 
 **2025-2026:**
-- AI (Claude, GPT) can write functional code from natural language descriptions
+- AI (Claude, GPT, Gemini) can write functional code from natural language descriptions
 - Platforms (Vercel, Netlify) deploy from git push with zero configuration
 - Databases (Neon, Supabase) offer instant provisioning with generous free tiers
 - Auth (Clerk) provides drop-in components that just work
@@ -105,7 +105,7 @@ A guided setup wizard that helps you build your creative foundation in ~20 minut
 - Clerk (auth)
 - Neon (database)
 - Stripe (payments)
-- AI provider (Claude/Gemini API)
+- AI provider (Claude/Gemini/OpenAI API)
 
 User self-selects complexity. Someone who wants a landing page skips everything optional. Someone building a SaaS completes all steps.
 
@@ -237,7 +237,7 @@ AI gets better every month. This is the floor, not the ceiling.
 
 **Why This Matters:**
 
-- AI capabilities improve continuously (Claude → GPT → Gemini → whatever's next)
+- AI capabilities improve continuously (Claude → GPT → Gemini → OpenAI → whatever's next)
 - Users with a solid foundation benefit from every improvement automatically
 - They're not locked to one AI model or one platform
 - They own their setup and understand how it works

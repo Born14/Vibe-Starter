@@ -26,6 +26,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
 
+    console.log("Session retrieved for deployment:", {
+      hasGithubToken: !!session.githubToken,
+      hasVercelToken: !!session.vercelToken,
+      hasClerkPublishable: !!session.clerkPublishable,
+      hasClerkSecret: !!session.clerkSecret,
+      hasDatabaseUrl: !!session.databaseUrl,
+      hasAiKey: !!session.aiKey,
+      aiProvider: session.aiProvider, // Show actual value
+      appName: session.appName,
+      currentStep: session.currentStep,
+    });
+
     // Verify all required fields
     if (
       !session.githubToken ||
@@ -34,8 +46,19 @@ export async function POST(request: NextRequest) {
       !session.clerkSecret ||
       !session.databaseUrl ||
       !session.aiKey ||
+      !session.aiProvider ||
       !session.appName
     ) {
+      console.error("Missing session fields:", {
+        hasGithubToken: !!session.githubToken,
+        hasVercelToken: !!session.vercelToken,
+        hasClerkPublishable: !!session.clerkPublishable,
+        hasClerkSecret: !!session.clerkSecret,
+        hasDatabaseUrl: !!session.databaseUrl,
+        hasAiKey: !!session.aiKey,
+        aiProvider: session.aiProvider,
+        hasAppName: !!session.appName,
+      });
       return NextResponse.json(
         { error: "Missing required configuration. Please complete all steps." },
         { status: 400 }
@@ -83,6 +106,13 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     const databaseUrl = decrypt(session.databaseUrl!);
     const aiKey = decrypt(session.aiKey!);
     const aiProvider = session.aiProvider || "claude";
+
+    console.log(`Starting deployment - Session AI data:`, {
+      sessionAiProvider: session.aiProvider,
+      resolvedAiProvider: aiProvider,
+      hasAiKey: !!session.aiKey,
+      aiKeyLength: aiKey?.length || 0,
+    });
 
     // Step 1: Create GitHub repo
     await updateDeploymentStep(deploymentId, 1);
@@ -188,7 +218,12 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     // Step 4: Set environment variables
     await updateDeploymentStep(deploymentId, 4);
 
-    const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : "ANTHROPIC_API_KEY";
+    const aiKeyName =
+      aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" :
+      aiProvider === "openai" ? "OPENAI_API_KEY" :
+      "ANTHROPIC_API_KEY";
+
+    console.log(`Setting AI provider: ${aiProvider}, key name: ${aiKeyName}`);
 
     const envVars = [
       { key: "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", value: clerkPublishable },
@@ -200,7 +235,13 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     ];
 
     for (const envVar of envVars) {
-      await fetch(`https://api.vercel.com/v10/projects/${vercelProject.id}/env`, {
+      if (!envVar.value) {
+        console.error(`Skipping env var ${envVar.key} - value is empty`);
+        continue;
+      }
+
+      console.log(`Setting env var: ${envVar.key}`);
+      const envRes = await fetch(`https://api.vercel.com/v10/projects/${vercelProject.id}/env`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${vercelToken}`,
@@ -213,6 +254,14 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
           target: ["production", "preview", "development"],
         }),
       });
+
+      if (!envRes.ok) {
+        const errorData = await envRes.json();
+        console.error(`Failed to set env var ${envVar.key}:`, errorData);
+        // Don't throw - continue with other vars, but log the error
+      } else {
+        console.log(`Successfully set env var: ${envVar.key}`);
+      }
     }
 
     // Step 5: Trigger deployment explicitly
@@ -426,8 +475,8 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 # Database (Neon Postgres)
 DATABASE_URL=postgresql://...
 
-# AI (Claude or Gemini)
-${aiKeyName}=sk-ant-...
+# AI (Claude, Gemini, or OpenAI)
+${aiKeyName}=${aiProvider === "gemini" ? "AIza..." : "sk-..."}
 `,
     },
 
@@ -700,7 +749,7 @@ export default async function DashboardPage() {
               <span className="text-green-600 text-lg">✓</span>
               <div>
                 <div className="font-medium text-gray-900">AI Ready</div>
-                <div className="text-xs text-gray-600">${aiProvider === "gemini" ? "Gemini" : "Claude"} • API configured</div>
+                <div className="text-xs text-gray-600">${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} • API configured</div>
               </div>
             </div>
           </div>
@@ -958,7 +1007,7 @@ This is your AI coding assistant context. Paste this into Claude when building f
 - **Auth:** Clerk (users can sign up/sign in)
 - **Database:** Neon Postgres + Drizzle ORM
 - **Styling:** Tailwind CSS
-- **AI:** ${aiProvider === "gemini" ? "Gemini" : "Claude"} API ready
+- **AI:** ${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} API ready
 
 ## Project Structure
 \`\`\`

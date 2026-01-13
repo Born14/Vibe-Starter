@@ -45,7 +45,7 @@ cd "c:\Users\mccar\VIBE STARTER\vibe-starter" && npx tsx scripts/create-license.
 ## Template Details
 
 - Next.js version in template: **15.2.6** (patched for CVE-2025-66478)
-- AI providers supported: Claude (Anthropic) or Gemini
+- AI providers supported: Claude (Anthropic), Gemini (Google), or OpenAI
 
 ## Previous Fixes Applied
 

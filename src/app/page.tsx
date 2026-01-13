@@ -144,7 +144,7 @@ export default function Home() {
               {
                 step: "04",
                 title: "Start building",
-                description: "Open Claude. Describe what you want. Push to GitHub. Site updates. Build from your phone, browser, anywhere.",
+                description: "Open your AI (Claude, Gemini, or ChatGPT). Describe what you want. Push to GitHub. Site updates. Build from your phone, browser, anywhere.",
               },
             ].map((item, i) => (
               <div key={i} className="flex gap-6 items-start">
@@ -174,7 +174,7 @@ export default function Home() {
               { icon: "🚀", title: "Live App", desc: "Deployed at your-app.vercel.app" },
               { icon: "🔐", title: "Auth Ready", desc: "Sign up, sign in, protected routes" },
               { icon: "💾", title: "Database", desc: "Postgres with Neon, data persists" },
-              { icon: "🤖", title: "AI Wired", desc: "Claude API endpoint ready to use" },
+              { icon: "🤖", title: "AI Wired", desc: "Claude, Gemini, or OpenAI API ready" },
               { icon: "📱", title: "Mobile Workflow", desc: "Build from your phone" },
               { icon: "🔑", title: "You Own It", desc: "All accounts are yours, forever" },
             ].map((item, i) => (
@@ -204,7 +204,7 @@ export default function Home() {
               { name: "Vercel", role: "Hosting", color: "bg-white/10" },
               { name: "Clerk", role: "Authentication", color: "bg-purple-500/20" },
               { name: "Neon", role: "Database", color: "bg-emerald-500/20" },
-              { name: "Claude", role: "AI", color: "bg-orange-500/20" },
+              { name: "AI APIs", role: "Claude/Gemini/OpenAI", color: "bg-orange-500/20" },
               { name: "Tailwind", role: "Styling", color: "bg-cyan-500/20" },
             ].map((item, i) => (
               <div key={i} className={`${item.color} border border-white/10 rounded-xl p-5`}>
@@ -300,7 +300,7 @@ export default function Home() {
                 "Next.js 15 app with auth & database",
                 "Live deployment on Vercel",
                 "Push-to-deploy workflow",
-                "PROMPT.md for Claude",
+                "PROMPT.md for AI coding",
                 "All accounts in your name",
                 "No monthly fees",
               ].map((item, i) => (
@@ -338,7 +338,7 @@ export default function Home() {
             {[
               {
                 q: "Do I need to know how to code?",
-                a: "No. You need to click buttons, copy/paste, and describe what you want to Claude. That's it.",
+                a: "No. You need to click buttons, copy/paste, and describe what you want to your AI (Claude, Gemini, or ChatGPT). That's it.",
               },
               {
                 q: "What if I already have a GitHub account?",
@@ -350,7 +350,7 @@ export default function Home() {
               },
               {
                 q: "Can I build from my phone?",
-                a: "Yes. That's the point. Open Claude, describe your feature, push to GitHub, site updates. No laptop required.",
+                a: "Yes. That's the point. Open your AI, describe your feature, push to GitHub, site updates. No laptop required.",
               },
               {
                 q: "What if I get stuck?",

@@ -228,7 +228,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           <h3 className="font-semibold mb-4 text-center">Start Building Features</h3>
 
           <p className="text-white/70 mb-3 text-center text-sm">
-            Your app has user login and a database. Now you can add features by talking to Claude - from your phone, laptop, or anywhere.
+            Your app has user login and a database. Now you can add features by talking to your AI (Claude, Gemini, or ChatGPT) - from your phone, laptop, or anywhere.
           </p>
 
           <p className="text-white/50 mb-4 text-center text-xs italic">
@@ -238,7 +238,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           {/* Example features they can build */}
           <div className="space-y-2 mb-4">
             <div className="bg-white/10 rounded-lg p-3">
-              <div className="text-xs text-white/50 mb-1">Try saying to Claude:</div>
+              <div className="text-xs text-white/50 mb-1">Try saying to your AI:</div>
               <div className="text-white text-sm font-medium">&quot;Add a page where users can save notes&quot;</div>
             </div>
             <div className="bg-white/10 rounded-lg p-3">
@@ -257,7 +257,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             <ol className="space-y-2 text-sm text-white/80">
               <li className="flex gap-2">
                 <span className="text-emerald-400 font-bold">1.</span>
-                <span>Open Claude (mobile app, Cursor, or web)</span>
+                <span>Open your AI (Claude, Gemini, ChatGPT - mobile app, Cursor, or web)</span>
               </li>
               <li className="flex gap-2">
                 <span className="text-emerald-400 font-bold">2.</span>
@@ -273,7 +273,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
               </li>
               <li className="flex gap-2">
                 <span className="text-emerald-400 font-bold">5.</span>
-                <span>Claude writes and commits the code → your site updates! 🎉</span>
+                <span>AI writes and commits the code → your site updates! 🎉</span>
               </li>
             </ol>
           </div>
@@ -289,7 +289,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           </a>
 
           <p className="text-xs text-white/50 text-center">
-            💡 Works great with Claude mobile, Cursor, or any AI coding tool
+            💡 Works with Claude, Gemini, ChatGPT - mobile apps, Cursor, or any AI coding tool
           </p>
 
           {/* Optional: Laptop workflow */}
@@ -300,7 +300,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             <div className="mt-3 p-3 bg-white/5 rounded-lg space-y-2 text-sm text-white/70">
               <p>1. Install <a href="https://cursor.sh" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Cursor</a> or <a href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">VS Code</a></p>
               <p>2. Clone your repo locally</p>
-              <p>3. Use Claude/AI directly in your editor</p>
+              <p>3. Use your AI (Claude/Gemini/ChatGPT) directly in your editor</p>
               <p className="pt-2 text-xs text-white/50">Or use <a href={`https://github.dev/${deployResult.repoUrl.replace('https://github.com/', '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">github.dev</a> to edit in your browser (no install needed)</p>
             </div>
           </details>

@@ -65,6 +65,17 @@ export async function POST(request: NextRequest) {
     // Import encrypt dynamically to avoid issues
     const { encrypt } = await import("@/lib/encryption");
 
+    // Handle special "skipAi" field to advance past AI step without setting keys
+    if (field === "skipAi") {
+      await db
+        .update(wizardSessions)
+        .set({ currentStep: 7 }) // Advance to App Name step
+        .where(eq(wizardSessions.id, sessionId));
+
+      console.log(`Successfully skipped AI setup for session ${sessionId}`);
+      return NextResponse.json({ success: true });
+    }
+
     // Map field names to database columns and validation
     const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; validate?: (v: string) => boolean }> = {
       vercelToken: {

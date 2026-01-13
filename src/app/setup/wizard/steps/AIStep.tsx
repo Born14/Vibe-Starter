@@ -68,11 +68,11 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
     setLoading(true);
 
     try {
-      // Mark as skipped by setting hasAi to true but leaving keys null
+      // Use special skipAi field to advance step without setting keys
       const res = await fetch("/api/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "hasAi", value: true }),
+        body: JSON.stringify({ sessionId, field: "skipAi", value: true }),
       });
       if (!res.ok) throw new Error("Failed to skip AI setup");
 

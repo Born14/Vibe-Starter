@@ -602,58 +602,25 @@ export default function SignUpPage() {
 export function QuickWinIdeas() {
   return (
     <div className="mb-12">
-      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4 text-center">
-        Try one of these
+      <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">
+        What do you want to build?
       </h3>
-      <div className="grid sm:grid-cols-3 gap-3">
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText("Add a notes page where I can save personal thoughts");
-          }}
-          className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
-        >
-          <div className="text-2xl mb-2">💬</div>
-          <div className="text-sm font-medium text-gray-900 mb-1">
-            Notes Page
-          </div>
-          <div className="text-xs text-gray-500">
-            Save personal thoughts
-          </div>
-        </button>
-
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText("Create a user profile page with avatar upload");
-          }}
-          className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
-        >
-          <div className="text-2xl mb-2">👤</div>
-          <div className="text-sm font-medium text-gray-900 mb-1">
-            Profile Page
-          </div>
-          <div className="text-xs text-gray-500">
-            With avatar upload
-          </div>
-        </button>
-
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText("Add a feedback form so users can contact me");
-          }}
-          className="p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-black transition-all text-left active:scale-95"
-        >
-          <div className="text-2xl mb-2">📝</div>
-          <div className="text-sm font-medium text-gray-900 mb-1">
-            Feedback Form
-          </div>
-          <div className="text-xs text-gray-500">
-            Let users contact you
-          </div>
-        </button>
-      </div>
-      <p className="text-xs text-gray-500 text-center mt-3">
-        Click to copy • Paste into Claude • Watch it build
+      <p className="text-gray-600 mb-6 text-center">
+        Open Claude and describe your idea. It knows your stack.
       </p>
+      <div className="text-center">
+        <a
+          href="https://claude.ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block w-full sm:w-auto px-8 py-4 bg-black text-white text-lg font-semibold rounded-xl hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+        >
+          Start Building →
+        </a>
+        <p className="text-xs text-gray-500 mt-3">
+          Your app has: Database • Auth • AI • Auto-deployment
+        </p>
+      </div>
     </div>
   );
 }
@@ -689,26 +656,17 @@ export default async function DashboardPage() {
       </header>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        {/* Hero CTA */}
+        {/* Welcome */}
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             Welcome to ${appName}
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Your app is live. You're logged in. Let's build something.
+          <p className="text-lg text-gray-600 mb-2">
+            Your app is live. You're logged in.
           </p>
-
-          <a
-            href="https://claude.ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block w-full sm:w-auto px-8 py-4 bg-black text-white text-lg font-semibold rounded-xl hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
-          >
-            Add Your First Feature
-          </a>
         </div>
 
-        {/* Quick Win Ideas - Now a Client Component */}
+        {/* What to Build - Now a Client Component */}
         <QuickWinIdeas />
 
         {/* Setup Status Check */}
@@ -746,6 +704,61 @@ export default async function DashboardPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Your Tech Stack */}
+        <div className="bg-white rounded-xl border p-6 mb-8">
+          <h3 className="font-semibold text-gray-900 mb-4 text-center">Your Tech Stack</h3>
+          <div className="space-y-4 text-sm">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span>🎨</span>
+                <span className="font-medium text-gray-900">Frontend</span>
+              </div>
+              <p className="text-gray-600 ml-6">
+                Next.js UI components → Instantly deployed via Vercel
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span>⚙️</span>
+                <span className="font-medium text-gray-900">Backend</span>
+              </div>
+              <p className="text-gray-600 ml-6">
+                API routes + business logic → Serverless functions on Vercel
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span>🗄️</span>
+                <span className="font-medium text-gray-900">Database</span>
+              </div>
+              <p className="text-gray-600 ml-6">
+                Postgres with Drizzle ORM → Neon serverless database
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* What This Means */}
+        <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-5 mb-8 border border-blue-100">
+          <h3 className="text-sm font-semibold mb-3 text-gray-900 text-center">
+            What This Means for You
+          </h3>
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">→</span>
+              <span><strong className="text-gray-900">Build real products:</strong> Not a toy - this powers actual businesses</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">→</span>
+              <span><strong className="text-gray-900">No rewrites later:</strong> Start with 10 users, scale to 100K on the same stack</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">→</span>
+              <span><strong className="text-gray-900">Free until you profit:</strong> Build and launch without server costs</span>
+            </li>
+          </ul>
         </div>
 
         {/* Building Options */}

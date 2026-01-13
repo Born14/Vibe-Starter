@@ -131,6 +131,66 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           </ul>
         </div>
 
+        {/* Your Stack Explained */}
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8 text-left max-w-md mx-auto">
+          <h3 className="font-semibold mb-4 text-center">Your Full Stack:</h3>
+          <div className="space-y-4 text-sm">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-emerald-400">🎨</span>
+                <span className="font-medium text-white">Frontend (UI)</span>
+              </div>
+              <p className="text-white/60 ml-6">
+                What users see and click → Hosted on <strong>Vercel</strong>
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-emerald-400">⚙️</span>
+                <span className="font-medium text-white">Backend (Logic)</span>
+              </div>
+              <p className="text-white/60 ml-6">
+                Handles requests and business logic → Runs on <strong>Vercel</strong>
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-emerald-400">🗄️</span>
+                <span className="font-medium text-white">Database (Storage)</span>
+              </div>
+              <p className="text-white/60 ml-6">
+                Stores user data permanently → Lives in <strong>Neon</strong>
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 pt-4 border-t border-white/10">
+            <p className="text-xs text-white/50 text-center">
+              💡 This is your complete full-stack app - everything you need to build features
+            </p>
+          </div>
+        </div>
+
+        {/* Why This Stack? */}
+        <div className="bg-gradient-to-br from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 rounded-xl p-5 mb-8 text-left max-w-md mx-auto">
+          <h3 className="text-sm font-semibold mb-3 text-emerald-400 text-center">
+            ✨ Why This Stack?
+          </h3>
+          <ul className="space-y-2 text-sm text-white/70">
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-400 mt-0.5">→</span>
+              <span><strong className="text-white">Production-ready:</strong> Powers companies from startups to Fortune 500s</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-400 mt-0.5">→</span>
+              <span><strong className="text-white">Scales with you:</strong> Handle 100 users or 1M+ without rebuilding</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-400 mt-0.5">→</span>
+              <span><strong className="text-white">Cost-effective:</strong> Generous free tiers, pay only as you grow</span>
+            </li>
+          </ul>
+        </div>
+
         {/* Security Confirmation */}
         <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-8 max-w-md mx-auto">
           <p className="text-emerald-400 text-sm">

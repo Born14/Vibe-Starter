@@ -218,7 +218,10 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     // Step 4: Set environment variables
     await updateDeploymentStep(deploymentId, 4);
 
-    const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : "ANTHROPIC_API_KEY";
+    const aiKeyName =
+      aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" :
+      aiProvider === "openai" ? "OPENAI_API_KEY" :
+      "ANTHROPIC_API_KEY";
 
     console.log(`Setting AI provider: ${aiProvider}, key name: ${aiKeyName}`);
 
@@ -472,8 +475,8 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 # Database (Neon Postgres)
 DATABASE_URL=postgresql://...
 
-# AI (Claude or Gemini)
-${aiKeyName}=sk-ant-...
+# AI (Claude, Gemini, or OpenAI)
+${aiKeyName}=${aiProvider === "gemini" ? "AIza..." : "sk-..."}
 `,
     },
 
@@ -746,7 +749,7 @@ export default async function DashboardPage() {
               <span className="text-green-600 text-lg">✓</span>
               <div>
                 <div className="font-medium text-gray-900">AI Ready</div>
-                <div className="text-xs text-gray-600">${aiProvider === "gemini" ? "Gemini" : "Claude"} • API configured</div>
+                <div className="text-xs text-gray-600">${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} • API configured</div>
               </div>
             </div>
           </div>
@@ -1004,7 +1007,7 @@ This is your AI coding assistant context. Paste this into Claude when building f
 - **Auth:** Clerk (users can sign up/sign in)
 - **Database:** Neon Postgres + Drizzle ORM
 - **Styling:** Tailwind CSS
-- **AI:** ${aiProvider === "gemini" ? "Gemini" : "Claude"} API ready
+- **AI:** ${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} API ready
 
 ## Project Structure
 \`\`\`

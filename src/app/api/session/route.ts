@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
       },
       aiKey: {
         column: "aiKey",
-        validate: (v) => v.startsWith("sk-ant-") || v.startsWith("AIza"), // Claude or Gemini
+        validate: (v) => v.startsWith("sk-ant-") || v.startsWith("AIza") || v.startsWith("sk-"), // Claude, Gemini, or OpenAI
       },
       aiProvider: {
         column: "aiProvider",

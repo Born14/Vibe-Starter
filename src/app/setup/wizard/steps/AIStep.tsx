@@ -14,7 +14,7 @@ interface StepProps {
 }
 
 export default function AIStep({ sessionId, session, onNext, onRefresh }: StepProps) {
-  const [aiProvider, setAiProvider] = useState<"claude" | "gemini">("claude");
+  const [aiProvider, setAiProvider] = useState<"claude" | "gemini" | "openai">("claude");
   const [aiKey, setAiKey] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -33,6 +33,9 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
       }
       if (aiProvider === "gemini" && !aiKey.startsWith("AIza")) {
         throw new Error("Gemini API key should start with AIza");
+      }
+      if (aiProvider === "openai" && !aiKey.startsWith("sk-")) {
+        throw new Error("OpenAI API key should start with sk-");
       }
 
       // Save provider
@@ -68,6 +71,10 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
     window.open("https://aistudio.google.com/apikey", "_blank");
   };
 
+  const openOpenAI = () => {
+    window.open("https://platform.openai.com/api-keys", "_blank");
+  };
+
   return (
     <div>
       <div className="text-center mb-8">
@@ -99,7 +106,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
       ) : (
         <>
           {/* Provider Selection */}
-          <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-3 gap-3 mb-6">
             <button
               type="button"
               onClick={() => setAiProvider("claude")}
@@ -126,12 +133,25 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
               <div className="font-semibold">Gemini</div>
               <div className="text-xs text-white/50">Google AI</div>
             </button>
+            <button
+              type="button"
+              onClick={() => setAiProvider("openai")}
+              className={`p-4 rounded-xl border-2 transition-all ${
+                aiProvider === "openai"
+                  ? "border-green-400 bg-green-400/10"
+                  : "border-white/10 bg-white/5 hover:border-white/20"
+              }`}
+            >
+              <div className="text-2xl mb-2">🤖</div>
+              <div className="font-semibold">OpenAI</div>
+              <div className="text-xs text-white/50">ChatGPT API</div>
+            </button>
           </div>
 
           {/* Instructions */}
           <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
             <h4 className="font-semibold mb-3">
-              Get your {aiProvider === "claude" ? "Claude" : "Gemini"} API Key:
+              Get your {aiProvider === "claude" ? "Claude" : aiProvider === "gemini" ? "Gemini" : "OpenAI"} API Key:
             </h4>
             <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside">
               {aiProvider === "claude" ? (
@@ -141,11 +161,18 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
                   <li>Go to API Keys and create a new key</li>
                   <li>Copy and paste it below</li>
                 </>
-              ) : (
+              ) : aiProvider === "gemini" ? (
                 <>
                   <li>Click &quot;Open Google AI Studio&quot; below</li>
                   <li>Sign in with your Google account</li>
                   <li>Click &quot;Create API Key&quot;</li>
+                  <li>Copy and paste it below</li>
+                </>
+              ) : (
+                <>
+                  <li>Click &quot;Open OpenAI Platform&quot; below</li>
+                  <li>Sign in or create an account</li>
+                  <li>Go to API Keys and create a new key</li>
                   <li>Copy and paste it below</li>
                 </>
               )}
@@ -153,14 +180,16 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
           </div>
 
           <button
-            onClick={aiProvider === "claude" ? openClaude : openGemini}
+            onClick={aiProvider === "claude" ? openClaude : aiProvider === "gemini" ? openGemini : openOpenAI}
             className={`w-full py-4 rounded-xl font-semibold text-lg transition-colors mb-6 ${
               aiProvider === "claude"
                 ? "bg-orange-600 hover:bg-orange-500 text-white"
-                : "bg-blue-600 hover:bg-blue-500 text-white"
+                : aiProvider === "gemini"
+                ? "bg-blue-600 hover:bg-blue-500 text-white"
+                : "bg-green-600 hover:bg-green-500 text-white"
             }`}
           >
-            Open {aiProvider === "claude" ? "Anthropic Console" : "Google AI Studio"} →
+            Open {aiProvider === "claude" ? "Anthropic Console" : aiProvider === "gemini" ? "Google AI Studio" : "OpenAI Platform"} →
           </button>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -172,7 +201,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
                 type="password"
                 value={aiKey}
                 onChange={(e) => setAiKey(e.target.value)}
-                placeholder={aiProvider === "claude" ? "sk-ant-..." : "AIza..."}
+                placeholder={aiProvider === "claude" ? "sk-ant-..." : aiProvider === "gemini" ? "AIza..." : "sk-..."}
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
               />
             </div>

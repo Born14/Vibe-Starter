@@ -26,6 +26,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
 
+    console.log("Session retrieved for deployment:", {
+      hasGithubToken: !!session.githubToken,
+      hasVercelToken: !!session.vercelToken,
+      hasClerkPublishable: !!session.clerkPublishable,
+      hasClerkSecret: !!session.clerkSecret,
+      hasDatabaseUrl: !!session.databaseUrl,
+      hasAiKey: !!session.aiKey,
+      aiProvider: session.aiProvider, // Show actual value
+      appName: session.appName,
+      currentStep: session.currentStep,
+    });
+
     // Verify all required fields
     if (
       !session.githubToken ||
@@ -34,8 +46,19 @@ export async function POST(request: NextRequest) {
       !session.clerkSecret ||
       !session.databaseUrl ||
       !session.aiKey ||
+      !session.aiProvider ||
       !session.appName
     ) {
+      console.error("Missing session fields:", {
+        hasGithubToken: !!session.githubToken,
+        hasVercelToken: !!session.vercelToken,
+        hasClerkPublishable: !!session.clerkPublishable,
+        hasClerkSecret: !!session.clerkSecret,
+        hasDatabaseUrl: !!session.databaseUrl,
+        hasAiKey: !!session.aiKey,
+        aiProvider: session.aiProvider,
+        hasAppName: !!session.appName,
+      });
       return NextResponse.json(
         { error: "Missing required configuration. Please complete all steps." },
         { status: 400 }
@@ -84,8 +107,12 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     const aiKey = decrypt(session.aiKey!);
     const aiProvider = session.aiProvider || "claude";
 
-    console.log(`Starting deployment with AI provider: ${aiProvider}`);
-    console.log(`Session data - aiProvider: ${session.aiProvider}, has aiKey: ${!!session.aiKey}`);
+    console.log(`Starting deployment - Session AI data:`, {
+      sessionAiProvider: session.aiProvider,
+      resolvedAiProvider: aiProvider,
+      hasAiKey: !!session.aiKey,
+      aiKeyLength: aiKey?.length || 0,
+    });
 
     // Step 1: Create GitHub repo
     await updateDeploymentStep(deploymentId, 1);

@@ -213,6 +213,39 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* Why This Stack */}
+          <div className="mt-12 bg-gradient-to-br from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 rounded-2xl p-8 max-w-2xl mx-auto">
+            <h3 className="text-xl font-semibold mb-6 text-center">
+              Why this stack?
+            </h3>
+            <div className="space-y-4 text-white/80">
+              <div className="flex items-start gap-3">
+                <span className="text-emerald-400 text-xl flex-shrink-0">→</span>
+                <div>
+                  <strong className="text-white">Production-ready from day one.</strong> These aren't beginner tools—they power real companies at scale.
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-emerald-400 text-xl flex-shrink-0">→</span>
+                <div>
+                  <strong className="text-white">No rewrites as you grow.</strong> Start with 10 users, scale to 100K+ on the same infrastructure.
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-emerald-400 text-xl flex-shrink-0">→</span>
+                <div>
+                  <strong className="text-white">Free to start, fair to scale.</strong> Generous free tiers mean you build and test without costs.
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <span className="text-emerald-400 text-xl flex-shrink-0">→</span>
+                <div>
+                  <strong className="text-white">No lock-in.</strong> Open standards. You can migrate anytime—but you won't need to.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

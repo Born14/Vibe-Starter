@@ -167,6 +167,9 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             <p className="text-xs text-white/50 text-center">
               💡 This is your complete full-stack app - everything you need to build features
             </p>
+            <p className="text-xs text-white/40 text-center mt-2">
+              Database tables automatically sync when you push code - no manual setup needed
+            </p>
           </div>
         </div>
 

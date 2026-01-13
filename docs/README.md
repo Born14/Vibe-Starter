@@ -231,12 +231,20 @@ Includes:
 - Pre-purchase trust-building with production-ready, scalability, cost, and no lock-in messaging
 - Four key benefits to address common concerns
 
+**src/app/api/deploy/route.ts (Template package.json)**
+- **CRITICAL FIX**: Changed build script to `"drizzle-kit push && next build"`
+- Enables automatic database migrations during Vercel deployment
+- Database tables now auto-create/update when schema changes are pushed
+- Enables true "build from mobile" workflow for database features
+- Updated PROMPT.md to reflect automatic migration workflow
+
 **Why this matters:**
 - First-time users understand what Frontend/Backend/Database mean
 - Users see why this specific stack is valuable (not just what it is)
 - Three different framings for three different contexts (pre-purchase, post-purchase, ongoing ownership)
 - Reduces "What did I just buy?" support questions
 - Builds confidence without prescribing what to build
+- **Database features now work immediately when built from mobile** (no manual migration steps)
 
 ---
 

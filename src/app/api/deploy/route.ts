@@ -794,6 +794,9 @@ export default async function DashboardPage() {
             >
               Open Claude App →
             </a>
+            <p className="text-xs text-gray-500 mt-3 text-center">
+              💡 Database features work automatically - tables sync when you push code
+            </p>
           </div>
 
           {/* Laptop Option */}
@@ -974,8 +977,11 @@ Create a file at \`src/app/[page-name]/page.tsx\`
 - Use \`"use client"\` at top if you need interactivity (buttons, forms)
 
 ### Add a database table
-1. Edit \`src/lib/db/schema.ts\`
-2. Run \`npm run db:push\` to sync
+1. Edit \`src/lib/db/schema.ts\` to add your table
+2. Commit and push to GitHub
+3. Tables automatically sync to Neon during Vercel deployment
+   - No manual migration commands needed
+   - Works from mobile/web - just push the code
 
 ### Add an API route
 Create \`src/app/api/[route-name]/route.ts\`

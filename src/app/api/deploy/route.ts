@@ -38,15 +38,13 @@ export async function POST(request: NextRequest) {
       currentStep: session.currentStep,
     });
 
-    // Verify all required fields
+    // Verify all required fields (AI is optional)
     if (
       !session.githubToken ||
       !session.vercelToken ||
       !session.clerkPublishable ||
       !session.clerkSecret ||
       !session.databaseUrl ||
-      !session.aiKey ||
-      !session.aiProvider ||
       !session.appName
     ) {
       console.error("Missing session fields:", {
@@ -104,7 +102,9 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     const clerkPublishable = decrypt(session.clerkPublishable!);
     const clerkSecret = decrypt(session.clerkSecret!);
     const databaseUrl = decrypt(session.databaseUrl!);
-    const aiKey = decrypt(session.aiKey!);
+
+    // AI is optional - only decrypt if provided
+    const aiKey = session.aiKey ? decrypt(session.aiKey) : null;
     const aiProvider = session.aiProvider || "claude";
 
     console.log(`Starting deployment - Session AI data:`, {
@@ -161,7 +161,7 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     // Step 2: Push template code
     await updateDeploymentStep(deploymentId, 2);
 
-    await pushTemplateCode(githubToken, repoFullName, session.appName!, aiProvider);
+    await pushTemplateCode(githubToken, repoFullName, session.appName!, aiProvider, !!aiKey);
 
     // Step 3: Create Vercel project
     await updateDeploymentStep(deploymentId, 3);
@@ -218,21 +218,26 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
     // Step 4: Set environment variables
     await updateDeploymentStep(deploymentId, 4);
 
-    const aiKeyName =
-      aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" :
-      aiProvider === "openai" ? "OPENAI_API_KEY" :
-      "ANTHROPIC_API_KEY";
-
-    console.log(`Setting AI provider: ${aiProvider}, key name: ${aiKeyName}`);
-
     const envVars = [
       { key: "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY", value: clerkPublishable },
       { key: "CLERK_SECRET_KEY", value: clerkSecret },
       { key: "NEXT_PUBLIC_CLERK_SIGN_IN_URL", value: "/sign-in" },
       { key: "NEXT_PUBLIC_CLERK_SIGN_UP_URL", value: "/sign-up" },
       { key: "DATABASE_URL", value: databaseUrl },
-      { key: aiKeyName, value: aiKey },
     ];
+
+    // Add AI env var only if configured
+    if (aiKey) {
+      const aiKeyName =
+        aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" :
+        aiProvider === "openai" ? "OPENAI_API_KEY" :
+        "ANTHROPIC_API_KEY";
+
+      console.log(`Setting AI provider: ${aiProvider}, key name: ${aiKeyName}`);
+      envVars.push({ key: aiKeyName, value: aiKey });
+    } else {
+      console.log("AI was skipped - no AI env vars will be set");
+    }
 
     for (const envVar of envVars) {
       if (!envVar.value) {
@@ -335,8 +340,8 @@ async function updateDeploymentStep(deploymentId: string, step: number) {
     .where(eq(deployments.id, deploymentId));
 }
 
-function getTemplateFiles(appName: string, aiProvider: string): { path: string; content: string }[] {
-  const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : "ANTHROPIC_API_KEY";
+function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean): { path: string; content: string }[] {
+  const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : aiProvider === "openai" ? "OPENAI_API_KEY" : "ANTHROPIC_API_KEY";
 
   return [
     // package.json
@@ -474,9 +479,11 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 
 # Database (Neon Postgres)
 DATABASE_URL=postgresql://...
-
+${hasAI ? `
 # AI (Claude, Gemini, or OpenAI)
-${aiKeyName}=${aiProvider === "gemini" ? "AIza..." : "sk-..."}
+${aiKeyName}=${aiProvider === "gemini" ? "AIza..." : "sk-..."}` : `
+# AI (Optional - Add when needed)
+# ${aiKeyName}=your-key-here`}
 `,
     },
 
@@ -746,10 +753,10 @@ export default async function DashboardPage() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-green-600 text-lg">✓</span>
+              <span className="${hasAI ? 'text-green-600' : 'text-gray-400'} text-lg">${hasAI ? '✓' : '○'}</span>
               <div>
-                <div className="font-medium text-gray-900">AI Ready</div>
-                <div className="text-xs text-gray-600">${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} • API configured</div>
+                <div className="font-medium text-gray-900">AI ${hasAI ? 'Ready' : '(Optional)'}</div>
+                <div className="text-xs text-gray-600">${hasAI ? `${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} • API configured` : 'Add via Vercel env vars when needed'}</div>
               </div>
             </div>
           </div>
@@ -1006,8 +1013,9 @@ This is your AI coding assistant context. Paste this into Claude when building f
 - **Framework:** Next.js 15 (App Router)
 - **Auth:** Clerk (users can sign up/sign in)
 - **Database:** Neon Postgres + Drizzle ORM
-- **Styling:** Tailwind CSS
-- **AI:** ${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} API ready
+- **Styling:** Tailwind CSS${hasAI ? `
+- **AI:** ${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} API ready` : `
+- **AI:** Not configured yet (add via Vercel env vars when needed)`}
 
 ## Project Structure
 \`\`\`
@@ -1151,8 +1159,8 @@ npm run db:studio  # Open database UI
   ];
 }
 
-async function pushTemplateCode(githubToken: string, repoFullName: string, appName: string, aiProvider: string) {
-  const files = getTemplateFiles(appName, aiProvider);
+async function pushTemplateCode(githubToken: string, repoFullName: string, appName: string, aiProvider: string, hasAI: boolean) {
+  const files = getTemplateFiles(appName, aiProvider, hasAI);
 
   // For empty repos, we need to use the Contents API to create the first file
   // This initializes the repo with a commit, then we can use Git Data API for the rest

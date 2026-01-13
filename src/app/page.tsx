@@ -399,6 +399,9 @@ export default function Home() {
             © 2025 Vibe Starter. Built with the stack we give you.
           </div>
           <div className="flex items-center gap-6 text-sm text-white/40">
+            <a href="/education" className="hover:text-white transition-colors">
+              Education
+            </a>
             <a href="mailto:support@vibestarter.app" className="hover:text-white transition-colors">
               Support
             </a>

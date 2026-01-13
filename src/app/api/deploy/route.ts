@@ -748,6 +748,61 @@ export default async function DashboardPage() {
           </div>
         </div>
 
+        {/* Your Tech Stack */}
+        <div className="bg-white rounded-xl border p-6 mb-8">
+          <h3 className="font-semibold text-gray-900 mb-4 text-center">Your Tech Stack</h3>
+          <div className="space-y-4 text-sm">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span>🎨</span>
+                <span className="font-medium text-gray-900">Frontend</span>
+              </div>
+              <p className="text-gray-600 ml-6">
+                Next.js UI components → Instantly deployed via Vercel
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span>⚙️</span>
+                <span className="font-medium text-gray-900">Backend</span>
+              </div>
+              <p className="text-gray-600 ml-6">
+                API routes + business logic → Serverless functions on Vercel
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span>🗄️</span>
+                <span className="font-medium text-gray-900">Database</span>
+              </div>
+              <p className="text-gray-600 ml-6">
+                Postgres with Drizzle ORM → Neon serverless database
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* What This Means */}
+        <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-5 mb-8 border border-blue-100">
+          <h3 className="text-sm font-semibold mb-3 text-gray-900 text-center">
+            What This Means for You
+          </h3>
+          <ul className="space-y-2 text-sm text-gray-700">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">→</span>
+              <span><strong className="text-gray-900">Build real products:</strong> Not a toy - this powers actual businesses</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">→</span>
+              <span><strong className="text-gray-900">No rewrites later:</strong> Start with 10 users, scale to 100K on the same stack</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-600 mt-0.5">→</span>
+              <span><strong className="text-gray-900">Free until you profit:</strong> Build and launch without server costs</span>
+            </li>
+          </ul>
+        </div>
+
         {/* Building Options */}
         <div className="grid sm:grid-cols-2 gap-4 mb-8">
           {/* Phone Option */}

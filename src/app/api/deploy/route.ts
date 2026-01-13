@@ -299,7 +299,7 @@ function getTemplateFiles(appName: string, aiProvider: string): { path: string; 
         private: true,
         scripts: {
           dev: "next dev",
-          build: "next build",
+          build: "drizzle-kit push && next build",
           start: "next start",
           lint: "next lint",
           "db:push": "drizzle-kit push",

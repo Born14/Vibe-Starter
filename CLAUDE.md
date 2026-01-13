@@ -56,3 +56,4 @@ cd "c:\Users\mccar\VIBE STARTER\vibe-starter" && npx tsx scripts/create-license.
 5. Frontend uses 2-second polling with 90 max attempts (3 min timeout) for Vercel builds
 6. Database connection uses fallback dummy string during build to prevent TypeScript errors when DATABASE_URL is not set
 7. Production branch explicitly set to "main" in Vercel project creation for auto-deployment on push
+8. **Auto-migrations on deploy**: Build script runs `drizzle-kit push && next build` to automatically create/update database tables during Vercel deployment. This enables true "build from mobile" workflow where database schema changes deploy and work immediately without manual migration steps.

@@ -288,6 +288,13 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             View PROMPT.md →
           </a>
 
+          <a
+            href="/education"
+            className="block w-full text-center border border-white/20 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors mb-3"
+          >
+            📚 Learn How to Build Features
+          </a>
+
           <p className="text-xs text-white/50 text-center">
             💡 Works with Claude, Gemini, ChatGPT - mobile apps, Cursor, or any AI coding tool
           </p>

@@ -768,6 +768,9 @@ export default async function DashboardPage() {
             <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <span className="text-xl">📱</span> Build from Your Phone
             </h3>
+            <p className="text-xs text-gray-600 mb-4 italic">
+              Build features → Deploy to production → Test on your live site
+            </p>
             <ol className="space-y-2 text-sm text-gray-700 mb-4">
               <li className="flex gap-2">
                 <span className="font-bold text-purple-600 flex-shrink-0">1.</span>

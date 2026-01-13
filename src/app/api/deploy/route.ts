@@ -299,7 +299,7 @@ function getTemplateFiles(appName: string, aiProvider: string): { path: string; 
         private: true,
         scripts: {
           dev: "next dev",
-          build: "next build",
+          build: "drizzle-kit push && next build",
           start: "next start",
           lint: "next lint",
           "db:push": "drizzle-kit push",
@@ -768,6 +768,9 @@ export default async function DashboardPage() {
             <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <span className="text-xl">📱</span> Build from Your Phone
             </h3>
+            <p className="text-xs text-gray-600 mb-4 italic">
+              Build features → Deploy to production → Test on your live site
+            </p>
             <ol className="space-y-2 text-sm text-gray-700 mb-4">
               <li className="flex gap-2">
                 <span className="font-bold text-purple-600 flex-shrink-0">1.</span>
@@ -794,6 +797,9 @@ export default async function DashboardPage() {
             >
               Open Claude App →
             </a>
+            <p className="text-xs text-gray-500 mt-3 text-center">
+              💡 Database features work automatically - tables sync when you push code
+            </p>
           </div>
 
           {/* Laptop Option */}
@@ -974,8 +980,11 @@ Create a file at \`src/app/[page-name]/page.tsx\`
 - Use \`"use client"\` at top if you need interactivity (buttons, forms)
 
 ### Add a database table
-1. Edit \`src/lib/db/schema.ts\`
-2. Run \`npm run db:push\` to sync
+1. Edit \`src/lib/db/schema.ts\` to add your table
+2. Commit and push to GitHub
+3. Tables automatically sync to Neon during Vercel deployment
+   - No manual migration commands needed
+   - Works from mobile/web - just push the code
 
 ### Add an API route
 Create \`src/app/api/[route-name]/route.ts\`

@@ -167,6 +167,9 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             <p className="text-xs text-white/50 text-center">
               💡 This is your complete full-stack app - everything you need to build features
             </p>
+            <p className="text-xs text-white/40 text-center mt-2">
+              Database tables automatically sync when you push code - no manual setup needed
+            </p>
           </div>
         </div>
 
@@ -224,8 +227,12 @@ export default function DeployStep({ sessionId, session }: StepProps) {
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-left max-w-lg mx-auto">
           <h3 className="font-semibold mb-4 text-center">Start Building Features</h3>
 
-          <p className="text-white/70 mb-4 text-center text-sm">
+          <p className="text-white/70 mb-3 text-center text-sm">
             Your app has user login and a database. Now you can add features by talking to Claude - from your phone, laptop, or anywhere.
+          </p>
+
+          <p className="text-white/50 mb-4 text-center text-xs italic">
+            Build features → Deploy to production → Test on your live site
           </p>
 
           {/* Example features they can build */}

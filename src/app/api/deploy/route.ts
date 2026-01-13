@@ -762,6 +762,32 @@ export default async function DashboardPage() {
           </div>
         </div>
 
+        {/* Custom Domain Section */}
+        <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-6 mb-8 border border-indigo-100">
+          <div className="flex items-start gap-4">
+            <div className="text-3xl">🌐</div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-gray-900 mb-2">Want Your Own Domain?</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Your site is live at <code className="bg-white px-2 py-0.5 rounded text-xs">${appName}.vercel.app</code>
+                <br />
+                Add a custom domain like <strong>yoursite.com</strong> in 5 minutes.
+              </p>
+              <a
+                href="https://vercel.com/docs/projects/domains/add-a-domain"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+              >
+                Add Custom Domain →
+              </a>
+              <p className="text-xs text-gray-500 mt-3">
+                💡 Buy from Vercel or connect one you already own (GoDaddy, Namecheap, etc.)
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Your Tech Stack */}
         <div className="bg-white rounded-xl border p-6 mb-8">
           <h3 className="font-semibold text-gray-900 mb-4 text-center">Your Tech Stack</h3>

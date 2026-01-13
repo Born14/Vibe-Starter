@@ -211,15 +211,32 @@ Includes:
 ## 🛠️ Code Changes Made
 
 ### Updated Files:
-- **src/app/setup/wizard/steps/DeployStep.tsx**
-  - New success screen messaging
-  - Shows example features users can build
-  - Clear Quick Start Guide with 5 steps
-  - Mobile-aware (mentions Claude mobile, Cursor, etc.)
-  - Collapsed "laptop workflow" section
-  - Direct link to PROMPT.md
 
-**Why this matters:** Users now see WHAT they can build (not just HOW to build)
+**src/app/setup/wizard/steps/DeployStep.tsx**
+- Added "Your Full Stack:" section explaining Frontend/Backend/Database components
+- Added "Why This Stack?" section highlighting production-ready, scalability, and cost benefits
+- Purchase validation and confidence-building for new deployments
+- Clear Quick Start Guide with 5 steps
+- Mobile-aware (mentions Claude mobile, Cursor, etc.)
+- Direct link to PROMPT.md
+
+**src/app/api/deploy/route.ts (Dashboard Template)**
+- Added "Your Tech Stack" section with technical details (Next.js, Drizzle, Postgres)
+- Added "What This Means for You" section emphasizing capability and ownership
+- Replaced prescriptive examples with confident "What do you want to build?" CTA
+- Ownership-focused messaging for deployed sites
+
+**src/app/page.tsx (Landing Page)**
+- Added "Why This Stack?" section under stack grid
+- Pre-purchase trust-building with production-ready, scalability, cost, and no lock-in messaging
+- Four key benefits to address common concerns
+
+**Why this matters:**
+- First-time users understand what Frontend/Backend/Database mean
+- Users see why this specific stack is valuable (not just what it is)
+- Three different framings for three different contexts (pre-purchase, post-purchase, ongoing ownership)
+- Reduces "What did I just buy?" support questions
+- Builds confidence without prescribing what to build
 
 ---
 

@@ -125,6 +125,87 @@ Your app is built on:
 
 ---
 
+## ✅ Currently Implemented Stack Education
+
+As of January 2026, we have stack education deployed in **three locations** with context-appropriate framing:
+
+### 1. Landing Page (Pre-Purchase)
+**File:** `src/app/page.tsx`
+**Section:** "Why this stack?" under the stack grid
+**Tone:** Trust-building and risk reduction
+
+**What it teaches:**
+- **Production-ready from day one:** Not beginner tools—powers real companies at scale
+- **No rewrites as you grow:** Start with 10 users, scale to 100K+ on same infrastructure
+- **Free to start, fair to scale:** Generous free tiers, build and test without costs
+- **No lock-in:** Open standards, can migrate anytime (but won't need to)
+
+**Purpose:** Addresses pre-purchase concerns, builds confidence in stack choice, reduces buying friction
+
+**Status:** ✅ Implemented (Layer 1 - Understanding for pre-purchase audience)
+
+---
+
+### 2. Wizard Success Screen (Post-Purchase)
+**File:** `src/app/setup/wizard/steps/DeployStep.tsx`
+**Sections:** "Your Full Stack:" and "Why This Stack?"
+**Tone:** Educational and validating
+
+**What it teaches:**
+- **Frontend (UI):** What users see and click → Hosted on Vercel
+- **Backend (Logic):** Handles requests and business logic → Runs on Vercel
+- **Database (Storage):** Stores user data permanently → Lives in Neon
+- **Why these choices:** Production-ready (Fortune 500s), scalable (1M+ users), cost-effective (free tiers)
+
+**Purpose:**
+- First-time education on what Frontend/Backend/Database mean
+- Purchase validation ("You made the right choice")
+- Confidence building for next steps
+
+**Status:** ✅ Implemented (Layer 1 - Understanding at moment of deployment success)
+
+---
+
+### 3. Deployed Dashboard (Ongoing Ownership)
+**File:** `src/app/api/deploy/route.ts` (template pushed to deployed repos)
+**Sections:** "Your Tech Stack" and "What This Means for You"
+**Tone:** Confident and empowering
+
+**What it teaches:**
+- **Frontend:** Next.js UI components → Instantly deployed via Vercel
+- **Backend:** API routes + business logic → Serverless functions on Vercel
+- **Database:** Postgres with Drizzle ORM → Neon serverless database
+- **Capability focus:**
+  - Build real products (not a toy stack)
+  - No rewrites later (scales to 100K users)
+  - Free until you profit (no server costs while building)
+
+**Purpose:**
+- Reinforces ownership without feeling like sales messaging
+- Empowers users to build confidently
+- Reference for returning users or team members joining later
+
+**Status:** ✅ Implemented (Layer 2 - Operating, with emphasis on capability)
+
+---
+
+### Implementation Notes
+
+**What works well:**
+- Three different framings for three different user states (pre-purchase, post-purchase, ongoing)
+- Consistent messaging about stack value without feeling repetitive
+- No prescriptive examples in dashboard (respects Vibe Starter's ownership philosophy)
+
+**What's next:**
+- In-wizard step-by-step explanations (Layer 1 expansion - see "In the Wizard" section below)
+- Common tasks guides in dashboard (Layer 2 expansion - see "In the Dashboard" section below)
+- "How to Migrate Away" guide (Layer 3 - Independence)
+
+**Key insight from implementation:**
+Users need different messaging at different stages. The landing page builds trust, the wizard validates the purchase, and the dashboard empowers action. Don't use the same copy everywhere—adapt tone to user state.
+
+---
+
 ### Layer 3: Independence (Advanced)
 
 **Goal:** User can migrate, customize, or operate completely independently

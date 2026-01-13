@@ -1,5 +1,26 @@
 # Claude Code Context for Vibe Starter
 
+## Stack Education Implementation
+
+We have stack education in three places with context-appropriate framing:
+
+1. **Landing page** (`src/app/page.tsx`) - Pre-purchase trust building
+   - "Why this stack?" section under stack grid
+   - Focus: Production-ready, scalable, cost-effective, no lock-in
+   - Purpose: Address buying concerns, build confidence
+
+2. **Wizard success** (`src/app/setup/wizard/steps/DeployStep.tsx`) - Post-purchase validation
+   - "Your Full Stack:" explains Frontend/Backend/Database
+   - "Why This Stack?" validates purchase decision
+   - Purpose: First-time education + confidence building
+
+3. **Deployed dashboard** (`src/app/api/deploy/route.ts` template) - Ownership empowerment
+   - "Your Tech Stack" with technical details
+   - "What This Means for You" emphasizes capability
+   - Purpose: Ongoing reference without prescriptive examples
+
+All three explain Frontend/Backend/Database but with audience-appropriate tone and messaging.
+
 ## License Key Format
 
 **IMPORTANT**: License keys must use HEX characters only (0-9, A-F).

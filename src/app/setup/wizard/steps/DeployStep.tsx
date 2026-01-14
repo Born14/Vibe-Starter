@@ -273,7 +273,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
               </li>
               <li className="flex gap-2">
                 <span className="text-emerald-400 font-bold">5.</span>
-                <span>AI writes and commits the code → your site updates! 🎉</span>
+                <span>Build with AI → commit → your site updates! 🎉</span>
               </li>
             </ol>
           </div>

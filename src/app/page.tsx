@@ -22,13 +22,13 @@ export default function Home() {
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6">
-            Deploy your app in 20 minutes.
-            <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
               Own your stack.
             </span>
             <br />
-            Ship from anywhere.
+            Build with AI. Ship from anywhere.
+            <br />
+            From Prompt To Production.
           </h1>
 
           <p className="text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">

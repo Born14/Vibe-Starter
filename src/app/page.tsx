@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { WaitlistForm } from "@/components/WaitlistForm";
 
 export default function Home() {
   return (
@@ -17,10 +18,10 @@ export default function Home() {
               Have a license key?
             </Link>
             <Link
-              href="#pricing"
+              href="#waitlist"
               className="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-emerald-400 transition-colors"
             >
-              Get Started
+              Join Waitlist
             </Link>
           </div>
         </div>
@@ -47,10 +48,10 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="#pricing"
+              href="#waitlist"
               className="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-emerald-400 transition-all hover:scale-105"
             >
-              Get Started — $39
+              Join Waitlist — $39
             </Link>
             <Link
               href="#how-it-works"
@@ -61,7 +62,7 @@ export default function Home() {
           </div>
 
           <p className="mt-6 text-sm text-white/40">
-            One-time payment. No subscription. You own everything.
+            Launching soon · One-time payment · No subscription
           </p>
 
           <p className="mt-3 text-sm text-white/50">
@@ -300,16 +301,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="py-20 px-6">
+      {/* Waitlist / Pricing */}
+      <section id="waitlist" className="py-20 px-6">
         <div className="max-w-xl mx-auto">
           <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/20 rounded-3xl p-8 text-center">
             <div className="inline-block bg-emerald-400/20 text-emerald-400 text-sm font-semibold px-3 py-1 rounded-full mb-6">
-              ONE-TIME PAYMENT
+              LAUNCHING SOON
             </div>
 
             <div className="text-6xl font-bold mb-2">$39</div>
-            <p className="text-white/60 mb-8">Everything you need to go live</p>
+            <p className="text-white/60 mb-8">One-time payment · Everything you need to go live</p>
 
             <ul className="text-left space-y-3 mb-8">
               {[
@@ -328,17 +329,16 @@ export default function Home() {
               ))}
             </ul>
 
-            <a
-              href="https://gumroad.com/l/vibestarter"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-emerald-400 transition-all hover:scale-105"
-            >
-              Get Started Now
-            </a>
+            <div className="mb-6">
+              <WaitlistForm
+                variant="button"
+                buttonText="Join Waitlist"
+                buttonClassName="w-full bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-emerald-400 transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+              />
+            </div>
 
             <p className="mt-4 text-sm text-white/40">
-              Secure payment via Gumroad
+              Get notified when we launch · Early giveaways happening now on social media
             </p>
 
             <p className="mt-3 text-sm text-white/50">
@@ -408,10 +408,10 @@ export default function Home() {
             20 minutes from now, you could have a live app.
           </p>
           <Link
-            href="#pricing"
+            href="#waitlist"
             className="inline-block bg-white text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-emerald-400 transition-all hover:scale-105"
           >
-            Get Started — $39
+            Join Waitlist — $39
           </Link>
         </div>
       </section>

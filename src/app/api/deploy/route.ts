@@ -340,7 +340,7 @@ async function updateDeploymentStep(deploymentId: string, step: number) {
     .where(eq(deployments.id, deploymentId));
 }
 
-function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean): { path: string; content: string }[] {
+function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean, repoFullName: string): { path: string; content: string }[] {
   const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : aiProvider === "openai" ? "OPENAI_API_KEY" : "ANTHROPIC_API_KEY";
 
   return [
@@ -901,24 +901,32 @@ export default async function DashboardPage() {
             </p>
             <div className="space-y-2">
               <a
-                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`vscode://vscode.git/clone?url=https://github.com/\${process.env.NEXT_PUBLIC_GITHUB_REPO}.git\` : '#'}"
+                href="vscode://vscode.git/clone?url=https://github.com/${repoFullName}.git"
                 className="block w-full text-center bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
               >
                 Open in VS Code
               </a>
               <a
-                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`cursor://clone?url=https://github.com/\${process.env.NEXT_PUBLIC_GITHUB_REPO}.git\` : '#'}"
+                href="cursor://clone?url=https://github.com/${repoFullName}.git"
                 className="block w-full text-center bg-black text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
               >
                 Open in Cursor
               </a>
               <a
-                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`https://github.dev/\${process.env.NEXT_PUBLIC_GITHUB_REPO}\` : '#'}"
+                href="https://github.dev/${repoFullName}"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center border-2 border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:border-gray-400 transition-colors"
               >
                 Open in Browser IDE
+              </a>
+              <a
+                href="https://idx.google.com/import?url=https://github.com/${repoFullName}"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:from-blue-600 hover:to-purple-700 transition-colors"
+              >
+                Open in Google IDX
               </a>
             </div>
             <p className="text-xs text-gray-500 mt-3 text-center">
@@ -1186,7 +1194,7 @@ npm run db:studio  # Open database UI
 }
 
 async function pushTemplateCode(githubToken: string, repoFullName: string, appName: string, aiProvider: string, hasAI: boolean) {
-  const files = getTemplateFiles(appName, aiProvider, hasAI);
+  const files = getTemplateFiles(appName, aiProvider, hasAI, repoFullName);
 
   // For empty repos, we need to use the Contents API to create the first file
   // This initializes the repo with a commit, then we can use Git Data API for the rest

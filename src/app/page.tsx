@@ -28,7 +28,9 @@ export default function Home() {
             <br />
             Build with AI. Ship from anywhere.
             <br />
-            From Prompt To Production.
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+              From Prompt To Production.
+            </span>
           </h1>
 
           <p className="text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">

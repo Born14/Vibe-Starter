@@ -51,7 +51,7 @@ export default function Home() {
               href="#waitlist"
               className="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-emerald-400 transition-all hover:scale-105"
             >
-              Join Waitlist — $39
+              Join Waitlist
             </Link>
             <Link
               href="#how-it-works"
@@ -411,7 +411,7 @@ export default function Home() {
             href="#waitlist"
             className="inline-block bg-white text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-emerald-400 transition-all hover:scale-105"
           >
-            Join Waitlist — $39
+            Join Waitlist
           </Link>
         </div>
       </section>

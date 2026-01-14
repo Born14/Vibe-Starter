@@ -9,12 +9,20 @@ export default function Home() {
           <div className="text-xl font-bold tracking-tight">
             vibe<span className="text-emerald-400">starter</span>
           </div>
-          <Link
-            href="#pricing"
-            className="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-emerald-400 transition-colors"
-          >
-            Get Started
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/setup"
+              className="text-sm text-white/60 hover:text-white transition-colors"
+            >
+              Have a license key?
+            </Link>
+            <Link
+              href="#pricing"
+              className="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-emerald-400 transition-colors"
+            >
+              Get Started
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -54,6 +62,13 @@ export default function Home() {
 
           <p className="mt-6 text-sm text-white/40">
             One-time payment. No subscription. You own everything.
+          </p>
+
+          <p className="mt-3 text-sm text-white/50">
+            Already have a license key?{" "}
+            <Link href="/setup" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2">
+              Click here to get started
+            </Link>
           </p>
         </div>
       </section>
@@ -324,6 +339,13 @@ export default function Home() {
 
             <p className="mt-4 text-sm text-white/40">
               Secure payment via Gumroad
+            </p>
+
+            <p className="mt-3 text-sm text-white/50">
+              Already have a license key?{" "}
+              <Link href="/setup" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2">
+                Start setup here
+              </Link>
             </p>
           </div>
         </div>

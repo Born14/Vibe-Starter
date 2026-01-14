@@ -16,7 +16,7 @@ export default function EducationPage() {
             <Link href="/#pricing" className="text-sm text-white/70 hover:text-white transition">
               Pricing
             </Link>
-            <Link href="/setup" className="text-sm bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition">
+            <Link href="/setup" className="text-sm bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition">
               Get Started
             </Link>
           </nav>
@@ -29,7 +29,7 @@ export default function EducationPage() {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
             Build Features. From Your Phone.
             <br />
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
               In 5 Simple Steps.
             </span>
           </h1>
@@ -46,7 +46,7 @@ export default function EducationPage() {
           {/* Section 1: The Simple Way */}
           <Section title="Start Building (The Simple Way)" id="getting-started">
 
-            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-8 mb-8">
+            <div className="bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 rounded-2xl p-8 mb-8">
               <h3 className="text-2xl font-semibold text-white mb-6 text-center">
                 The 5-Step Loop
               </h3>
@@ -59,7 +59,7 @@ export default function EducationPage() {
                   { num: "5", text: "Merge the PR", detail: "Your site updates automatically (1-2 min)" },
                 ].map((step) => (
                   <div key={step.num} className="flex gap-4 items-start">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/30 border border-purple-500/50 flex items-center justify-center text-purple-300 font-bold text-lg">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500/30 border border-emerald-500/50 flex items-center justify-center text-emerald-300 font-bold text-lg">
                       {step.num}
                     </div>
                     <div className="flex-1">
@@ -84,7 +84,7 @@ export default function EducationPage() {
                 <p className="text-white/70 mb-4">
                   After your wizard completes, try building this:
                 </p>
-                <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 mb-4">
+                <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4 mb-4">
                   <p className="text-sm text-white/50 mb-2">Say to Claude:</p>
                   <p className="text-white font-medium">
                     &quot;Add a /notes page where users can create, view, and delete their notes. Save them to the database.&quot;
@@ -113,7 +113,7 @@ export default function EducationPage() {
                   "File upload and storage",
                 ].map((feature, i) => (
                   <div key={i} className="bg-white/5 border border-white/10 rounded-lg p-4 flex items-start gap-3">
-                    <span className="text-purple-400">✓</span>
+                    <span className="text-emerald-400">✓</span>
                     <span className="text-white/80">{feature}</span>
                   </div>
                 ))}
@@ -186,7 +186,7 @@ export default function EducationPage() {
                 </div>
               </div>
 
-              <div className="mt-6 bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 text-sm">
+              <div className="mt-6 bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4 text-sm">
                 <strong className="text-white">Pro tip:</strong>
                 <span className="text-white/70"> Bookmark your Vercel project URL for quick access when debugging.</span>
               </div>
@@ -220,13 +220,13 @@ export default function EducationPage() {
                       <tr key={i} className="border-b border-white/5">
                         <td className="py-3 px-4 font-semibold text-white">{row.service}</td>
                         <td className="py-3 px-4">{row.role}</td>
-                        <td className="py-3 px-4 text-purple-400">{row.link}</td>
+                        <td className="py-3 px-4 text-emerald-400">{row.link}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <div className="mt-6 bg-purple-500/10 border border-purple-500/20 rounded-lg p-4 text-sm text-white/70">
+              <div className="mt-6 bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4 text-sm text-white/70">
                 <strong className="text-white">Why this matters:</strong> You own everything. No lock-in. You can export your code and move to different services anytime.
               </div>
             </Subsection>
@@ -244,7 +244,7 @@ export default function EducationPage() {
                   </ul>
                 </div>
 
-                <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-6">
+                <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-6">
                   <h4 className="text-lg font-semibold text-white mb-2">Backend</h4>
                   <p className="text-sm text-white/60 mb-3">Business logic</p>
                   <ul className="space-y-1 text-sm text-white/70">
@@ -303,7 +303,7 @@ export default function EducationPage() {
                     desc: "You own all the accounts. Export your code anytime. Switch services if you want. Full control.",
                   },
                 ].map((item, i) => (
-                  <div key={i} className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl p-6">
+                  <div key={i} className="bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 rounded-xl p-6">
                     <h4 className="text-white font-semibold text-lg mb-2">{item.title}</h4>
                     <p className="text-white/70">{item.desc}</p>
                   </div>
@@ -331,31 +331,31 @@ export default function EducationPage() {
                 </p>
                 <ol className="space-y-3 ml-4">
                   <li className="flex gap-3">
-                    <span className="text-purple-400 font-semibold">1.</span>
+                    <span className="text-emerald-400 font-semibold">1.</span>
                     <span>Open your GitHub repo</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-purple-400 font-semibold">2.</span>
+                    <span className="text-emerald-400 font-semibold">2.</span>
                     <span>Find and open <code className="bg-white/10 px-2 py-0.5 rounded">PROMPT.md</code></span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-purple-400 font-semibold">3.</span>
+                    <span className="text-emerald-400 font-semibold">3.</span>
                     <span>Copy the entire contents</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-purple-400 font-semibold">4.</span>
+                    <span className="text-emerald-400 font-semibold">4.</span>
                     <span>Paste it into ChatGPT/Gemini</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-purple-400 font-semibold">5.</span>
+                    <span className="text-emerald-400 font-semibold">5.</span>
                     <span>Then ask for what you want to build</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-purple-400 font-semibold">6.</span>
+                    <span className="text-emerald-400 font-semibold">6.</span>
                     <span>Copy the generated code back to your repo</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-purple-400 font-semibold">7.</span>
+                    <span className="text-emerald-400 font-semibold">7.</span>
                     <span>Commit and push</span>
                   </li>
                 </ol>
@@ -398,7 +398,7 @@ export default function EducationPage() {
                   <li>• File structure</li>
                   <li>• How to build features</li>
                 </ul>
-                <div className="mt-6 bg-purple-500/10 border border-purple-500/20 rounded-lg p-4">
+                <div className="mt-6 bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4">
                   <p className="text-white text-sm">
                     <strong>With Claude Code mobile:</strong> You don&apos;t need to copy PROMPT.md. Claude reads your repo directly.
                   </p>
@@ -479,7 +479,7 @@ export default function EducationPage() {
             <Subsection title="Mobile vs Laptop: When to Use Each">
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Mobile */}
-                <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-6">
+                <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-6">
                   <h4 className="text-lg font-semibold text-white mb-4">📱 Use Mobile When:</h4>
                   <div className="space-y-2 text-sm text-white/70">
                     <div>• Adding simple features</div>
@@ -515,7 +515,7 @@ export default function EducationPage() {
 
         {/* Footer CTA */}
         <div className="mt-24 text-center">
-          <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-12">
+          <div className="bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 rounded-2xl p-12">
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready to Start Building?
             </h2>
@@ -524,7 +524,7 @@ export default function EducationPage() {
             </p>
             <Link
               href="/setup"
-              className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition text-lg"
+              className="inline-block bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition text-lg"
             >
               Start Building Now → $39
             </Link>

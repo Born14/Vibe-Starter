@@ -426,7 +426,7 @@ export default function Home() {
             <a href="/education" className="hover:text-white transition-colors">
               Education
             </a>
-            <a href="mailto:support@vibestarter.app" className="hover:text-white transition-colors">
+            <a href="mailto:support@vibestarter.net" className="hover:text-white transition-colors">
               Support
             </a>
             <a href="/privacy" className="hover:text-white transition-colors">

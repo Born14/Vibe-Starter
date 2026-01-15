@@ -1147,7 +1147,7 @@ items: {
       path: "README.md",
       content: `# ${appName}
 
-Created with [Vibe Starter](https://vibestarter.app)
+Created with [Vibe Starter](https://vibestarter.net)
 
 ## Your app is live!
 

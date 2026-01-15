@@ -19,6 +19,7 @@ export const deployments = pgTable("deployments", {
   appName: text("app_name").notNull(),
   githubRepo: text("github_repo"),
   vercelProject: text("vercel_project"),
+  appUrl: text("app_url"), // Store actual Vercel URL on success
   status: text("status").default("pending").notNull(), // pending, deploying, success, failed
   error: text("error"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

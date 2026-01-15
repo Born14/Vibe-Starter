@@ -101,8 +101,8 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
               <li>Click &quot;Open Neon&quot; below</li>
               <li>Sign up with GitHub (one click!)</li>
               <li>Click &quot;Create Project&quot;</li>
-              <li>Copy the connection string from your Neon dashboard</li>
-              <li>Paste it below — we&apos;ll handle any extra formatting!</li>
+              <li>Find the &quot;Connect to your database&quot; box and click &quot;Connect&quot;</li>
+              <li>Copy the connection string and paste it below — we&apos;ll handle the formatting!</li>
             </ol>
           </div>
 
@@ -148,8 +148,8 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
       {/* Help */}
       <div className="mt-8 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
         <p className="text-blue-400 text-sm">
-          <strong>Tip:</strong> In Neon, click your project, then find
-          &quot;Connection string&quot; on the dashboard. Make sure to select &quot;Pooled&quot; connection.
+          <strong>Tip:</strong> On your Neon project dashboard, look for the big &quot;Connect to your database&quot; box.
+          Click the &quot;Connect&quot; button, then make sure &quot;Pooled connection&quot; is selected.
           You can paste the entire <code className="px-1 py-0.5 bg-blue-500/20 rounded">psql</code> command
           or just the connection string — we&apos;ll clean it up automatically!
         </p>

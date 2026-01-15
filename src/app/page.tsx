@@ -36,8 +36,8 @@ export default function Home() {
           </h1>
 
           <p className="text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-            I built 65% of this site from my phone using Claude. One-click deploy from GitHub to production.
-            Real database. Real auth. Real apps. This is what&apos;s possible now.
+            I built this from my phone using Claude. One-click deploy from GitHub to production.
+            Real database. Real auth. Real apps. This wasn&apos;t possible before. Now it is.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -65,11 +65,11 @@ export default function Home() {
       <section className="py-20 px-6 bg-gradient-to-b from-orange-500/5 to-transparent">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold text-center mb-6">
-            This changes everything
+            A new era of building
           </h2>
           <p className="text-white/70 text-center mb-16 text-lg max-w-2xl mx-auto">
-            For two years I&apos;ve wanted to build from my phone. Now I can ship production code from anywhere.
-            Coffee shop. Couch. Waiting in line. Doesn&apos;t matter.
+            Ship production code from anywhere. Coffee shop. Couch. Waiting in line.
+            AI writes the code. You describe what you want. It deploys automatically.
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -166,7 +166,7 @@ export default function Home() {
             Why Claude makes this work
           </h2>
           <p className="text-white/70 text-center mb-12 text-lg">
-            I&apos;ve been using Claude for 2 years. The results have been incredible.
+            Claude isn&apos;t just an AI that writes code. It&apos;s your complete development environment.
           </p>
 
           <div className="space-y-6">
@@ -272,15 +272,15 @@ export default function Home() {
       <section id="get-started" className="py-20 px-6 bg-gradient-to-b from-orange-500/5 to-transparent">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to build from anywhere?
+            Let&apos;s build something
           </h2>
           <p className="text-white/70 mb-12 text-lg">
-            This is free. No catch. Just email me for a license key.
+            Free. Email for a license key and get started.
           </p>
 
           <div className="bg-white/5 border border-orange-500/20 rounded-2xl p-8">
             <div className="text-6xl font-bold mb-3 text-orange-400">Free</div>
-            <p className="text-white/60 mb-8">Use it. Build cool things. Have fun.</p>
+            <p className="text-white/60 mb-8">Use it. Build from anywhere. Have fun.</p>
 
             <ul className="text-left space-y-3 mb-8">
               {[
@@ -314,25 +314,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Free */}
+      {/* Trust & Security */}
       <section className="py-20 px-6">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
-            Why is this free?
+            Your stuff. Your accounts. Your code.
           </h2>
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-            <p className="text-white/70 mb-4 leading-relaxed">
-              I built this because I wanted to build from my phone. I&apos;m tired of thinking about making money.
-              I just want to build cool things and help other people do the same.
+            <p className="text-white/70 mb-6 leading-relaxed text-center">
+              The wizard helps you create and connect YOUR OWN accounts.
+              GitHub, Vercel, Clerk, Neon - all in your name. All your control.
             </p>
-            <p className="text-white/70 mb-4 leading-relaxed">
-              This wizard saves me time. I don&apos;t have to set up GitHub repos, environment variables,
-              database connections every time I start a new project. It&apos;s amazing to go from idea to deployed app in 20 minutes.
-            </p>
-            <p className="text-white/70 leading-relaxed">
-              If you see value in building from your phone with Claude, if you want that one-click deploy workflow,
-              if you love this stack... use it. Build something cool. That&apos;s enough for me.
-            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-black/40 rounded-lg p-4">
+                <h3 className="font-semibold mb-2 text-orange-400">What the wizard does:</h3>
+                <ul className="text-sm text-white/70 space-y-2">
+                  <li>→ Guides you through account creation</li>
+                  <li>→ Creates your GitHub repo</li>
+                  <li>→ Connects your services</li>
+                  <li>→ Deploys your starter app</li>
+                </ul>
+              </div>
+              <div className="bg-black/40 rounded-lg p-4">
+                <h3 className="font-semibold mb-2 text-emerald-400">What I never see:</h3>
+                <ul className="text-sm text-white/70 space-y-2">
+                  <li>→ Your API keys</li>
+                  <li>→ Your database data</li>
+                  <li>→ Your repo code</li>
+                  <li>→ Your user information</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -360,7 +372,7 @@ export default function Home() {
               },
               {
                 q: "What about my API keys and data?",
-                a: "You create YOUR OWN accounts (GitHub, Vercel, Clerk, Neon). The wizard just helps you connect them. I never see your keys or access your data.",
+                a: "You create your own accounts. The wizard helps you connect them. Everything stays in your accounts - GitHub, Vercel, Clerk, Neon. Your keys, your data, your control.",
               },
               {
                 q: "Are there monthly costs?",
@@ -388,14 +400,16 @@ export default function Home() {
       <section className="py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Stop waiting for your laptop.
+            Build anywhere.
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400">
-              Build from anywhere with Claude.
+              Deploy automatically.
             </span>
+            <br />
+            Ship real apps.
           </h2>
           <p className="text-xl text-white/60 mb-10">
-            Email for your license key. Get started today.
+            Email for a license key. Start building.
           </p>
           <a
             href="mailto:support@vibestarter.app?subject=License Key Request"

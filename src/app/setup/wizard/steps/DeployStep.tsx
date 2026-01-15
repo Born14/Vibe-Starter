@@ -194,13 +194,31 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           </ul>
         </div>
 
-        {/* Security Confirmation */}
+        {/* Security Confirmation + Revoke Access */}
         <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-8 max-w-md mx-auto">
-          <p className="text-emerald-400 text-sm">
+          <p className="text-emerald-400 text-sm mb-3">
             <strong>✓ All temporary credentials deleted</strong>
             <br />
             Your API keys were used only during setup. We no longer have access.
           </p>
+          <div className="flex gap-4 justify-center pt-2 border-t border-emerald-400/20">
+            <a
+              href="https://github.com/settings/connections/applications"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-emerald-400/80 hover:text-emerald-400 underline"
+            >
+              Revoke GitHub
+            </a>
+            <a
+              href="https://vercel.com/dashboard/integrations"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-emerald-400/80 hover:text-emerald-400 underline"
+            >
+              Revoke Vercel
+            </a>
+          </div>
         </div>
 
         {/* Links */}
@@ -311,31 +329,6 @@ export default function DeployStep({ sessionId, session }: StepProps) {
               <p className="pt-2 text-xs text-white/50">Or use <a href={`https://github.dev/${deployResult.repoUrl.replace('https://github.com/', '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">github.dev</a> to edit in your browser (no install needed)</p>
             </div>
           </details>
-        </div>
-
-        {/* Revoke Access */}
-        <div className="mt-8 text-center">
-          <p className="text-sm text-white/40 mb-2">
-            Recommended: Revoke our access now that setup is complete
-          </p>
-          <div className="flex gap-3 justify-center">
-            <a
-              href="https://github.com/settings/connections/applications"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-white/60 hover:text-white underline"
-            >
-              Revoke GitHub Access
-            </a>
-            <a
-              href="https://vercel.com/dashboard/integrations"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-white/60 hover:text-white underline"
-            >
-              Revoke Vercel Access
-            </a>
-          </div>
         </div>
       </div>
     );

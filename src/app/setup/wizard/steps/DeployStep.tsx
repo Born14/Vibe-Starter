@@ -17,7 +17,7 @@ const DEPLOY_STEPS = [
   { id: 3, label: "Connecting to Vercel" },
   { id: 4, label: "Setting up environment variables" },
   { id: 5, label: "Triggering deployment" },
-  { id: 6, label: "Building your app", sublabel: "This takes 1-2 minutes..." },
+  { id: 6, label: "Building your app", sublabel: "This takes 3-5 minutes..." },
   { id: 7, label: "Going live!" },
 ];
 
@@ -52,7 +52,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
 
       // Poll for status
       let attempts = 0;
-      const maxAttempts = 90; // 3 minutes max (Vercel builds can take a while)
+      const maxAttempts = 180; // 6 minutes max (Vercel builds can take 3-5 minutes, especially under load)
 
       while (attempts < maxAttempts) {
         await new Promise((resolve) => setTimeout(resolve, 2000));

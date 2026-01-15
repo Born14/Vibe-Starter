@@ -3,12 +3,27 @@ import { db } from "@/lib/db";
 import { wizardSessions, deployments, licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { decrypt } from "@/lib/encryption";
+import { rateLimiters, getClientIp } from "@/lib/redis";
 
 // Reduced timeout since we return early and let frontend poll Vercel
 export const maxDuration = 30;
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting: 3 deploys per hour per IP
+    const ip = getClientIp(request);
+    const { success, reset } = await rateLimiters.deploy.limit(ip);
+
+    if (!success) {
+      const resetDate = new Date(reset);
+      return NextResponse.json(
+        {
+          error: `Deployment rate limit exceeded. You can deploy again after ${resetDate.toLocaleTimeString()}`,
+        },
+        { status: 429 }
+      );
+    }
+
     const { sessionId } = await request.json();
 
     if (!sessionId) {

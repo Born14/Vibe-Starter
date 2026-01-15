@@ -363,7 +363,7 @@ function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean, r
           "@clerk/nextjs": "^5.7.0",
           "@neondatabase/serverless": "^0.10.0",
           "drizzle-orm": "^0.36.0",
-          next: "15.2.6",
+          next: "15.2.8",
           react: "^18.3.1",
           "react-dom": "^18.3.1",
         },

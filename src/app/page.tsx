@@ -177,6 +177,148 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Security & Ownership */}
+      <section className="py-20 px-6 bg-gradient-to-b from-black to-white/5">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            &quot;Why would I trust a stranger with my API keys?&quot;
+          </h2>
+          <p className="text-white/60 text-center mb-12 text-lg">
+            You don&apos;t. That&apos;s the whole point. 🔒
+          </p>
+
+          {/* Visual Architecture Diagram */}
+          <div className="bg-black border border-emerald-500/30 rounded-2xl p-8 mb-12 font-mono text-sm">
+            <div className="text-emerald-400 font-semibold mb-6 text-center">YOUR ARCHITECTURE (YOU OWN EVERYTHING)</div>
+            <div className="space-y-6 text-white/70">
+              <div className="flex items-center justify-center gap-4 flex-wrap">
+                <div className="border border-white/20 rounded px-4 py-2 text-center min-w-[140px]">
+                  <div className="text-emerald-400 text-xs mb-1">YOUR ACCOUNT</div>
+                  <div>GitHub</div>
+                </div>
+                <span className="text-white/40">→</span>
+                <div className="border border-white/20 rounded px-4 py-2 text-center min-w-[140px]">
+                  <div className="text-emerald-400 text-xs mb-1">YOUR ACCOUNT</div>
+                  <div>Vercel</div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-center gap-4 flex-wrap">
+                <div className="border border-white/20 rounded px-4 py-2 text-center min-w-[140px]">
+                  <div className="text-emerald-400 text-xs mb-1">YOUR ACCOUNT</div>
+                  <div>Clerk</div>
+                </div>
+                <span className="text-white/40">→</span>
+                <div className="border border-white/20 rounded px-4 py-2 text-center min-w-[140px]">
+                  <div className="text-emerald-400 text-xs mb-1">YOUR ACCOUNT</div>
+                  <div>Neon</div>
+                </div>
+              </div>
+
+              <div className="text-center text-white/40 text-xs pt-4">
+                ↑ Vibe Starter wizard helps connect these (one time) ↑
+              </div>
+            </div>
+          </div>
+
+          {/* Explanation Cards */}
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-4 text-emerald-400">✓ What Vibe Starter Does</h3>
+              <ul className="space-y-3 text-white/70 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-0.5">→</span>
+                  <span>Guides you through official OAuth flows</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-0.5">→</span>
+                  <span>Clicks buttons in YOUR accounts for you</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-0.5">→</span>
+                  <span>Connects your services together (one time)</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-emerald-400 mt-0.5">→</span>
+                  <span>Then disappears — you own everything</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-4 text-red-400">✗ What Vibe Starter NEVER Does</h3>
+              <ul className="space-y-3 text-white/70 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 mt-0.5">→</span>
+                  <span>Store your API keys or credentials</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 mt-0.5">→</span>
+                  <span>Access your accounts after setup</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 mt-0.5">→</span>
+                  <span>Host your code or database</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-red-400 mt-0.5">→</span>
+                  <span>Charge you monthly subscription fees</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-2 text-sm">
+              <div className="p-4 border-b border-white/10 font-semibold">
+                Platforms like Bolt, v0, Replit
+              </div>
+              <div className="p-4 border-b border-white/10 font-semibold bg-emerald-500/10">
+                Vibe Starter
+              </div>
+
+              <div className="p-4 border-b border-r border-white/10 text-white/60">
+                <span className="text-red-400">✗</span> Code lives on their servers
+              </div>
+              <div className="p-4 border-b border-white/10 bg-emerald-500/5">
+                <span className="text-emerald-400">✓</span> Code on YOUR GitHub
+              </div>
+
+              <div className="p-4 border-b border-r border-white/10 text-white/60">
+                <span className="text-red-400">✗</span> Database on their infrastructure
+              </div>
+              <div className="p-4 border-b border-white/10 bg-emerald-500/5">
+                <span className="text-emerald-400">✓</span> Database on YOUR Neon account
+              </div>
+
+              <div className="p-4 border-b border-r border-white/10 text-white/60">
+                <span className="text-red-400">✗</span> Locked into their platform
+              </div>
+              <div className="p-4 border-b border-white/10 bg-emerald-500/5">
+                <span className="text-emerald-400">✓</span> Delete our wizard, keep building
+              </div>
+
+              <div className="p-4 border-r border-white/10 text-white/60">
+                <span className="text-red-400">✗</span> Monthly fees forever
+              </div>
+              <div className="p-4 bg-emerald-500/5">
+                <span className="text-emerald-400">✓</span> One-time $39, build forever
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-white/80 text-lg mb-2">
+              Think of Vibe Starter as a <strong>setup guide that clicks buttons for you.</strong>
+            </p>
+            <p className="text-white/60">
+              After setup, we literally can&apos;t access your stuff even if we wanted to. You own the accounts, you have the keys.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* What You Get */}
       <section className="py-20 px-6 bg-white/5">
         <div className="max-w-4xl mx-auto">
@@ -360,6 +502,10 @@ export default function Home() {
 
           <div className="space-y-6">
             {[
+              {
+                q: "Why should I trust you with my API keys and credentials?",
+                a: "You shouldn't — and you don't have to. You create accounts at GitHub, Vercel, Clerk, and Neon. You own them all. The wizard walks you through connecting YOUR accounts using THEIR official OAuth flows. We never see your keys. They never touch our servers. After setup, we literally can't access your accounts even if we wanted to. Compare this to platforms like Bolt or v0 where your code and database live on their infrastructure.",
+              },
               {
                 q: "Do I need to know how to code?",
                 a: "No. You need to click buttons, copy/paste, and describe what you want to your AI (Claude, Gemini, or ChatGPT). That's it.",

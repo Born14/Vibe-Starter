@@ -98,10 +98,11 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
           <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
             <h4 className="font-semibold mb-3">Quick Steps:</h4>
             <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside">
-              <li>Click &quot;Open Clerk&quot; below to create an account</li>
-              <li>Click <strong>&quot;Create Application&quot;</strong> and name it (e.g., &quot;My App&quot;)</li>
-              <li>Click <strong>&quot;Configure&quot;</strong> at the top of the page</li>
-              <li>Scroll down to find <strong>&quot;API Keys&quot;</strong></li>
+              <li>Click &quot;Open Clerk&quot; below to create an account (if needed)</li>
+              <li><strong>Create a new application</strong> - Click <strong>&quot;+ Create Application&quot;</strong> and give it a name (e.g., &quot;My App&quot;)</li>
+              <li>Once created, click <strong>&quot;Configure&quot;</strong> in the top navigation</li>
+              <li>Select <strong>&quot;User & Authentication&quot;</strong> from the left sidebar</li>
+              <li>Click <strong>&quot;API Keys&quot;</strong> in the submenu</li>
               <li>Copy your <strong>Publishable Key</strong> and <strong>Secret Key</strong></li>
               <li>Paste them below</li>
             </ol>
@@ -161,8 +162,8 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
       {/* Help */}
       <div className="mt-8 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
         <p className="text-blue-400 text-sm">
-          <strong>Can&apos;t find the keys?</strong> After creating your app, click
-          &quot;Configure&quot; at the top, then scroll down to the &quot;API Keys&quot; section.
+          <strong>Can&apos;t find the keys?</strong> After creating your application, navigate to:
+          Configure → User & Authentication → API Keys
         </p>
       </div>
     </div>

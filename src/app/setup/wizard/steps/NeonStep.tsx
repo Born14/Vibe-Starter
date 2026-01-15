@@ -101,8 +101,8 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
               <li>Click &quot;Open Neon&quot; below</li>
               <li>Sign up with GitHub (one click!)</li>
               <li>Click &quot;Create Project&quot;</li>
-              <li>Copy the connection string (starts with postgresql://)</li>
-              <li>Paste it below</li>
+              <li>Copy the connection string from your Neon dashboard</li>
+              <li>Paste it below — we&apos;ll handle any extra formatting!</li>
             </ol>
           </div>
 
@@ -122,11 +122,11 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
                 type="text"
                 value={databaseUrl}
                 onChange={(e) => setDatabaseUrl(e.target.value)}
-                placeholder="postgresql://user:pass@...neon.tech/neondb"
+                placeholder="Paste your Neon connection string here..."
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
               />
               <p className="mt-2 text-xs text-white/40">
-                Found on your Neon dashboard after creating a project
+                Paste the full psql command or just the postgresql:// URL — both work!
               </p>
             </div>
 
@@ -150,6 +150,8 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
         <p className="text-blue-400 text-sm">
           <strong>Tip:</strong> In Neon, click your project, then find
           &quot;Connection string&quot; on the dashboard. Make sure to select &quot;Pooled&quot; connection.
+          You can paste the entire <code className="px-1 py-0.5 bg-blue-500/20 rounded">psql</code> command
+          or just the connection string — we&apos;ll clean it up automatically!
         </p>
       </div>
     </div>

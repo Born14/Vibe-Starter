@@ -320,7 +320,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           </p>
           <div className="flex gap-3 justify-center">
             <a
-              href="https://github.com/settings/applications"
+              href="https://github.com/settings/connections/applications"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-white/60 hover:text-white underline"
@@ -328,7 +328,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
               Revoke GitHub Access
             </a>
             <a
-              href="https://vercel.com/account/integrations"
+              href="https://vercel.com/dashboard/integrations"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-white/60 hover:text-white underline"

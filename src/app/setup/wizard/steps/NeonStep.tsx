@@ -26,8 +26,17 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
     setLoading(true);
 
     try {
-      // Clean up the URL - remove quotes and whitespace
-      const cleanUrl = databaseUrl.trim().replace(/^['"]|['"]$/g, '');
+      // Clean up the URL - handle multiple common paste formats
+      let cleanUrl = databaseUrl.trim();
+
+      // Remove 'psql' command prefix if present (e.g., "psql 'postgresql://...")
+      cleanUrl = cleanUrl.replace(/^psql\s+/, '');
+
+      // Remove leading and trailing quotes (single or double)
+      cleanUrl = cleanUrl.replace(/^['"]|['"]$/g, '');
+
+      // Remove any remaining whitespace
+      cleanUrl = cleanUrl.trim();
 
       // Validate format
       if (!cleanUrl.startsWith("postgresql://") || !cleanUrl.includes("neon.tech")) {

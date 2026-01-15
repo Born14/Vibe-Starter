@@ -19,7 +19,6 @@ export const deployments = pgTable("deployments", {
   appName: text("app_name").notNull(),
   githubRepo: text("github_repo"),
   vercelProject: text("vercel_project"),
-  appUrl: text("app_url"), // Store actual Vercel URL on success
   status: text("status").default("pending").notNull(), // pending, deploying, success, failed
   error: text("error"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -46,13 +45,6 @@ export const wizardSessions = pgTable("wizard_sessions", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-// Waitlist for pre-launch email capture
-export const waitlist = pgTable("waitlist", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  email: text("email").unique().notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-
 // Types for TypeScript
 export type LicenseKey = typeof licenseKeys.$inferSelect;
 export type NewLicenseKey = typeof licenseKeys.$inferInsert;
@@ -60,5 +52,3 @@ export type Deployment = typeof deployments.$inferSelect;
 export type NewDeployment = typeof deployments.$inferInsert;
 export type WizardSession = typeof wizardSessions.$inferSelect;
 export type NewWizardSession = typeof wizardSessions.$inferInsert;
-export type Waitlist = typeof waitlist.$inferSelect;
-export type NewWaitlist = typeof waitlist.$inferInsert;

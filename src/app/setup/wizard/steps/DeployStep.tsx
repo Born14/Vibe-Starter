@@ -17,7 +17,7 @@ const DEPLOY_STEPS = [
   { id: 3, label: "Connecting to Vercel" },
   { id: 4, label: "Setting up environment variables" },
   { id: 5, label: "Triggering deployment" },
-  { id: 6, label: "Building your app", sublabel: "This takes 3-5 minutes..." },
+  { id: 6, label: "Building your app", sublabel: "This takes 1-2 minutes..." },
   { id: 7, label: "Going live!" },
 ];
 
@@ -52,7 +52,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
 
       // Poll for status
       let attempts = 0;
-      const maxAttempts = 180; // 6 minutes max (Vercel builds can take 3-5 minutes, especially under load)
+      const maxAttempts = 90; // 3 minutes max (Vercel builds can take a while)
 
       while (attempts < maxAttempts) {
         await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -194,31 +194,13 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           </ul>
         </div>
 
-        {/* Security Confirmation + Revoke Access */}
+        {/* Security Confirmation */}
         <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-8 max-w-md mx-auto">
-          <p className="text-emerald-400 text-sm mb-3">
+          <p className="text-emerald-400 text-sm">
             <strong>✓ All temporary credentials deleted</strong>
             <br />
             Your API keys were used only during setup. We no longer have access.
           </p>
-          <div className="flex gap-4 justify-center pt-2 border-t border-emerald-400/20">
-            <a
-              href="https://github.com/settings/connections/applications"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-emerald-400/80 hover:text-emerald-400 underline"
-            >
-              Revoke GitHub
-            </a>
-            <a
-              href="https://vercel.com/dashboard/integrations"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-emerald-400/80 hover:text-emerald-400 underline"
-            >
-              Revoke Vercel
-            </a>
-          </div>
         </div>
 
         {/* Links */}
@@ -329,6 +311,31 @@ export default function DeployStep({ sessionId, session }: StepProps) {
               <p className="pt-2 text-xs text-white/50">Or use <a href={`https://github.dev/${deployResult.repoUrl.replace('https://github.com/', '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">github.dev</a> to edit in your browser (no install needed)</p>
             </div>
           </details>
+        </div>
+
+        {/* Revoke Access */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-white/40 mb-2">
+            Recommended: Revoke our access now that setup is complete
+          </p>
+          <div className="flex gap-3 justify-center">
+            <a
+              href="https://github.com/settings/applications"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-white/60 hover:text-white underline"
+            >
+              Revoke GitHub Access
+            </a>
+            <a
+              href="https://vercel.com/account/integrations"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-white/60 hover:text-white underline"
+            >
+              Revoke Vercel Access
+            </a>
+          </div>
         </div>
       </div>
     );

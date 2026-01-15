@@ -44,12 +44,12 @@ cd "c:\Users\mccar\VIBE STARTER\vibe-starter" && npx tsx scripts/create-license.
 
 ## Template Details
 
-- Next.js version in template: **15.2.8** (latest patched version)
+- Next.js version in template: **15.2.6** (patched for CVE-2025-66478)
 - AI providers supported: Claude (Anthropic), Gemini (Google), or OpenAI
 
 ## Previous Fixes Applied
 
-1. Next.js version updated to **15.2.8** (latest patched version). Note: 15.2.6 was previously used but deprecated due to follow-up security vulnerabilities.
+1. Next.js version updated to **15.2.6** (patched version for CVE-2025-66478). Versions 15.0.0-16.0.6 are blocked by Vercel. Safe versions: 15.0.5, 15.1.9, 15.2.6, 15.3.6, 15.4.8, 15.5.7, 16.0.7
 2. License key format fixed to use hex-only characters (toString(16) instead of toString(36))
 3. Vercel deployment trigger requires numeric `repoId` from GitHub API
 4. Clerk middleware syntax: `auth().protect()` not `await auth.protect()`

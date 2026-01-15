@@ -445,7 +445,7 @@ After 4-6 weeks of movement content, shift to direct product marketing. By now, 
 > - "Deploy in 20 minutes"
 > - "Own everything forever"
 > - "$39 once"
-> - "vibestarter.net"
+> - "vibestarter.app"
 
 ### Production Notes
 - Professional but not overproduced
@@ -507,7 +507,7 @@ After 4-6 weeks of movement content, shift to direct product marketing. By now, 
 **[2:40-3:00] The Value**
 > "Production app, your accounts, your code, forever. One-time $39. No monthly fees."
 >
-> CTA: vibestarter.net
+> CTA: vibestarter.app
 
 ### Production Notes
 - Calm, educational pacing
@@ -590,7 +590,7 @@ After 4-6 weeks of movement content, shift to direct product marketing. By now, 
 > - Left: "3+ hours (if you know what you're doing)"
 > - Right: "20 minutes (guided)"
 >
-> CTA: "vibestarter.net - $39 once"
+> CTA: "vibestarter.app - $39 once"
 
 ### Production Notes
 - Left side: realistic struggle (real docs, confusion)

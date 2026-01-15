@@ -322,7 +322,7 @@ Everything else depends on it:
 
 ## 🔗 Quick Links
 
-- Landing page: vibestarter.net
+- Landing page: vibestarter.app
 - Gumroad: (add your link)
 - Twitter: (add your handle)
 - YouTube: (add your channel)

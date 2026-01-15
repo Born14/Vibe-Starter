@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { WaitlistForm } from "@/components/WaitlistForm";
 
 export default function Home() {
   return (
@@ -8,125 +7,94 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="text-xl font-bold tracking-tight">
-            vibe<span className="text-emerald-400">starter</span>
+            vibe<span className="text-orange-400">starter</span>
           </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/setup"
-              className="text-sm text-white/60 hover:text-white transition-colors"
-            >
-              Have a license key?
-            </Link>
-            <Link
-              href="#waitlist"
-              className="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-emerald-400 transition-colors"
-            >
-              Join Waitlist
-            </Link>
-          </div>
+          <Link
+            href="#get-started"
+            className="bg-orange-400 text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-orange-300 transition-colors"
+          >
+            Get Started
+          </Link>
         </div>
       </nav>
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-block bg-orange-400/20 text-orange-400 text-sm font-semibold px-4 py-2 rounded-full mb-8">
+            Built with Claude • For Claude Developers
+          </div>
+
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-              Own your stack.
+            Build Full-Stack Apps
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400">
+              From Your Phone
             </span>
             <br />
-            Build with AI. Ship from anywhere.
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-              From Prompt To Production.
-            </span>
+            With Claude
           </h1>
 
-          <p className="text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
-            We help you build your creative foundation—GitHub, hosting, database, auth—all connected and working. Then build features with AI from your phone, laptop, or browser. Push to GitHub, site updates automatically.
+          <p className="text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+            I built this from my phone using Claude. One-click deploy from GitHub to production.
+            Real database. Real auth. Real apps. This wasn&apos;t possible before. Now it is.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="#waitlist"
-              className="w-full sm:w-auto bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-emerald-400 transition-all hover:scale-105"
+              href="#get-started"
+              className="w-full sm:w-auto bg-orange-400 text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-300 transition-all hover:scale-105"
             >
-              Join Waitlist
+              Get Started — Free
             </Link>
             <Link
               href="#how-it-works"
               className="w-full sm:w-auto border border-white/20 px-8 py-4 rounded-full text-lg font-medium hover:bg-white/10 transition-colors"
             >
-              See How It Works
+              See the Workflow
             </Link>
           </div>
 
-          <p className="mt-6 text-sm text-white/40">
-            Launching soon · One-time payment · No subscription
-          </p>
-
-          <p className="mt-3 text-sm text-white/50">
-            Already have a license key?{" "}
-            <Link href="/setup" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2">
-              Click here to get started
-            </Link>
+          <p className="mt-6 text-sm text-white/50">
+            No payment. No subscription. Just email for a license key.
           </p>
         </div>
       </section>
 
-      {/* Problem Section */}
-      <section className="py-20 px-6 bg-white/5">
+      {/* The Breakthrough */}
+      <section className="py-20 px-6 bg-gradient-to-b from-orange-500/5 to-transparent">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            The gap nobody talks about
+          <h2 className="text-3xl md:text-5xl font-bold text-center mb-6">
+            A new era of building
           </h2>
-          <p className="text-white/60 text-center mb-12 text-lg">
-            AI builders generate code. They don&apos;t set up the system.
+          <p className="text-white/70 text-center mb-16 text-lg max-w-2xl mx-auto">
+            Ship production code from anywhere. Coffee shop. Couch. Waiting in line.
+            AI writes the code. You describe what you want. It deploys automatically.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6">
-              <div className="text-red-400 text-sm font-semibold mb-3">WITHOUT VIBE STARTER</div>
-              <ul className="space-y-3 text-white/70">
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 mt-1">✗</span>
-                  <span>&quot;How do users sign up?&quot;</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 mt-1">✗</span>
-                  <span>&quot;Where does my data go?&quot;</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 mt-1">✗</span>
-                  <span>&quot;How do I put this on the internet?&quot;</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 mt-1">✗</span>
-                  <span>&quot;What are environment variables?&quot;</span>
-                </li>
-              </ul>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white/5 border border-orange-500/20 rounded-2xl p-6">
+              <div className="text-4xl mb-4">📱</div>
+              <h3 className="text-xl font-semibold mb-3">Claude on Mobile</h3>
+              <p className="text-white/70">
+                Open Claude on your phone. Describe what you want. Claude writes the code, tests it, commits it.
+              </p>
             </div>
 
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6">
-              <div className="text-emerald-400 text-sm font-semibold mb-3">WITH VIBE STARTER</div>
-              <ul className="space-y-3 text-white/70">
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-400 mt-1">✓</span>
-                  <span>Working auth — users can sign up</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-400 mt-1">✓</span>
-                  <span>Working database — data persists</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-400 mt-1">✓</span>
-                  <span>Live URL — your-app.vercel.app</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-400 mt-1">✓</span>
-                  <span>Push-to-deploy — code once, ship everywhere</span>
-                </li>
-              </ul>
+            <div className="bg-white/5 border border-orange-500/20 rounded-2xl p-6">
+              <div className="text-4xl mb-4">🚀</div>
+              <h3 className="text-xl font-semibold mb-3">One-Click Deploy</h3>
+              <p className="text-white/70">
+                Push to GitHub. Vercel deploys automatically. Database migrations run. Live in 60 seconds.
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-orange-500/20 rounded-2xl p-6">
+              <div className="text-4xl mb-4">⚡</div>
+              <h3 className="text-xl font-semibold mb-3">Real Full-Stack</h3>
+              <p className="text-white/70">
+                Not toy apps. Authentication. Postgres database. API routes. Everything a real app needs.
+              </p>
             </div>
           </div>
         </div>
@@ -136,214 +104,102 @@ export default function Home() {
       <section id="how-it-works" className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            How it works
+            The workflow
           </h2>
           <p className="text-white/60 text-center mb-16 text-lg">
-            20 minutes. No terminal. No config files. Just clicks.
+            This is how I build now. From anywhere.
           </p>
 
-          <div className="space-y-12">
-            {[
-              {
-                step: "01",
-                title: "Connect your accounts",
-                description: "We guide you through GitHub, Vercel, Clerk, and Neon. You create the accounts — you own them forever.",
-              },
-              {
-                step: "02",
-                title: "Name your app",
-                description: "Pick a name. We check if it's available. Your app will be live at your-app.vercel.app.",
-              },
-              {
-                step: "03",
-                title: "Click deploy",
-                description: "We create your repo, push the code, wire up the database, set the environment variables, and deploy. 2 minutes.",
-              },
-              {
-                step: "04",
-                title: "Start building",
-                description: "Open your AI (Claude, Gemini, or ChatGPT). Describe what you want. Push to GitHub. Site updates. Build from your phone, browser, anywhere.",
-              },
-            ].map((item, i) => (
-              <div key={i} className="flex gap-6 items-start">
-                <div className="text-4xl font-bold text-white/20">{item.step}</div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p className="text-white/60">{item.description}</p>
-                </div>
+          <div className="space-y-8">
+            <div className="flex gap-6 items-start">
+              <div className="text-3xl font-bold text-orange-400 flex-shrink-0">01</div>
+              <div className="bg-white/5 border border-white/10 rounded-xl p-6 flex-grow">
+                <h3 className="text-xl font-semibold mb-2">Get your foundation set up</h3>
+                <p className="text-white/70 mb-4">
+                  Run the wizard. It connects GitHub, Vercel, Clerk (auth), and Neon (database).
+                  Takes 20 minutes. You own all the accounts.
+                </p>
+                <p className="text-white/50 text-sm">
+                  The wizard creates your repo, wires up environment variables, deploys your starter app.
+                  Database migrations run automatically on every deploy.
+                </p>
               </div>
-            ))}
+            </div>
+
+            <div className="flex gap-6 items-start">
+              <div className="text-3xl font-bold text-orange-400 flex-shrink-0">02</div>
+              <div className="bg-white/5 border border-white/10 rounded-xl p-6 flex-grow">
+                <h3 className="text-xl font-semibold mb-2">Open Claude anywhere</h3>
+                <p className="text-white/70 mb-4">
+                  Claude Android app. Claude on your laptop. Claude in the browser. Doesn&apos;t matter.
+                  Your repo is connected to your Claude account.
+                </p>
+                <p className="text-white/50 text-sm">
+                  Claude sees your full codebase. It understands Next.js, Clerk, Neon, the whole stack.
+                  Just describe what you want to build.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-6 items-start">
+              <div className="text-3xl font-bold text-orange-400 flex-shrink-0">03</div>
+              <div className="bg-white/5 border border-white/10 rounded-xl p-6 flex-grow">
+                <h3 className="text-xl font-semibold mb-2">Build and ship</h3>
+                <p className="text-white/70 mb-4">
+                  &quot;Add a blog. Users can create posts and comment.&quot; Claude writes the code,
+                  creates the database schema, builds the UI, commits it, pushes to GitHub.
+                </p>
+                <p className="text-white/50 text-sm">
+                  GitHub triggers Vercel. Build runs. Migrations apply. 60 seconds later your feature is live.
+                  All from your phone.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Security & Ownership */}
-      <section className="py-20 px-6 bg-gradient-to-b from-black to-white/5">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            &quot;Why would I trust a stranger with my API keys?&quot;
+      {/* Why Claude */}
+      <section className="py-20 px-6 bg-gradient-to-b from-orange-500/5 to-transparent">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
+            Why Claude makes this work
           </h2>
-          <p className="text-white/60 text-center mb-12 text-lg">
-            You don&apos;t. That&apos;s the whole point. 🔒
+          <p className="text-white/70 text-center mb-12 text-lg">
+            Claude isn&apos;t just an AI that writes code. It&apos;s your complete development environment.
           </p>
 
-          {/* Visual Architecture Diagram */}
-          <div className="bg-black border border-emerald-500/30 rounded-2xl p-8 mb-12 font-mono text-sm">
-            <div className="text-emerald-400 font-semibold mb-6 text-center">YOUR ARCHITECTURE (YOU OWN EVERYTHING)</div>
-            <div className="space-y-6 text-white/70">
-              <div className="flex items-center justify-center gap-4 flex-wrap">
-                <div className="border border-white/20 rounded px-4 py-2 text-center min-w-[140px]">
-                  <div className="text-emerald-400 text-xs mb-1">YOUR ACCOUNT</div>
-                  <div>GitHub</div>
-                </div>
-                <span className="text-white/40">→</span>
-                <div className="border border-white/20 rounded px-4 py-2 text-center min-w-[140px]">
-                  <div className="text-emerald-400 text-xs mb-1">YOUR ACCOUNT</div>
-                  <div>Vercel</div>
-                </div>
-              </div>
+          <div className="space-y-6">
+            <div className="bg-white/5 border border-orange-500/20 rounded-xl p-6">
+              <h3 className="font-semibold mb-2 text-orange-400">Understands full context</h3>
+              <p className="text-white/70">
+                Claude reads your entire codebase. It knows how your auth works, how your database is structured,
+                how your API routes are organized. Changes are consistent with your existing code.
+              </p>
+            </div>
 
-              <div className="flex items-center justify-center gap-4 flex-wrap">
-                <div className="border border-white/20 rounded px-4 py-2 text-center min-w-[140px]">
-                  <div className="text-emerald-400 text-xs mb-1">YOUR ACCOUNT</div>
-                  <div>Clerk</div>
-                </div>
-                <span className="text-white/40">→</span>
-                <div className="border border-white/20 rounded px-4 py-2 text-center min-w-[140px]">
-                  <div className="text-emerald-400 text-xs mb-1">YOUR ACCOUNT</div>
-                  <div>Neon</div>
-                </div>
-              </div>
+            <div className="bg-white/5 border border-orange-500/20 rounded-xl p-6">
+              <h3 className="font-semibold mb-2 text-orange-400">Writes production-ready code</h3>
+              <p className="text-white/70">
+                Not just code snippets. Complete features with error handling, TypeScript types, proper security.
+                Code that actually works when you deploy it.
+              </p>
+            </div>
 
-              <div className="text-center text-white/40 text-xs pt-4">
-                ↑ Vibe Starter wizard helps connect these (one time) ↑
-              </div>
+            <div className="bg-white/5 border border-orange-500/20 rounded-xl p-6">
+              <h3 className="font-semibold mb-2 text-orange-400">Handles the whole workflow</h3>
+              <p className="text-white/70">
+                Claude can read files, edit code, run tests, commit changes, push to GitHub.
+                On mobile, it&apos;s your complete development environment.
+              </p>
             </div>
           </div>
 
-          {/* Explanation Cards */}
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold mb-4 text-emerald-400">✓ What Vibe Starter Does</h3>
-              <ul className="space-y-3 text-white/70 text-sm">
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-400 mt-0.5">→</span>
-                  <span>Guides you through official OAuth flows</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-400 mt-0.5">→</span>
-                  <span>Clicks buttons in YOUR accounts for you</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-400 mt-0.5">→</span>
-                  <span>Connects your services together (one time)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-emerald-400 mt-0.5">→</span>
-                  <span>Then disappears — you own everything</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold mb-4 text-red-400">✗ What Vibe Starter NEVER Does</h3>
-              <ul className="space-y-3 text-white/70 text-sm">
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 mt-0.5">→</span>
-                  <span>Store your API keys or credentials</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 mt-0.5">→</span>
-                  <span>Access your accounts after setup</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 mt-0.5">→</span>
-                  <span>Host your code or database</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-red-400 mt-0.5">→</span>
-                  <span>Charge you monthly subscription fees</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Comparison Table */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-2 text-sm">
-              <div className="p-4 border-b border-white/10 font-semibold">
-                Platforms like Bolt, v0, Replit
-              </div>
-              <div className="p-4 border-b border-white/10 font-semibold bg-emerald-500/10">
-                Vibe Starter
-              </div>
-
-              <div className="p-4 border-b border-r border-white/10 text-white/60">
-                <span className="text-red-400">✗</span> Code lives on their servers
-              </div>
-              <div className="p-4 border-b border-white/10 bg-emerald-500/5">
-                <span className="text-emerald-400">✓</span> Code on YOUR GitHub
-              </div>
-
-              <div className="p-4 border-b border-r border-white/10 text-white/60">
-                <span className="text-red-400">✗</span> Database on their infrastructure
-              </div>
-              <div className="p-4 border-b border-white/10 bg-emerald-500/5">
-                <span className="text-emerald-400">✓</span> Database on YOUR Neon account
-              </div>
-
-              <div className="p-4 border-b border-r border-white/10 text-white/60">
-                <span className="text-red-400">✗</span> Locked into their platform
-              </div>
-              <div className="p-4 border-b border-white/10 bg-emerald-500/5">
-                <span className="text-emerald-400">✓</span> Delete our wizard, keep building
-              </div>
-
-              <div className="p-4 border-r border-white/10 text-white/60">
-                <span className="text-red-400">✗</span> Monthly fees forever
-              </div>
-              <div className="p-4 bg-emerald-500/5">
-                <span className="text-emerald-400">✓</span> One-time $39, build forever
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <p className="text-white/80 text-lg mb-2">
-              Think of Vibe Starter as a <strong>setup guide that clicks buttons for you.</strong>
+          <div className="mt-10 p-6 bg-black border border-white/10 rounded-xl text-center">
+            <p className="text-white/60 text-sm">
+              This is a community project built WITH Claude. Not affiliated with or endorsed by Anthropic.
+              Just a developer who loves building with Claude and wanted to share the workflow.
             </p>
-            <p className="text-white/60">
-              After setup, we literally can&apos;t access your stuff even if we wanted to. You own the accounts, you have the keys.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* What You Get */}
-      <section className="py-20 px-6 bg-white/5">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            What you get
-          </h2>
-          <p className="text-white/60 text-center mb-12 text-lg">
-            A complete system, not just code
-          </p>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { icon: "🚀", title: "Live App", desc: "Deployed at your-app.vercel.app" },
-              { icon: "🔐", title: "Auth Ready", desc: "Sign up, sign in, protected routes" },
-              { icon: "💾", title: "Database", desc: "Postgres with Neon, data persists" },
-              { icon: "🤖", title: "AI Wired", desc: "Claude, Gemini, or OpenAI API ready" },
-              { icon: "📱", title: "Mobile Workflow", desc: "Build from your phone" },
-              { icon: "🔑", title: "You Own It", desc: "All accounts are yours, forever" },
-            ].map((item, i) => (
-              <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-5">
-                <div className="text-2xl mb-3">{item.icon}</div>
-                <h3 className="font-semibold mb-1">{item.title}</h3>
-                <p className="text-sm text-white/60">{item.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -352,19 +208,19 @@ export default function Home() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-            The stack
+            The stack that makes it work
           </h2>
           <p className="text-white/60 text-center mb-12 text-lg">
-            Industry standard. Free tiers. No lock-in.
+            My favorite stack. Cheap. Generous. Plays perfectly with Claude.
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
             {[
               { name: "Next.js 15", role: "Framework", color: "bg-white/10" },
-              { name: "Vercel", role: "Hosting", color: "bg-white/10" },
+              { name: "Vercel", role: "Hosting + Deploy", color: "bg-white/10" },
               { name: "Clerk", role: "Authentication", color: "bg-purple-500/20" },
-              { name: "Neon", role: "Database", color: "bg-emerald-500/20" },
-              { name: "AI APIs", role: "Claude/Gemini/OpenAI", color: "bg-orange-500/20" },
+              { name: "Neon", role: "Postgres Database", color: "bg-emerald-500/20" },
+              { name: "Claude API", role: "AI Features", color: "bg-orange-500/20" },
               { name: "Tailwind", role: "Styling", color: "bg-cyan-500/20" },
             ].map((item, i) => (
               <div key={i} className={`${item.color} border border-white/10 rounded-xl p-5`}>
@@ -374,34 +230,37 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Why This Stack */}
-          <div className="mt-12 bg-gradient-to-br from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 rounded-2xl p-8 max-w-2xl mx-auto">
+          <div className="bg-gradient-to-br from-orange-500/10 to-pink-500/10 border border-orange-500/20 rounded-2xl p-8">
             <h3 className="text-xl font-semibold mb-6 text-center">
-              Why this stack?
+              Why this specific combination?
             </h3>
             <div className="space-y-4 text-white/80">
               <div className="flex items-start gap-3">
-                <span className="text-emerald-400 text-xl flex-shrink-0">→</span>
+                <span className="text-orange-400 text-xl flex-shrink-0">→</span>
                 <div>
-                  <strong className="text-white">Production-ready from day one.</strong> These aren't beginner tools—they power real companies at scale.
+                  <strong className="text-white">Free to start.</strong> All these services have generous free tiers.
+                  Build and deploy real apps without spending a dollar until you have users.
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-emerald-400 text-xl flex-shrink-0">→</span>
+                <span className="text-orange-400 text-xl flex-shrink-0">→</span>
                 <div>
-                  <strong className="text-white">No rewrites as you grow.</strong> Start with 10 users, scale to 100K+ on the same infrastructure.
+                  <strong className="text-white">Claude knows this stack.</strong> These are popular, well-documented tools.
+                  Claude has seen thousands of examples and writes confident, correct code.
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-emerald-400 text-xl flex-shrink-0">→</span>
+                <span className="text-orange-400 text-xl flex-shrink-0">→</span>
                 <div>
-                  <strong className="text-white">Free to start, fair to scale.</strong> Generous free tiers mean you build and test without costs.
+                  <strong className="text-white">One-click deploys.</strong> GitHub → Vercel integration is seamless.
+                  Push code, Vercel builds and deploys automatically. Perfect for mobile workflow.
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="text-emerald-400 text-xl flex-shrink-0">→</span>
+                <span className="text-orange-400 text-xl flex-shrink-0">→</span>
                 <div>
-                  <strong className="text-white">No lock-in.</strong> Open standards. You can migrate anytime—but you won't need to.
+                  <strong className="text-white">Production-grade.</strong> This isn&apos;t a toy stack.
+                  It scales. You can build real businesses on this foundation.
                 </div>
               </div>
             </div>
@@ -409,86 +268,83 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust Section */}
-      <section className="py-20 px-6 bg-white/5">
-        <div className="max-w-3xl mx-auto text-center">
+      {/* Get Started */}
+      <section id="get-started" className="py-20 px-6 bg-gradient-to-b from-orange-500/5 to-transparent">
+        <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Your app. Your accounts. Your data.
+            Let&apos;s build something
           </h2>
-          <p className="text-white/60 mb-12 text-lg">
-            We help you set up. Then we disappear.
+          <p className="text-white/70 mb-12 text-lg">
+            Free. Email for a license key and get started.
           </p>
 
-          <div className="bg-black border border-white/10 rounded-2xl p-8 text-left">
-            <div className="text-sm font-semibold text-white/40 mb-4">WE NEVER:</div>
-            <ul className="space-y-3 text-white/70">
-              <li className="flex items-center gap-3">
-                <span className="text-emerald-400">✓</span>
-                <span>Read your other repos or private code</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="text-emerald-400">✓</span>
-                <span>Deploy anything without your explicit click</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="text-emerald-400">✓</span>
-                <span>Store your keys after setup completes</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="text-emerald-400">✓</span>
-                <span>Access your app once setup is finished</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Waitlist / Pricing */}
-      <section id="waitlist" className="py-20 px-6">
-        <div className="max-w-xl mx-auto">
-          <div className="bg-gradient-to-b from-white/10 to-white/5 border border-white/20 rounded-3xl p-8 text-center">
-            <div className="inline-block bg-emerald-400/20 text-emerald-400 text-sm font-semibold px-3 py-1 rounded-full mb-6">
-              LAUNCHING SOON
-            </div>
-
-            <div className="text-6xl font-bold mb-2">$39</div>
-            <p className="text-white/60 mb-8">One-time payment · Everything you need to go live</p>
+          <div className="bg-white/5 border border-orange-500/20 rounded-2xl p-8">
+            <div className="text-6xl font-bold mb-3 text-orange-400">Free</div>
+            <p className="text-white/60 mb-8">Use it. Build from anywhere. Have fun.</p>
 
             <ul className="text-left space-y-3 mb-8">
               {[
-                "Complete wizard setup (~20 min)",
-                "Next.js 15 app with auth & database",
-                "Live deployment on Vercel",
-                "Push-to-deploy workflow",
-                "PROMPT.md for AI coding",
+                "Complete setup wizard (~20 min)",
+                "Next.js 15 starter with full stack",
+                "Auth, database, AI API ready",
+                "One-click GitHub → Vercel deploys",
+                "Auto-migrations on every deploy",
+                "Build from phone, laptop, anywhere",
                 "All accounts in your name",
-                "No monthly fees",
+                "Use it forever",
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-white/80">
-                  <span className="text-emerald-400">✓</span>
+                  <span className="text-orange-400">✓</span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="mb-6">
-              <WaitlistForm
-                variant="button"
-                buttonText="Join Waitlist"
-                buttonClassName="w-full bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-emerald-400 transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
-              />
+            <a
+              href="mailto:vibestarter26@outlook.com?subject=License Key Request"
+              className="block w-full bg-orange-400 text-black py-4 rounded-full font-semibold text-lg hover:bg-orange-300 transition-all hover:scale-105"
+            >
+              Email for License Key
+            </a>
+
+            <p className="mt-6 text-sm text-white/50">
+              I&apos;ll send you a license key. Usually within a few hours.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust & Security */}
+      <section className="py-20 px-6">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6">
+            Your stuff. Your accounts. Your code.
+          </h2>
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+            <p className="text-white/70 mb-6 leading-relaxed text-center">
+              The wizard helps you create and connect YOUR OWN accounts.
+              GitHub, Vercel, Clerk, Neon - all in your name. All your control.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-black/40 rounded-lg p-4">
+                <h3 className="font-semibold mb-2 text-orange-400">What the wizard does:</h3>
+                <ul className="text-sm text-white/70 space-y-2">
+                  <li>→ Guides you through account creation</li>
+                  <li>→ Creates your GitHub repo</li>
+                  <li>→ Connects your services</li>
+                  <li>→ Deploys your starter app</li>
+                </ul>
+              </div>
+              <div className="bg-black/40 rounded-lg p-4">
+                <h3 className="font-semibold mb-2 text-emerald-400">What I never see:</h3>
+                <ul className="text-sm text-white/70 space-y-2">
+                  <li>→ Your API keys</li>
+                  <li>→ Your database data</li>
+                  <li>→ Your repo code</li>
+                  <li>→ Your user information</li>
+                </ul>
+              </div>
             </div>
-
-            <p className="mt-4 text-sm text-white/40">
-              Get notified when we launch · Early giveaways happening now on social media
-            </p>
-
-            <p className="mt-3 text-sm text-white/50">
-              Already have a license key?{" "}
-              <Link href="/setup" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2">
-                Start setup here
-              </Link>
-            </p>
           </div>
         </div>
       </section>
@@ -503,32 +359,32 @@ export default function Home() {
           <div className="space-y-6">
             {[
               {
-                q: "Why should I trust you with my API keys and credentials?",
-                a: "You shouldn't — and you don't have to. You create accounts at GitHub, Vercel, Clerk, and Neon. You own them all. The wizard walks you through connecting YOUR accounts using THEIR official OAuth flows. We never see your keys. They never touch our servers. After setup, we literally can't access your accounts even if we wanted to. Compare this to platforms like Bolt or v0 where your code and database live on their infrastructure.",
+                q: "Do I need coding experience?",
+                a: "Not really. You describe what you want to Claude. Claude writes the code. You can learn as you go by reading what Claude creates.",
               },
               {
-                q: "Do I need to know how to code?",
-                a: "No. You need to click buttons, copy/paste, and describe what you want to your AI (Claude, Gemini, or ChatGPT). That's it.",
+                q: "Does this only work on mobile?",
+                a: "No. It works everywhere. Phone, laptop, browser. The point is that it CAN work from your phone. That's what's new.",
               },
               {
-                q: "What if I already have a GitHub account?",
-                a: "Perfect. We'll use it. Same for Vercel. We guide you through creating accounts only if you don't have them.",
+                q: "Do I have to use Claude?",
+                a: "The starter app supports Claude, OpenAI, or Gemini APIs. But I built this workflow for Claude because that's what I use and love.",
               },
               {
-                q: "Are there monthly fees?",
-                a: "Not from us. The services we connect (Vercel, Clerk, Neon) all have generous free tiers. Most apps run free forever.",
+                q: "What about my API keys and data?",
+                a: "You create your own accounts. The wizard helps you connect them. Everything stays in your accounts - GitHub, Vercel, Clerk, Neon. Your keys, your data, your control.",
               },
               {
-                q: "Can I build from my phone?",
-                a: "Yes. That's the point. Open your AI, describe your feature, push to GitHub, site updates. No laptop required.",
+                q: "Are there monthly costs?",
+                a: "Not from me. The services all have free tiers: Vercel (free for hobby), Clerk (10k users free), Neon (0.5GB free). Most projects stay free.",
               },
               {
-                q: "What if I get stuck?",
-                a: "Every step has a video walkthrough. Plus AI help chat built in. And you can always email us.",
+                q: "Is this open source?",
+                a: "Not right now. But it's free to use and you own everything you build with it.",
               },
               {
-                q: "What's the refund policy?",
-                a: "If you can't complete setup within 7 days, we'll refund you. No questions.",
+                q: "What if I need help?",
+                a: "Email me. I'll help you. I want this to work for people.",
               },
             ].map((item, i) => (
               <div key={i} className="border-b border-white/10 pb-6">
@@ -544,21 +400,23 @@ export default function Home() {
       <section className="py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Stop generating code.
+            Build anywhere.
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-              Start shipping apps.
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400">
+              Deploy automatically.
             </span>
+            <br />
+            Ship real apps.
           </h2>
           <p className="text-xl text-white/60 mb-10">
-            20 minutes from now, you could have a live app.
+            Email for a license key. Start building.
           </p>
-          <Link
-            href="#waitlist"
-            className="inline-block bg-white text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-emerald-400 transition-all hover:scale-105"
+          <a
+            href="mailto:vibestarter26@outlook.com?subject=License Key Request"
+            className="inline-block bg-orange-400 text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-orange-300 transition-all hover:scale-105"
           >
-            Join Waitlist
-          </Link>
+            Email for License Key — Free
+          </a>
         </div>
       </section>
 
@@ -566,7 +424,7 @@ export default function Home() {
       <footer className="py-10 px-6 border-t border-white/10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm text-white/40">
-            © 2025 Vibe Starter. Built with the stack we give you.
+            © 2026 Vibe Starter. Built with Claude. From mobile.
           </div>
           <div className="flex items-center gap-6 text-sm text-white/40">
             <a href="/education" className="hover:text-white transition-colors">

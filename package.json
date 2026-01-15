@@ -4,17 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run db:push || true && next build",
-    "db:push": "drizzle-kit push",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
-    "@types/ioredis": "^4.28.10",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.45.1",
-    "ioredis": "^5.9.1",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"

@@ -824,7 +824,7 @@ That's the roadmap. Now execute.
 ## Resources & Links
 
 **Tools:**
-- Landing page: vibestarter.net (use your own product!)
+- Landing page: vibestarter.app (use your own product!)
 - Analytics: Plausible or Simple Analytics
 - Email: ConvertKit or Mailchimp (free tier)
 - Community: Discord (free)

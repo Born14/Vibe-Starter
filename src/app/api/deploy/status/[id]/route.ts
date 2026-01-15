@@ -70,7 +70,6 @@ export async function GET(
                 .update(deployments)
                 .set({
                   status: "success",
-                  appUrl: actualUrl,
                   completedAt: new Date(),
                 })
                 .where(eq(deployments.id, id));
@@ -137,10 +136,8 @@ export async function GET(
     };
 
     if (deployment.status === "success") {
-      // Use stored appUrl if available, fallback to constructed URL
-      response.appUrl = deployment.appUrl || `https://${deployment.appName}.vercel.app`;
+      response.appUrl = `https://${deployment.appName}.vercel.app`;
       response.repoUrl = `https://github.com/${deployment.githubRepo}`;
-      response.step = 7; // Ensure step 7 is returned for success state
     }
 
     if (deployment.status === "failed" && deployment.error && !deployment.error.startsWith("step:")) {

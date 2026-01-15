@@ -3,27 +3,12 @@ import { db } from "@/lib/db";
 import { wizardSessions, deployments, licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { decrypt } from "@/lib/encryption";
-import { rateLimiters, getClientIp } from "@/lib/redis";
 
 // Reduced timeout since we return early and let frontend poll Vercel
 export const maxDuration = 30;
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate limiting: 3 deploys per hour per IP
-    const ip = getClientIp(request);
-    const { success, reset } = await rateLimiters.deploy.limit(ip);
-
-    if (!success) {
-      const resetDate = new Date(reset);
-      return NextResponse.json(
-        {
-          error: `Deployment rate limit exceeded. You can deploy again after ${resetDate.toLocaleTimeString()}`,
-        },
-        { status: 429 }
-      );
-    }
-
     const { sessionId } = await request.json();
 
     if (!sessionId) {
@@ -355,7 +340,7 @@ async function updateDeploymentStep(deploymentId: string, step: number) {
     .where(eq(deployments.id, deploymentId));
 }
 
-function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean, repoFullName: string): { path: string; content: string }[] {
+function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean): { path: string; content: string }[] {
   const aiKeyName = aiProvider === "gemini" ? "GOOGLE_GENERATIVE_AI_API_KEY" : aiProvider === "openai" ? "OPENAI_API_KEY" : "ANTHROPIC_API_KEY";
 
   return [
@@ -378,7 +363,7 @@ function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean, r
           "@clerk/nextjs": "^5.7.0",
           "@neondatabase/serverless": "^0.10.0",
           "drizzle-orm": "^0.36.0",
-          next: "15.2.8",
+          next: "15.2.6",
           react: "^18.3.1",
           "react-dom": "^18.3.1",
         },
@@ -673,23 +658,23 @@ export default function SignUpPage() {
 export function QuickWinIdeas() {
   return (
     <div className="mb-12">
-      <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">
-        What do you want to build?
+      <h3 className="text-2xl font-semibold text-gray-900 mb-3 text-center">
+        Start building with Claude
       </h3>
       <p className="text-gray-600 mb-6 text-center">
-        Open Claude and describe your idea. It knows your stack.
+        Open Claude. Connect to your repo. Describe what you want. Ship it.
       </p>
       <div className="text-center">
         <a
           href="https://claude.ai"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block w-full sm:w-auto px-8 py-4 bg-black text-white text-lg font-semibold rounded-xl hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+          className="inline-block w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-lg font-semibold rounded-xl hover:from-orange-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-xl active:scale-95"
         >
-          Start Building →
+          Open Claude →
         </a>
         <p className="text-xs text-gray-500 mt-3">
-          Your app has: Database • Auth • AI • Auto-deployment
+          Full-stack ready: Database • Auth • AI • Auto-deployment
         </p>
       </div>
     </div>
@@ -778,7 +763,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Custom Domain Section */}
-        <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-6 mb-8 border border-indigo-100">
+        <div className="bg-gradient-to-br from-orange-50 to-pink-50 rounded-xl p-6 mb-8 border border-orange-100">
           <div className="flex items-start gap-4">
             <div className="text-3xl">🌐</div>
             <div className="flex-1">
@@ -792,7 +777,7 @@ export default async function DashboardPage() {
                 href="https://vercel.com/docs/projects/domains/add-a-domain"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
+                className="inline-block bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-orange-600 transition-colors"
               >
                 Add Custom Domain →
               </a>
@@ -838,21 +823,21 @@ export default async function DashboardPage() {
         </div>
 
         {/* What This Means */}
-        <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-5 mb-8 border border-blue-100">
+        <div className="bg-gradient-to-br from-orange-50 to-pink-50 rounded-xl p-5 mb-8 border border-orange-100">
           <h3 className="text-sm font-semibold mb-3 text-gray-900 text-center">
             What This Means for You
           </h3>
           <ul className="space-y-2 text-sm text-gray-700">
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-0.5">→</span>
+              <span className="text-orange-600 mt-0.5">→</span>
               <span><strong className="text-gray-900">Build real products:</strong> Not a toy - this powers actual businesses</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-0.5">→</span>
+              <span className="text-orange-600 mt-0.5">→</span>
               <span><strong className="text-gray-900">No rewrites later:</strong> Start with 10 users, scale to 100K on the same stack</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-0.5">→</span>
+              <span className="text-orange-600 mt-0.5">→</span>
               <span><strong className="text-gray-900">Free until you profit:</strong> Build and launch without server costs</span>
             </li>
           </ul>
@@ -868,7 +853,7 @@ export default async function DashboardPage() {
         {/* Building Options */}
         <div className="grid sm:grid-cols-2 gap-4 mb-8">
           {/* Phone Option */}
-          <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 border border-purple-100">
+          <div className="bg-gradient-to-br from-orange-50 to-pink-50 rounded-xl p-6 border border-orange-100">
             <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
               <span className="text-xl">📱</span> Build from Your Phone
             </h3>
@@ -877,19 +862,19 @@ export default async function DashboardPage() {
             </p>
             <ol className="space-y-2 text-sm text-gray-700 mb-4">
               <li className="flex gap-2">
-                <span className="font-bold text-purple-600 flex-shrink-0">1.</span>
+                <span className="font-bold text-orange-600 flex-shrink-0">1.</span>
                 <span>Open Claude mobile app</span>
               </li>
               <li className="flex gap-2">
-                <span className="font-bold text-purple-600 flex-shrink-0">2.</span>
+                <span className="font-bold text-orange-600 flex-shrink-0">2.</span>
                 <span>Tap Code → Select your repo</span>
               </li>
               <li className="flex gap-2">
-                <span className="font-bold text-purple-600 flex-shrink-0">3.</span>
+                <span className="font-bold text-orange-600 flex-shrink-0">3.</span>
                 <span>Describe what you want</span>
               </li>
               <li className="flex gap-2">
-                <span className="font-bold text-purple-600 flex-shrink-0">4.</span>
+                <span className="font-bold text-orange-600 flex-shrink-0">4.</span>
                 <span>Merge PR → Goes live</span>
               </li>
             </ol>
@@ -897,7 +882,7 @@ export default async function DashboardPage() {
               href="https://claude.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center bg-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors"
+              className="block w-full text-center bg-gradient-to-r from-orange-500 to-pink-500 text-white py-2 px-4 rounded-lg text-sm font-medium hover:from-orange-600 hover:to-pink-600 transition-colors"
             >
               Open Claude App →
             </a>
@@ -916,32 +901,24 @@ export default async function DashboardPage() {
             </p>
             <div className="space-y-2">
               <a
-                href="vscode://vscode.git/clone?url=https://github.com/${repoFullName}.git"
+                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`vscode://vscode.git/clone?url=https://github.com/\${process.env.NEXT_PUBLIC_GITHUB_REPO}.git\` : '#'}"
                 className="block w-full text-center bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
               >
                 Open in VS Code
               </a>
               <a
-                href="cursor://clone?url=https://github.com/${repoFullName}.git"
+                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`cursor://clone?url=https://github.com/\${process.env.NEXT_PUBLIC_GITHUB_REPO}.git\` : '#'}"
                 className="block w-full text-center bg-black text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
               >
                 Open in Cursor
               </a>
               <a
-                href="https://github.dev/${repoFullName}"
+                href="\${process.env.NEXT_PUBLIC_GITHUB_REPO ? \`https://github.dev/\${process.env.NEXT_PUBLIC_GITHUB_REPO}\` : '#'}"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center border-2 border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:border-gray-400 transition-colors"
               >
                 Open in Browser IDE
-              </a>
-              <a
-                href="https://idx.google.com/import?url=https://github.com/${repoFullName}"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:from-blue-600 hover:to-purple-700 transition-colors"
-              >
-                Open in Google IDX
               </a>
             </div>
             <p className="text-xs text-gray-500 mt-3 text-center">
@@ -1162,7 +1139,7 @@ items: {
       path: "README.md",
       content: `# ${appName}
 
-Created with [Vibe Starter](https://vibestarter.net)
+Created with [Vibe Starter](https://vibestarter.app)
 
 ## Your app is live!
 
@@ -1209,7 +1186,7 @@ npm run db:studio  # Open database UI
 }
 
 async function pushTemplateCode(githubToken: string, repoFullName: string, appName: string, aiProvider: string, hasAI: boolean) {
-  const files = getTemplateFiles(appName, aiProvider, hasAI, repoFullName);
+  const files = getTemplateFiles(appName, aiProvider, hasAI);
 
   // For empty repos, we need to use the Contents API to create the first file
   // This initializes the repo with a commit, then we can use Git Data API for the rest

@@ -301,7 +301,7 @@ export default function Home() {
             </ul>
 
             <a
-              href="mailto:vibestarter26@outlook.com?subject=License Key Request"
+              href="mailto:support@vibestarter.app?subject=License Key Request"
               className="block w-full bg-orange-400 text-black py-4 rounded-full font-semibold text-lg hover:bg-orange-300 transition-all hover:scale-105"
             >
               Email for License Key
@@ -380,7 +380,7 @@ export default function Home() {
               },
               {
                 q: "Is this open source?",
-                a: "Not right now. But it's free to use and you own everything you build with it.",
+                a: "Not right now. I put too much work into it. But it's free to use and you own everything you build with it.",
               },
               {
                 q: "What if I need help?",
@@ -412,7 +412,7 @@ export default function Home() {
             Email for a license key. Start building.
           </p>
           <a
-            href="mailto:vibestarter26@outlook.com?subject=License Key Request"
+            href="mailto:support@vibestarter.app?subject=License Key Request"
             className="inline-block bg-orange-400 text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-orange-300 transition-all hover:scale-105"
           >
             Email for License Key — Free
@@ -424,13 +424,13 @@ export default function Home() {
       <footer className="py-10 px-6 border-t border-white/10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm text-white/40">
-            © 2026 Vibe Starter. Built with Claude. From mobile.
+            © 2025 Vibe Starter. Built with Claude. Built from mobile. Built for developers who want the same freedom.
           </div>
           <div className="flex items-center gap-6 text-sm text-white/40">
             <a href="/education" className="hover:text-white transition-colors">
               Education
             </a>
-            <a href="mailto:vibestarter26@outlook.com" className="hover:text-white transition-colors">
+            <a href="mailto:support@vibestarter.app" className="hover:text-white transition-colors">
               Support
             </a>
             <a href="/privacy" className="hover:text-white transition-colors">

@@ -526,7 +526,7 @@ export default function EducationPage() {
               Get your full-stack starter in 20 minutes. Then ship features from anywhere.
             </p>
             <a
-              href="mailto:vibestarter26@outlook.com?subject=License Key Request"
+              href="mailto:support@vibestarter.app?subject=License Key Request"
               className="inline-block bg-orange-400 text-black px-8 py-4 rounded-full font-semibold hover:bg-orange-300 transition text-lg"
             >
               Email for License Key — Free

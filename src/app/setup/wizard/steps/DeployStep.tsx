@@ -98,7 +98,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
   if (deployComplete && deployResult) {
     return (
       <div className="text-center">
-        <div className="w-20 h-20 bg-emerald-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-20 h-20 bg-orange-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-4xl">🎉</span>
         </div>
 
@@ -108,7 +108,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           href={deployResult.appUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block text-2xl text-emerald-400 font-medium hover:underline mb-8"
+          className="inline-block text-2xl text-orange-400 font-medium hover:underline mb-8"
         >
           {deployResult.appUrl.replace("https://", "")}
         </a>
@@ -124,7 +124,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
               "Database in YOUR Neon",
             ].map((item, i) => (
               <li key={i} className="flex items-center gap-3 text-white/80">
-                <span className="text-emerald-400">✓</span>
+                <span className="text-orange-400">✓</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -137,7 +137,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           <div className="space-y-4 text-sm">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-emerald-400">🎨</span>
+                <span className="text-orange-400">🎨</span>
                 <span className="font-medium text-white">Frontend (UI)</span>
               </div>
               <p className="text-white/60 ml-6">
@@ -146,7 +146,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-emerald-400">⚙️</span>
+                <span className="text-orange-400">⚙️</span>
                 <span className="font-medium text-white">Backend (Logic)</span>
               </div>
               <p className="text-white/60 ml-6">
@@ -155,7 +155,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-emerald-400">🗄️</span>
+                <span className="text-orange-400">🗄️</span>
                 <span className="font-medium text-white">Database (Storage)</span>
               </div>
               <p className="text-white/60 ml-6">
@@ -174,29 +174,29 @@ export default function DeployStep({ sessionId, session }: StepProps) {
         </div>
 
         {/* Why This Stack? */}
-        <div className="bg-gradient-to-br from-emerald-500/10 to-blue-500/10 border border-emerald-500/20 rounded-xl p-5 mb-8 text-left max-w-md mx-auto">
-          <h3 className="text-sm font-semibold mb-3 text-emerald-400 text-center">
+        <div className="bg-gradient-to-br from-orange-500/10 to-blue-500/10 border border-orange-500/20 rounded-xl p-5 mb-8 text-left max-w-md mx-auto">
+          <h3 className="text-sm font-semibold mb-3 text-orange-400 text-center">
             ✨ Why This Stack?
           </h3>
           <ul className="space-y-2 text-sm text-white/70">
             <li className="flex items-start gap-2">
-              <span className="text-emerald-400 mt-0.5">→</span>
+              <span className="text-orange-400 mt-0.5">→</span>
               <span><strong className="text-white">Production-ready:</strong> Powers companies from startups to Fortune 500s</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-400 mt-0.5">→</span>
+              <span className="text-orange-400 mt-0.5">→</span>
               <span><strong className="text-white">Scales with you:</strong> Handle 100 users or 1M+ without rebuilding</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-400 mt-0.5">→</span>
+              <span className="text-orange-400 mt-0.5">→</span>
               <span><strong className="text-white">Cost-effective:</strong> Generous free tiers, pay only as you grow</span>
             </li>
           </ul>
         </div>
 
         {/* Security Confirmation */}
-        <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-8 max-w-md mx-auto">
-          <p className="text-emerald-400 text-sm">
+        <div className="bg-orange-400/10 border border-orange-400/20 rounded-xl p-4 mb-8 max-w-md mx-auto">
+          <p className="text-orange-400 text-sm">
             <strong>✓ All temporary credentials deleted</strong>
             <br />
             Your API keys were used only during setup. We no longer have access.
@@ -209,7 +209,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             href={deployResult.appUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-emerald-400 transition-colors"
+            className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-orange-400 transition-colors"
           >
             Open Your App →
           </a>
@@ -252,27 +252,27 @@ export default function DeployStep({ sessionId, session }: StepProps) {
           </div>
 
           {/* How to get started */}
-          <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-4">
+          <div className="bg-orange-400/10 border border-orange-400/20 rounded-xl p-4 mb-4">
             <p className="font-medium mb-3 text-sm">Quick Start Guide:</p>
             <ol className="space-y-2 text-sm text-white/80">
               <li className="flex gap-2">
-                <span className="text-emerald-400 font-bold">1.</span>
+                <span className="text-orange-400 font-bold">1.</span>
                 <span>Open your AI (Claude, Gemini, ChatGPT - mobile app, Cursor, or web)</span>
               </li>
               <li className="flex gap-2">
-                <span className="text-emerald-400 font-bold">2.</span>
+                <span className="text-orange-400 font-bold">2.</span>
                 <span>Connect to your GitHub repo: <strong className="text-white">{session?.appName}</strong></span>
               </li>
               <li className="flex gap-2">
-                <span className="text-emerald-400 font-bold">3.</span>
+                <span className="text-orange-400 font-bold">3.</span>
                 <span>Open and copy the <code className="bg-white/10 px-1 rounded">PROMPT.md</code> file for project context</span>
               </li>
               <li className="flex gap-2">
-                <span className="text-emerald-400 font-bold">4.</span>
+                <span className="text-orange-400 font-bold">4.</span>
                 <span>Describe what you want to build</span>
               </li>
               <li className="flex gap-2">
-                <span className="text-emerald-400 font-bold">5.</span>
+                <span className="text-orange-400 font-bold">5.</span>
                 <span>Build with AI → commit → your site updates! 🎉</span>
               </li>
             </ol>
@@ -283,7 +283,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             href={`${deployResult.repoUrl}/blob/main/PROMPT.md`}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full text-center bg-emerald-400 text-black py-3 rounded-lg font-semibold hover:bg-emerald-300 transition-colors mb-3"
+            className="block w-full text-center bg-orange-400 text-black py-3 rounded-lg font-semibold hover:bg-emerald-300 transition-colors mb-3"
           >
             View PROMPT.md →
           </a>
@@ -305,10 +305,10 @@ export default function DeployStep({ sessionId, session }: StepProps) {
               Prefer to work from your laptop? Click here →
             </summary>
             <div className="mt-3 p-3 bg-white/5 rounded-lg space-y-2 text-sm text-white/70">
-              <p>1. Install <a href="https://cursor.sh" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Cursor</a> or <a href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">VS Code</a></p>
+              <p>1. Install <a href="https://cursor.sh" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">Cursor</a> or <a href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">VS Code</a></p>
               <p>2. Clone your repo locally</p>
               <p>3. Use your AI (Claude/Gemini/ChatGPT) directly in your editor</p>
-              <p className="pt-2 text-xs text-white/50">Or use <a href={`https://github.dev/${deployResult.repoUrl.replace('https://github.com/', '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">github.dev</a> to edit in your browser (no install needed)</p>
+              <p className="pt-2 text-xs text-white/50">Or use <a href={`https://github.dev/${deployResult.repoUrl.replace('https://github.com/', '')}`} target="_blank" rel="noopener noreferrer" className="text-orange-400 hover:underline">github.dev</a> to edit in your browser (no install needed)</p>
             </div>
           </details>
         </div>
@@ -368,7 +368,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
                 `App name: ${session?.appName}`,
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-white/80">
-                  <span className="text-emerald-400">✓</span>
+                  <span className="text-orange-400">✓</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -383,7 +383,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
 
           <button
             onClick={startDeploy}
-            className="w-full bg-emerald-400 text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-300 transition-colors"
+            className="w-full bg-orange-400 text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-300 transition-colors"
           >
             Deploy My App 🚀
           </button>
@@ -405,14 +405,14 @@ export default function DeployStep({ sessionId, session }: StepProps) {
                   key={step.id}
                   className={`flex items-center gap-3 p-3 rounded-lg transition-colors ${
                     isComplete
-                      ? "bg-emerald-400/10"
+                      ? "bg-orange-400/10"
                       : isCurrent
                       ? "bg-white/10"
                       : "bg-white/5"
                   }`}
                 >
                   {isComplete ? (
-                    <span className="text-emerald-400">✓</span>
+                    <span className="text-orange-400">✓</span>
                   ) : isCurrent ? (
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   ) : (
@@ -440,8 +440,8 @@ export default function DeployStep({ sessionId, session }: StepProps) {
             <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
               <div className="flex items-center gap-3">
                 <div className="relative w-10 h-10">
-                  <div className="absolute inset-0 border-2 border-emerald-400/30 rounded-full"></div>
-                  <div className="absolute inset-0 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="absolute inset-0 border-2 border-orange-400/30 rounded-full"></div>
+                  <div className="absolute inset-0 border-2 border-orange-400 border-t-transparent rounded-full animate-spin"></div>
                 </div>
                 <div>
                   <p className="text-white font-medium">Vercel is building your app</p>

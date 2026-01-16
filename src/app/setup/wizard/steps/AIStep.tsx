@@ -111,7 +111,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
 
       {isConnected ? (
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-emerald-400/20 text-emerald-400 px-4 py-2 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 bg-orange-400/20 text-orange-400 px-4 py-2 rounded-full mb-6">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
@@ -120,7 +120,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
 
           <button
             onClick={onNext}
-            className="block w-full max-w-sm mx-auto bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-emerald-400 transition-colors"
+            className="block w-full max-w-sm mx-auto bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-orange-400 transition-colors"
           >
             Continue →
           </button>
@@ -224,7 +224,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
                 value={aiKey}
                 onChange={(e) => setAiKey(e.target.value)}
                 placeholder={aiProvider === "claude" ? "sk-ant-..." : aiProvider === "gemini" ? "AIza..." : "sk-..."}
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
               />
             </div>
 
@@ -235,7 +235,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
             <button
               type="submit"
               disabled={loading || !aiKey}
-              className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-orange-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Saving..." : "Save & Continue →"}
             </button>

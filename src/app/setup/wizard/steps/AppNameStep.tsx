@@ -97,7 +97,7 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
   return (
     <div>
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-3xl">✨</span>
         </div>
         <h2 className="text-3xl font-bold mb-2">Name Your App</h2>
@@ -117,7 +117,7 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
               value={appName}
               onChange={(e) => setAppName(e.target.value.toLowerCase())}
               placeholder="my-awesome-app"
-              className="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 text-lg"
+              className="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent placeholder-white/40 text-lg"
               autoFocus
             />
             {checking && (
@@ -126,7 +126,7 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
               </div>
             )}
             {!checking && isAvailable === true && (
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-emerald-400">
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-400">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -146,10 +146,10 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
           )}
 
           {isAvailable && preview && (
-            <div className="mt-4 p-4 bg-emerald-400/10 border border-emerald-400/20 rounded-lg">
-              <p className="text-emerald-400 text-sm mb-1">Available!</p>
+            <div className="mt-4 p-4 bg-orange-400/10 border border-orange-400/20 rounded-lg">
+              <p className="text-orange-400 text-sm mb-1">Available!</p>
               <p className="text-white font-medium">
-                Your app will be at: <span className="text-emerald-400">{preview}</span>
+                Your app will be at: <span className="text-orange-400">{preview}</span>
               </p>
             </div>
           )}
@@ -167,7 +167,7 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
         <button
           type="submit"
           disabled={loading || !isAvailable}
-          className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-orange-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Saving..." : "Continue to Deploy →"}
         </button>

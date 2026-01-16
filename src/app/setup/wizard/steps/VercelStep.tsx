@@ -49,7 +49,7 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
 
       {isConnected ? (
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-emerald-400/20 text-emerald-400 px-4 py-2 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 bg-orange-400/20 text-orange-400 px-4 py-2 rounded-full mb-6">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
@@ -60,7 +60,7 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
 
           <button
             onClick={onNext}
-            className="block w-full max-w-sm mx-auto bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-emerald-400 transition-colors"
+            className="block w-full max-w-sm mx-auto bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-orange-400 transition-colors"
           >
             Continue →
           </button>
@@ -70,7 +70,7 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
           {/* One-click OAuth connection */}
           <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-emerald-400 text-black rounded-full flex items-center justify-center font-bold text-sm">1</div>
+              <div className="w-8 h-8 bg-orange-400 text-black rounded-full flex items-center justify-center font-bold text-sm">1</div>
               <h4 className="font-semibold">Connect your Vercel account</h4>
             </div>
             <p className="text-sm text-white/70 ml-11">
@@ -89,7 +89,7 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
 
           <button
             onClick={handleConnect}
-            className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors mb-6 flex items-center justify-center gap-3"
+            className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-orange-400 transition-colors mb-6 flex items-center justify-center gap-3"
           >
             <svg className="w-5 h-5" viewBox="0 0 76 65" fill="currentColor">
               <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
@@ -112,15 +112,15 @@ export default function VercelStep({ sessionId, session, onNext, onRefresh }: St
         <h4 className="text-sm font-semibold text-white/60 mb-3">SECURITY:</h4>
         <ul className="space-y-2 text-sm text-white/70">
           <li className="flex items-start gap-2">
-            <span className="text-emerald-400 mt-0.5">✓</span>
+            <span className="text-orange-400 mt-0.5">✓</span>
             <span>We only request permission to create projects</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-emerald-400 mt-0.5">✓</span>
+            <span className="text-orange-400 mt-0.5">✓</span>
             <span>Used only to deploy YOUR app to YOUR account</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-emerald-400 mt-0.5">✓</span>
+            <span className="text-orange-400 mt-0.5">✓</span>
             <span>Access deleted immediately after setup completes</span>
           </li>
         </ul>

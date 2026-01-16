@@ -58,7 +58,7 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
   return (
     <div>
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-3xl">💾</span>
         </div>
         <h2 className="text-3xl font-bold mb-2">Set Up Neon</h2>
@@ -69,7 +69,7 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
 
       {isConnected ? (
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-emerald-400/20 text-emerald-400 px-4 py-2 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 bg-orange-400/20 text-orange-400 px-4 py-2 rounded-full mb-6">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
@@ -78,7 +78,7 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
 
           <button
             onClick={onNext}
-            className="block w-full max-w-sm mx-auto bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-emerald-400 transition-colors"
+            className="block w-full max-w-sm mx-auto bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-orange-400 transition-colors"
           >
             Continue →
           </button>
@@ -99,7 +99,7 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
 
           <button
             onClick={openNeon}
-            className="w-full bg-emerald-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-emerald-500 transition-colors mb-6"
+            className="w-full bg-orange-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-orange-500 transition-colors mb-6"
           >
             Open Neon Console →
           </button>
@@ -114,7 +114,7 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
                 value={databaseUrl}
                 onChange={(e) => setDatabaseUrl(e.target.value)}
                 placeholder="postgresql://user:pass@...neon.tech/neondb"
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
               />
               <p className="mt-2 text-xs text-white/40">
                 Found on your Neon dashboard after creating a project
@@ -128,7 +128,7 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
             <button
               type="submit"
               disabled={loading || !databaseUrl}
-              className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-orange-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Saving..." : "Save & Continue →"}
             </button>

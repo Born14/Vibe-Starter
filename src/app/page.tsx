@@ -9,12 +9,20 @@ export default function Home() {
           <div className="text-xl font-bold tracking-tight">
             vibe<span className="text-orange-400">starter</span>
           </div>
-          <Link
-            href="#get-started"
-            className="bg-orange-400 text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-orange-300 transition-colors"
-          >
-            Get Started
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/setup"
+              className="text-sm text-white/70 hover:text-white transition-colors"
+            >
+              Enter License Key
+            </Link>
+            <Link
+              href="#get-started"
+              className="bg-orange-400 text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-orange-300 transition-colors"
+            >
+              Get Started
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -309,6 +317,10 @@ export default function Home() {
 
             <p className="mt-6 text-sm text-white/50">
               I&apos;ll send you a license key. Usually within a few hours.
+              <br />
+              <Link href="/setup" className="text-orange-400 hover:underline mt-2 inline-block">
+                Already have a key? Enter it here →
+              </Link>
             </p>
           </div>
         </div>
@@ -411,12 +423,20 @@ export default function Home() {
           <p className="text-xl text-white/60 mb-10">
             Email for a license key. Start building.
           </p>
-          <a
-            href="mailto:support@vibestarter.app?subject=License Key Request"
-            className="inline-block bg-orange-400 text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-orange-300 transition-all hover:scale-105"
-          >
-            Email for License Key — Free
-          </a>
+          <div className="flex flex-col items-center gap-4">
+            <a
+              href="mailto:support@vibestarter.app?subject=License Key Request"
+              className="inline-block bg-orange-400 text-black px-10 py-4 rounded-full text-lg font-semibold hover:bg-orange-300 transition-all hover:scale-105"
+            >
+              Email for License Key — Free
+            </a>
+            <Link
+              href="/setup"
+              className="text-white/60 hover:text-white transition-colors text-sm"
+            >
+              Already have a key? Enter it here →
+            </Link>
+          </div>
         </div>
       </section>
 

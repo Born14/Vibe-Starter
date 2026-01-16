@@ -111,7 +111,7 @@ function WizardContent() {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-8 h-8 border-2 border-orange-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-white/60">Loading your session...</p>
         </div>
       </div>
@@ -127,7 +127,7 @@ function WizardContent() {
           <p className="text-white/60 mb-6">{error}</p>
           <a
             href="/setup"
-            className="inline-block bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors"
+            className="inline-block bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-orange-400 transition-colors"
           >
             Enter License Key
           </a>
@@ -145,7 +145,7 @@ function WizardContent() {
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-3">
             <div className="text-lg font-bold tracking-tight">
-              vibe<span className="text-emerald-400">starter</span>
+              vibe<span className="text-orange-400">starter</span>
             </div>
             <div className="text-sm text-white/60">
               Step {currentStep} of {STEPS.length}
@@ -159,7 +159,7 @@ function WizardContent() {
                 key={step.id}
                 className={`h-1 flex-1 rounded-full transition-colors ${
                   step.id < currentStep
-                    ? "bg-emerald-400"
+                    ? "bg-orange-400"
                     : step.id === currentStep
                     ? "bg-white"
                     : "bg-white/20"

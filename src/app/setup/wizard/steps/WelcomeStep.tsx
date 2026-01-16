@@ -8,7 +8,7 @@ interface StepProps {
 export default function WelcomeStep({ onNext }: StepProps) {
   return (
     <div className="text-center">
-      <div className="w-16 h-16 bg-emerald-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-16 h-16 bg-orange-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
         <span className="text-3xl">🚀</span>
       </div>
 
@@ -42,8 +42,8 @@ export default function WelcomeStep({ onNext }: StepProps) {
         </ul>
       </div>
 
-      <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-8 max-w-md mx-auto">
-        <p className="text-emerald-400 text-sm">
+      <div className="bg-orange-400/10 border border-orange-400/20 rounded-xl p-4 mb-8 max-w-md mx-auto">
+        <p className="text-orange-400 text-sm">
           <strong>You own everything.</strong> These are your accounts.
           We just help you set them up.
         </p>
@@ -51,7 +51,7 @@ export default function WelcomeStep({ onNext }: StepProps) {
 
       <button
         onClick={onNext}
-        className="bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-emerald-400 transition-all hover:scale-105"
+        className="bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-400 transition-all hover:scale-105"
       >
         Let&apos;s do this →
       </button>

@@ -46,7 +46,7 @@ function SetupForm() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="text-2xl font-bold tracking-tight mb-2">
-            vibe<span className="text-emerald-400">starter</span>
+            vibe<span className="text-orange-400">starter</span>
           </div>
           <h1 className="text-3xl font-bold mb-2">Welcome</h1>
           <p className="text-white/60">
@@ -65,7 +65,7 @@ function SetupForm() {
               value={licenseKey}
               onChange={(e) => setLicenseKey(e.target.value)}
               placeholder="VS-XXXX-XXXX-XXXX"
-              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 uppercase tracking-widest text-center font-mono"
+              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent placeholder-white/40 uppercase tracking-widest text-center font-mono"
               autoComplete="off"
               autoFocus
             />
@@ -77,7 +77,7 @@ function SetupForm() {
           <button
             type="submit"
             disabled={loading || !licenseKey.trim()}
-            className="w-full bg-white text-black py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-orange-400 text-black py-3 rounded-lg font-semibold hover:bg-orange-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Validating..." : "Start Setup"}
           </button>
@@ -86,8 +86,8 @@ function SetupForm() {
         <div className="mt-8 text-center">
           <p className="text-sm text-white/40">
             Don&apos;t have a license key?{" "}
-            <a href="/#pricing" className="text-emerald-400 hover:underline">
-              Get one here
+            <a href="mailto:support@vibestarter.app?subject=License Key Request" className="text-orange-400 hover:underline">
+              Email for one (free)
             </a>
           </p>
         </div>

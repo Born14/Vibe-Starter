@@ -1160,10 +1160,11 @@ export async function GET() {
 
       // Check if it's a 403 permission error
       if (logsRes.status === 403) {
-        // Provide direct link to Vercel logs instead
-        const vercelLogsUrl = \`https://vercel.com/logs?deploymentId=\${latestDeployment.uid}\`;
+        // Use special Vercel pathname: appending /_logs to deployment URL shows logs
+        const vercelLogsUrl = \`https://\${latestDeployment.url}/_logs\`;
+
         return NextResponse.json({
-          logs: \`Runtime logs are not accessible via API on the free plan.\\n\\nView runtime logs directly on Vercel:\\n\${vercelLogsUrl}\\n\\nClick the "Open in Vercel" button below to view and copy logs.\`,
+          logs: \`Runtime logs are not accessible via API on the free plan.\\n\\nClick "Open in Vercel" below to view runtime logs directly.\\n\\nDirect link: \${vercelLogsUrl}\`,
           vercelLogsUrl: vercelLogsUrl,
           deployment: {
             id: latestDeployment.uid,

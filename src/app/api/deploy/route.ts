@@ -947,12 +947,6 @@ export default async function DashboardPage() {
                 Open in VS Code
               </a>
               <a
-                href="cursor://clone?url=https://github.com/${repoFullName}.git"
-                className="block w-full text-center bg-black text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
-              >
-                Open in Cursor
-              </a>
-              <a
                 href="https://github.dev/${repoFullName}"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -961,12 +955,12 @@ export default async function DashboardPage() {
                 Open in Browser IDE
               </a>
               <a
-                href="https://idx.google.com/import?url=https://github.com/${repoFullName}"
+                href="https://antigravity.google.com/import?url=https://github.com/${repoFullName}"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:from-blue-600 hover:to-purple-700 transition-colors"
               >
-                Open in Google IDX
+                Open in Antigravity IDE
               </a>
             </div>
             <p className="text-xs text-gray-500 mt-3 text-center">

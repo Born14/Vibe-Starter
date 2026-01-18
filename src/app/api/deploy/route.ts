@@ -1144,9 +1144,9 @@ export async function GET() {
     const latestDeployment = deploymentsData.deployments[0];
 
     // Runtime logs are only available for up to 1 hour
-    // Use logs endpoint to get function execution logs
+    // Use correct runtime-logs endpoint for function execution logs (console.log, etc.)
     const logsRes = await fetch(
-      \`https://api.vercel.com/v2/deployments/\${latestDeployment.uid}/events?direction=forward&limit=100\`,
+      \`https://api.vercel.com/v1/projects/\${projectId}/deployments/\${latestDeployment.uid}/runtime-logs\`,
       {
         headers: {
           Authorization: \`Bearer \${token}\`,
@@ -1168,13 +1168,22 @@ export async function GET() {
       });
     }
 
-    const logsData = await logsRes.json();
+    // Runtime logs come as newline-delimited JSON stream
+    const logsText = await logsRes.text();
+    const logLines = logsText.trim().split("\\n").filter(line => line);
 
-    // Format logs as text
-    const logs = logsData
-      .map((event: any) => {
-        const timestamp = new Date(event.created).toISOString();
-        return \`[\${timestamp}] \${event.text || event.payload?.text || JSON.stringify(event)}\`;
+    // Parse each JSON line and format
+    const logs = logLines
+      .map((line: string) => {
+        try {
+          const log = JSON.parse(line);
+          const timestamp = new Date(log.timestampInMs || Date.now()).toISOString();
+          const level = log.level || "info";
+          const message = log.message || JSON.stringify(log);
+          return \`[\${timestamp}] [\${level.toUpperCase()}] \${message}\`;
+        } catch {
+          return line; // If parsing fails, return raw line
+        }
       })
       .join("\\n");
 

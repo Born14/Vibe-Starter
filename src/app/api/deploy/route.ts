@@ -1158,7 +1158,7 @@ export async function GET() {
       const errorText = await logsRes.text();
       console.error("Runtime logs fetch failed:", errorText);
       return NextResponse.json({
-        logs: `Runtime logs API error (${logsRes.status}): ${errorText}\n\nNote: Runtime logs are only stored for 1 hour by Vercel. For longer retention, configure Log Drains.`,
+        logs: \`Runtime logs API error (\${logsRes.status}): \${errorText}\\n\\nNote: Runtime logs are only stored for 1 hour by Vercel. For longer retention, configure Log Drains.\`,
         deployment: {
           id: latestDeployment.uid,
           url: latestDeployment.url,

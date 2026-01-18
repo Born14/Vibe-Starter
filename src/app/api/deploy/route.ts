@@ -941,7 +941,7 @@ export default async function DashboardPage() {
             </p>
             <div className="space-y-2">
               <a
-                href="vscode://vscode.git/clone?url=https://github.com/${repoFullName}.git"
+                href="vscode://vscode.dev/clone?url=https://github.com/${repoFullName}"
                 className="block w-full text-center bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
               >
                 Open in VS Code
@@ -955,9 +955,7 @@ export default async function DashboardPage() {
                 Open in Browser IDE
               </a>
               <a
-                href="https://antigravity.google.com/import?url=https://github.com/${repoFullName}"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="antigravity://clone?url=https://github.com/${repoFullName}"
                 className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:from-blue-600 hover:to-purple-700 transition-colors"
               >
                 Open in Antigravity IDE

@@ -778,17 +778,25 @@ export default async function DashboardPage() {
             </div>
             <div className="flex items-center gap-3 sm:col-span-2">
               <span className="text-green-600 text-lg">✓</span>
-              <div className="flex-1 flex items-center justify-between">
+              <div className="flex-1 flex items-center justify-between flex-wrap gap-2">
                 <div>
                   <div className="font-medium text-gray-900">Deployment Logs</div>
                   <div className="text-xs text-gray-600">Build & runtime logs available</div>
                 </div>
-                <a
-                  href="/logs"
-                  className="ml-4 px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  View Logs →
-                </a>
+                <div className="flex gap-2">
+                  <a
+                    href="/logs?tab=build"
+                    className="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Build Logs
+                  </a>
+                  <a
+                    href="/logs?tab=runtime"
+                    className="px-3 py-1.5 bg-purple-600 text-white text-xs font-medium rounded-lg hover:bg-purple-700 transition-colors"
+                  >
+                    Runtime Logs
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -1220,7 +1228,15 @@ interface LogData {
 }
 
 export default function LogsPage() {
-  const [activeTab, setActiveTab] = useState<LogType>("build");
+  // Read initial tab from URL params (e.g., /logs?tab=runtime)
+  const [activeTab, setActiveTab] = useState<LogType>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab');
+      return tab === 'runtime' ? 'runtime' : 'build';
+    }
+    return 'build';
+  });
   const [buildLogs, setBuildLogs] = useState<LogData | null>(null);
   const [runtimeLogs, setRuntimeLogs] = useState<LogData | null>(null);
   const [loading, setLoading] = useState(false);

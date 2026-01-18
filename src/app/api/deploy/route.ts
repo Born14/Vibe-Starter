@@ -1157,6 +1157,23 @@ export async function GET() {
     if (!logsRes.ok) {
       const errorText = await logsRes.text();
       console.error("Runtime logs fetch failed:", errorText);
+
+      // Check if it's a 403 permission error
+      if (logsRes.status === 403) {
+        // Provide direct link to Vercel logs instead
+        const vercelLogsUrl = \`https://vercel.com/logs?deploymentId=\${latestDeployment.uid}\`;
+        return NextResponse.json({
+          logs: \`Runtime logs are not accessible via API on the free plan.\\n\\nView runtime logs directly on Vercel:\\n\${vercelLogsUrl}\\n\\nClick the "Open in Vercel" button below to view and copy logs.\`,
+          vercelLogsUrl: vercelLogsUrl,
+          deployment: {
+            id: latestDeployment.uid,
+            url: latestDeployment.url,
+            state: latestDeployment.state,
+            createdAt: latestDeployment.created,
+          }
+        });
+      }
+
       return NextResponse.json({
         logs: \`Runtime logs API error (\${logsRes.status}): \${errorText}\\n\\nNote: Runtime logs are only stored for 1 hour by Vercel. For longer retention, configure Log Drains.\`,
         deployment: {
@@ -1219,6 +1236,7 @@ type LogType = "build" | "runtime";
 
 interface LogData {
   logs: string;
+  vercelLogsUrl?: string;
   deployment?: {
     id: string;
     url: string;
@@ -1355,17 +1373,29 @@ export default function LogsPage() {
           )}
 
           {/* Actions */}
-          <div className="px-6 py-3 bg-white border-b flex items-center justify-between">
+          <div className="px-6 py-3 bg-white border-b flex items-center justify-between flex-wrap gap-2">
             <div className="text-sm text-gray-600">
               {activeTab === "build" ? "Latest build output" : "Runtime logs (last 1 hour)"}
             </div>
-            <button
-              onClick={copyToClipboard}
-              disabled={!currentLogs?.logs || loading}
-              className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-            >
-              {copied ? "✓ Copied!" : "Copy Logs"}
-            </button>
+            <div className="flex gap-2">
+              {currentLogs?.vercelLogsUrl && (
+                <a
+                  href={currentLogs.vercelLogsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors"
+                >
+                  Open in Vercel →
+                </a>
+              )}
+              <button
+                onClick={copyToClipboard}
+                disabled={!currentLogs?.logs || loading}
+                className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                {copied ? "✓ Copied!" : "Copy Logs"}
+              </button>
+            </div>
           </div>
 
           {/* Logs Content */}
@@ -1379,9 +1409,26 @@ export default function LogsPage() {
                 <strong>Error:</strong> {currentLogs.error}
               </div>
             ) : (
-              <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words max-h-[600px] overflow-y-auto">
-                {currentLogs?.logs || "No logs available"}
-              </pre>
+              <>
+                <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words max-h-[600px] overflow-y-auto">
+                  {currentLogs?.logs || "No logs available"}
+                </pre>
+                {currentLogs?.vercelLogsUrl && (
+                  <div className="mt-4 bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <p className="text-sm text-purple-900 mb-3">
+                      <strong>📱 Mobile-friendly tip:</strong> Tap the button above to open Vercel's logs page where you can easily select and copy runtime logs for debugging.
+                    </p>
+                    <a
+                      href={currentLogs.vercelLogsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full sm:w-auto text-center px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors"
+                    >
+                      Open Vercel Logs →
+                    </a>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

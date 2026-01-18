@@ -955,7 +955,7 @@ export default async function DashboardPage() {
                 Open in Browser IDE
               </a>
               <a
-                href="antigravity://clone?url=https://github.com/${repoFullName}"
+                href="antigravity://vscode.dev/clone?url=https://github.com/${repoFullName}"
                 className="block w-full text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:from-blue-600 hover:to-purple-700 transition-colors"
               >
                 Open in Antigravity IDE

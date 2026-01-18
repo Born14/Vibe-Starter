@@ -776,6 +776,21 @@ export default async function DashboardPage() {
                 <div className="text-xs text-gray-600">${hasAI ? `${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} • API configured` : 'Add via Vercel env vars when needed'}</div>
               </div>
             </div>
+            <div className="flex items-center gap-3 sm:col-span-2">
+              <span className="text-green-600 text-lg">✓</span>
+              <div className="flex-1 flex items-center justify-between">
+                <div>
+                  <div className="font-medium text-gray-900">Deployment Logs</div>
+                  <div className="text-xs text-gray-600">Build & runtime logs available</div>
+                </div>
+                <a
+                  href="/logs"
+                  className="ml-4 px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-lg hover:bg-green-700 transition-colors"
+                >
+                  View Logs →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -985,8 +1000,383 @@ export default async function DashboardPage() {
             {" • "}
             <a href="https://neon.tech" target="_blank" className="hover:text-gray-700">View database</a>
             {" • "}
-            <a href="https://vercel.com" target="_blank" className="hover:text-gray-700">Deployment logs</a>
+            <a href="/logs" className="hover:text-gray-700">View logs</a>
           </p>
+        </div>
+      </div>
+    </main>
+  );
+}
+`,
+    },
+
+    // src/app/api/logs/build/route.ts
+    {
+      path: "src/app/api/logs/build/route.ts",
+      content: `import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
+
+export async function GET() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const projectId = process.env.VERCEL_PROJECT_ID;
+  const token = process.env.VERCEL_TOKEN;
+
+  if (!projectId || !token) {
+    return NextResponse.json({
+      error: "Vercel credentials not configured"
+    }, { status: 500 });
+  }
+
+  try {
+    // Get latest deployment for this project
+    const deploymentsRes = await fetch(
+      \`https://api.vercel.com/v6/deployments?projectId=\${projectId}&limit=1\`,
+      {
+        headers: {
+          Authorization: \`Bearer \${token}\`,
+        },
+      }
+    );
+
+    if (!deploymentsRes.ok) {
+      throw new Error("Failed to fetch deployments");
+    }
+
+    const deploymentsData = await deploymentsRes.json();
+
+    if (!deploymentsData.deployments || deploymentsData.deployments.length === 0) {
+      return NextResponse.json({ logs: "No deployments found" });
+    }
+
+    const latestDeployment = deploymentsData.deployments[0];
+
+    // Get build logs using deployment events endpoint
+    const logsRes = await fetch(
+      \`https://api.vercel.com/v3/deployments/\${latestDeployment.uid}/events\`,
+      {
+        headers: {
+          Authorization: \`Bearer \${token}\`,
+        },
+      }
+    );
+
+    if (!logsRes.ok) {
+      throw new Error("Failed to fetch build logs");
+    }
+
+    const logsData = await logsRes.json();
+
+    // Format logs as text
+    const logs = logsData
+      .map((event: any) => {
+        const timestamp = new Date(event.created).toISOString();
+        return \`[\${timestamp}] \${event.text || event.payload?.text || JSON.stringify(event)}\`;
+      })
+      .join("\\n");
+
+    return NextResponse.json({
+      logs: logs || "No build logs available",
+      deployment: {
+        id: latestDeployment.uid,
+        url: latestDeployment.url,
+        state: latestDeployment.state,
+        createdAt: latestDeployment.created,
+      }
+    });
+  } catch (error) {
+    console.error("Build logs error:", error);
+    return NextResponse.json({
+      error: error instanceof Error ? error.message : "Failed to fetch build logs"
+    }, { status: 500 });
+  }
+}
+`,
+    },
+
+    // src/app/api/logs/runtime/route.ts
+    {
+      path: "src/app/api/logs/runtime/route.ts",
+      content: `import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
+
+export async function GET() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const projectId = process.env.VERCEL_PROJECT_ID;
+  const token = process.env.VERCEL_TOKEN;
+
+  if (!projectId || !token) {
+    return NextResponse.json({
+      error: "Vercel credentials not configured"
+    }, { status: 500 });
+  }
+
+  try {
+    // Get latest production deployment
+    const deploymentsRes = await fetch(
+      \`https://api.vercel.com/v6/deployments?projectId=\${projectId}&target=production&limit=1\`,
+      {
+        headers: {
+          Authorization: \`Bearer \${token}\`,
+        },
+      }
+    );
+
+    if (!deploymentsRes.ok) {
+      throw new Error("Failed to fetch deployments");
+    }
+
+    const deploymentsData = await deploymentsRes.json();
+
+    if (!deploymentsData.deployments || deploymentsData.deployments.length === 0) {
+      return NextResponse.json({ logs: "No production deployments found" });
+    }
+
+    const latestDeployment = deploymentsData.deployments[0];
+
+    // Runtime logs are only available for up to 1 hour
+    // Use logs endpoint to get function execution logs
+    const logsRes = await fetch(
+      \`https://api.vercel.com/v2/deployments/\${latestDeployment.uid}/events?direction=forward&limit=100\`,
+      {
+        headers: {
+          Authorization: \`Bearer \${token}\`,
+        },
+      }
+    );
+
+    if (!logsRes.ok) {
+      const errorText = await logsRes.text();
+      console.error("Runtime logs fetch failed:", errorText);
+      return NextResponse.json({
+        logs: "Runtime logs are only stored for 1 hour. For longer retention, configure Log Drains in Vercel.",
+        deployment: {
+          id: latestDeployment.uid,
+          url: latestDeployment.url,
+          state: latestDeployment.state,
+          createdAt: latestDeployment.created,
+        }
+      });
+    }
+
+    const logsData = await logsRes.json();
+
+    // Format logs as text
+    const logs = logsData
+      .map((event: any) => {
+        const timestamp = new Date(event.created).toISOString();
+        return \`[\${timestamp}] \${event.text || event.payload?.text || JSON.stringify(event)}\`;
+      })
+      .join("\\n");
+
+    return NextResponse.json({
+      logs: logs || "No runtime logs available (logs are only kept for 1 hour)",
+      deployment: {
+        id: latestDeployment.uid,
+        url: latestDeployment.url,
+        state: latestDeployment.state,
+        createdAt: latestDeployment.created,
+      }
+    });
+  } catch (error) {
+    console.error("Runtime logs error:", error);
+    return NextResponse.json({
+      error: error instanceof Error ? error.message : "Failed to fetch runtime logs"
+    }, { status: 500 });
+  }
+}
+`,
+    },
+
+    // src/app/logs/page.tsx
+    {
+      path: "src/app/logs/page.tsx",
+      content: `"use client";
+
+import { useEffect, useState } from "react";
+import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+
+type LogType = "build" | "runtime";
+
+interface LogData {
+  logs: string;
+  deployment?: {
+    id: string;
+    url: string;
+    state: string;
+    createdAt: number;
+  };
+  error?: string;
+}
+
+export default function LogsPage() {
+  const [activeTab, setActiveTab] = useState<LogType>("build");
+  const [buildLogs, setBuildLogs] = useState<LogData | null>(null);
+  const [runtimeLogs, setRuntimeLogs] = useState<LogData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const fetchLogs = async (type: LogType) => {
+    setLoading(true);
+    try {
+      const res = await fetch(\`/api/logs/\${type}\`);
+      const data = await res.json();
+
+      if (type === "build") {
+        setBuildLogs(data);
+      } else {
+        setRuntimeLogs(data);
+      }
+    } catch (error) {
+      console.error(\`Failed to fetch \${type} logs:\`, error);
+      if (type === "build") {
+        setBuildLogs({ logs: "Failed to load logs", error: String(error) });
+      } else {
+        setRuntimeLogs({ logs: "Failed to load logs", error: String(error) });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLogs(activeTab);
+  }, [activeTab]);
+
+  const currentLogs = activeTab === "build" ? buildLogs : runtimeLogs;
+
+  const copyToClipboard = async () => {
+    if (currentLogs?.logs) {
+      await navigator.clipboard.writeText(currentLogs.logs);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="border-b bg-white sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/dashboard"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              ← Back
+            </Link>
+            <h1 className="text-lg font-semibold text-gray-900">Deployment Logs</h1>
+          </div>
+          <UserButton afterSignOutUrl="/" />
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        {/* Tabs */}
+        <div className="bg-white rounded-lg shadow-sm border mb-6">
+          <div className="flex border-b">
+            <button
+              onClick={() => setActiveTab("build")}
+              className={\`flex-1 px-6 py-4 text-sm font-medium transition-colors \${
+                activeTab === "build"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-gray-600 hover:text-gray-900"
+              }\`}
+            >
+              Build Logs
+            </button>
+            <button
+              onClick={() => setActiveTab("runtime")}
+              className={\`flex-1 px-6 py-4 text-sm font-medium transition-colors \${
+                activeTab === "runtime"
+                  ? "border-b-2 border-blue-600 text-blue-600"
+                  : "text-gray-600 hover:text-gray-900"
+              }\`}
+            >
+              Runtime Logs
+            </button>
+          </div>
+
+          {/* Deployment Info */}
+          {currentLogs?.deployment && (
+            <div className="px-6 py-4 bg-gray-50 border-b text-sm">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-6">
+                  <div>
+                    <span className="text-gray-600">Status: </span>
+                    <span className="font-medium text-gray-900">
+                      {currentLogs.deployment.state}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Deployed: </span>
+                    <span className="font-medium text-gray-900">
+                      {new Date(currentLogs.deployment.createdAt).toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+                <a
+                  href={\`https://\${currentLogs.deployment.url}\`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  View Deployment →
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="px-6 py-3 bg-white border-b flex items-center justify-between">
+            <div className="text-sm text-gray-600">
+              {activeTab === "build" ? "Latest build output" : "Runtime logs (last 1 hour)"}
+            </div>
+            <button
+              onClick={copyToClipboard}
+              disabled={!currentLogs?.logs || loading}
+              className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+            >
+              {copied ? "✓ Copied!" : "Copy Logs"}
+            </button>
+          </div>
+
+          {/* Logs Content */}
+          <div className="p-6">
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <div className="text-gray-600">Loading logs...</div>
+              </div>
+            ) : currentLogs?.error ? (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-800">
+                <strong>Error:</strong> {currentLogs.error}
+              </div>
+            ) : (
+              <pre className="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto text-xs font-mono whitespace-pre-wrap break-words max-h-[600px] overflow-y-auto">
+                {currentLogs?.logs || "No logs available"}
+              </pre>
+            )}
+          </div>
+        </div>
+
+        {/* Info Box */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-900">
+          <strong className="block mb-2">💡 Tip:</strong>
+          <ul className="space-y-1 ml-4 list-disc">
+            <li><strong>Build logs</strong> show the deployment process (npm install, build, etc.)</li>
+            <li><strong>Runtime logs</strong> show API route executions and server-side activity (stored for 1 hour only)</li>
+            <li>For longer log retention, configure Log Drains in your Vercel project settings</li>
+          </ul>
         </div>
       </div>
     </main>

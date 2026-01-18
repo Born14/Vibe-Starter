@@ -239,6 +239,8 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       { key: "NEXT_PUBLIC_CLERK_SIGN_IN_URL", value: "/sign-in" },
       { key: "NEXT_PUBLIC_CLERK_SIGN_UP_URL", value: "/sign-up" },
       { key: "DATABASE_URL", value: databaseUrl },
+      { key: "VERCEL_PROJECT_ID", value: vercelProject.id },
+      { key: "VERCEL_TOKEN", value: vercelToken },
     ];
 
     // Add AI env var only if configured

@@ -387,6 +387,7 @@ function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean, r
           "drizzle-orm": "^0.36.0",
           "framer-motion": "^11.15.0",
           gsap: "^3.12.5",
+          "lottie-react": "^2.4.0",
           next: "15.2.8",
           react: "^18.3.1",
           "react-dom": "^18.3.1",
@@ -794,7 +795,7 @@ export default async function DashboardPage() {
               <span className="text-green-600 text-lg">✓</span>
               <div>
                 <div className="font-medium text-gray-900">Animations</div>
-                <div className="text-xs text-gray-600">Framer Motion + GSAP</div>
+                <div className="text-xs text-gray-600">Framer Motion + GSAP + Lottie</div>
               </div>
             </div>
             <div className="flex items-center gap-3 sm:col-span-2">
@@ -892,10 +893,10 @@ export default async function DashboardPage() {
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span>✨</span>
-                <span className="font-medium text-gray-900">Animations</span>
+                <span className="font-medium text-gray-900">Animations & Motion Graphics</span>
               </div>
               <p className="text-gray-600 ml-6">
-                Framer Motion for React components, GSAP for scroll effects
+                Framer Motion + GSAP + Lottie for pro-level animations
               </p>
             </div>
           </div>
@@ -1559,7 +1560,7 @@ This is your AI coding assistant context. Paste this into Claude when building f
 - **Auth:** Clerk (users can sign up/sign in)
 - **Database:** Neon Postgres + Drizzle ORM
 - **Styling:** Tailwind CSS
-- **Animation:** Framer Motion + GSAP (UI animations & scroll effects)${hasAI ? `
+- **Animation:** Framer Motion + GSAP + Lottie (full motion graphics)${hasAI ? `
 - **AI:** ${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} API ready` : `
 - **AI:** Not configured yet (add via Vercel env vars when needed)`}
 
@@ -1639,7 +1640,7 @@ items: {
 ## Rules for AI
 - Use TypeScript for all files
 - Use Tailwind CSS for styling (no CSS modules)
-- Use Framer Motion for React animations, GSAP for scroll/timeline effects
+- Use Framer Motion for React animations, GSAP for scroll/timeline effects, Lottie for motion graphics
 - Use server components by default, add "use client" only when needed
 - Always check auth with \`auth()\` from @clerk/nextjs/server in API routes
 - Use the \`db\` object from @/lib/db for database queries
@@ -1703,6 +1704,49 @@ useEffect(() => {
 }, []);
 \`\`\`
 
+## Lottie for Motion Graphics
+
+Use After Effects animations or grab free ones from [LottieFiles.com](https://lottiefiles.com)
+
+\`\`\`typescript
+"use client";
+import Lottie from "lottie-react";
+import animationData from "./animation.json"; // Download from LottieFiles
+
+// Basic usage
+<Lottie animationData={animationData} loop={true} />
+
+// With controls
+import { useRef } from "react";
+
+export function AnimatedIcon() {
+  const lottieRef = useRef(null);
+
+  return (
+    <Lottie
+      lottieRef={lottieRef}
+      animationData={animationData}
+      loop={false}
+      autoplay={false}
+      onMouseEnter={() => lottieRef.current?.play()}
+      onMouseLeave={() => lottieRef.current?.stop()}
+      style={{ width: 200, height: 200 }}
+    />
+  );
+}
+
+// From URL (no download needed)
+import { useLottie } from "lottie-react";
+
+export function RemoteAnimation() {
+  const { View } = useLottie({
+    path: "https://assets.lottiefiles.com/packages/lf20_xxx.json",
+    loop: true,
+  });
+  return View;
+}
+\`\`\`
+
 ## Example Requests to Claude
 
 - "Add a page where I can save notes"
@@ -1714,6 +1758,9 @@ useEffect(() => {
 - "Add a smooth hover effect to the buttons"
 - "Make elements animate as I scroll down"
 - "Create a staggered animation for a list of items"
+- "Add a Lottie animation for the loading state"
+- "Add an animated success checkmark using Lottie"
+- "Create a hero section with a Lottie background animation"
 `,
     },
 

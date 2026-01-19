@@ -1795,12 +1795,42 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## Tech Stack
 
-- **Next.js 15** - React framework
-- **Clerk** - Authentication
-- **Neon** - Postgres database
-- **Drizzle** - Database ORM
-- **Tailwind CSS** - Styling
-- **Vercel** - Hosting
+| Category | Technology | Purpose |
+|----------|------------|---------|
+| **Framework** | Next.js 15 | React with App Router |
+| **Auth** | Clerk | User sign-up/sign-in |
+| **Database** | Neon + Drizzle | Postgres with type-safe ORM |
+| **Styling** | Tailwind CSS | Utility-first CSS |
+| **Animations** | Framer Motion | React component animations |
+| **Scroll Effects** | GSAP | Timelines & scroll-triggered |
+| **Motion Graphics** | Lottie | After Effects animations |
+| **Hosting** | Vercel | Auto-deploys on git push |
+
+## Animation Libraries
+
+Your app includes three animation libraries for different use cases:
+
+### Framer Motion
+Best for: React component animations, hover effects, layout transitions
+\`\`\`tsx
+<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+  Click me
+</motion.div>
+\`\`\`
+
+### GSAP
+Best for: Scroll-triggered animations, complex timelines, parallax
+\`\`\`tsx
+gsap.to(".element", { scrollTrigger: { trigger: ".element" }, x: 100 });
+\`\`\`
+
+### Lottie
+Best for: Complex motion graphics, animated icons, loading states
+\`\`\`tsx
+<Lottie animationData={animation} loop={true} />
+\`\`\`
+
+Browse free animations at [LottieFiles.com](https://lottiefiles.com)
 
 ## Useful Commands
 
@@ -1810,6 +1840,11 @@ npm run build      # Build for production
 npm run db:push    # Sync database schema
 npm run db:studio  # Open database UI
 \`\`\`
+
+## Learn More
+
+- See \`PROMPT.md\` for detailed AI coding instructions
+- Visit your dashboard at /dashboard for quick start guide
 `,
     },
   ];

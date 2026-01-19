@@ -388,6 +388,7 @@ function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean, r
           "@clerk/nextjs": "^5.7.0",
           "@neondatabase/serverless": "^0.10.0",
           "drizzle-orm": "^0.36.0",
+          "framer-motion": "^11.15.0",
           next: "15.2.8",
           react: "^18.3.1",
           "react-dom": "^18.3.1",
@@ -1527,7 +1528,8 @@ This is your AI coding assistant context. Paste this into Claude when building f
 - **Framework:** Next.js 15 (App Router)
 - **Auth:** Clerk (users can sign up/sign in)
 - **Database:** Neon Postgres + Drizzle ORM
-- **Styling:** Tailwind CSS${hasAI ? `
+- **Styling:** Tailwind CSS
+- **Animation:** Framer Motion (for smooth UI animations)${hasAI ? `
 - **AI:** ${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} API ready` : `
 - **AI:** Not configured yet (add via Vercel env vars when needed)`}
 
@@ -1607,10 +1609,37 @@ items: {
 ## Rules for AI
 - Use TypeScript for all files
 - Use Tailwind CSS for styling (no CSS modules)
+- Use Framer Motion for animations (already installed)
 - Use server components by default, add "use client" only when needed
 - Always check auth with \`auth()\` from @clerk/nextjs/server in API routes
 - Use the \`db\` object from @/lib/db for database queries
 - Keep it simple - don't over-engineer
+
+## Animation with Framer Motion
+
+\`\`\`typescript
+"use client";
+import { motion } from "framer-motion";
+
+// Fade in
+<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+  Content
+</motion.div>
+
+// Slide up on scroll
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+>
+  Appears on scroll
+</motion.div>
+
+// Hover effect
+<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+  Click me
+</motion.button>
+\`\`\`
 
 ## Example Requests to Claude
 
@@ -1619,6 +1648,8 @@ items: {
 - "Add a delete button to each item"
 - "Make the dashboard show all my items"
 - "Add a search bar to filter items"
+- "Animate the cards to fade in on page load"
+- "Add a smooth hover effect to the buttons"
 `,
     },
 

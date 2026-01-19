@@ -389,6 +389,7 @@ function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean, r
           "@neondatabase/serverless": "^0.10.0",
           "drizzle-orm": "^0.36.0",
           "framer-motion": "^11.15.0",
+          gsap: "^3.12.5",
           next: "15.2.8",
           react: "^18.3.1",
           "react-dom": "^18.3.1",
@@ -1529,7 +1530,7 @@ This is your AI coding assistant context. Paste this into Claude when building f
 - **Auth:** Clerk (users can sign up/sign in)
 - **Database:** Neon Postgres + Drizzle ORM
 - **Styling:** Tailwind CSS
-- **Animation:** Framer Motion (for smooth UI animations)${hasAI ? `
+- **Animation:** Framer Motion + GSAP (UI animations & scroll effects)${hasAI ? `
 - **AI:** ${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} API ready` : `
 - **AI:** Not configured yet (add via Vercel env vars when needed)`}
 
@@ -1609,7 +1610,7 @@ items: {
 ## Rules for AI
 - Use TypeScript for all files
 - Use Tailwind CSS for styling (no CSS modules)
-- Use Framer Motion for animations (already installed)
+- Use Framer Motion for React animations, GSAP for scroll/timeline effects
 - Use server components by default, add "use client" only when needed
 - Always check auth with \`auth()\` from @clerk/nextjs/server in API routes
 - Use the \`db\` object from @/lib/db for database queries
@@ -1641,6 +1642,38 @@ import { motion } from "framer-motion";
 </motion.button>
 \`\`\`
 
+## GSAP for Scroll & Timeline Effects
+
+\`\`\`typescript
+"use client";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Animate on scroll
+useEffect(() => {
+  gsap.to(".box", {
+    x: 200,
+    scrollTrigger: {
+      trigger: ".box",
+      start: "top center",
+      end: "bottom center",
+      scrub: true,
+    },
+  });
+}, []);
+
+// Timeline sequence
+useEffect(() => {
+  const tl = gsap.timeline();
+  tl.to(".first", { opacity: 1, duration: 0.5 })
+    .to(".second", { x: 100, duration: 0.3 })
+    .to(".third", { scale: 1.2, duration: 0.4 });
+}, []);
+\`\`\`
+
 ## Example Requests to Claude
 
 - "Add a page where I can save notes"
@@ -1650,6 +1683,8 @@ import { motion } from "framer-motion";
 - "Add a search bar to filter items"
 - "Animate the cards to fade in on page load"
 - "Add a smooth hover effect to the buttons"
+- "Make elements animate as I scroll down"
+- "Create a staggered animation for a list of items"
 `,
     },
 

@@ -337,6 +337,14 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       })
       .where(eq(licenseKeys.id, session.licenseKeyId));
 
+    // Security: Delete the wizard session - tokens are no longer needed
+    // The user's app has its own env vars now, we don't need to keep copies
+    await db
+      .delete(wizardSessions)
+      .where(eq(wizardSessions.id, session.id));
+
+    console.log(`Deleted wizard session ${session.id} - tokens cleaned up`);
+
   } catch (error) {
     console.error("Deployment failed:", error);
     await db

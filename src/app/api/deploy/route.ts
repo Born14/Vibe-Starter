@@ -783,6 +783,20 @@ export default async function DashboardPage() {
                 <div className="text-xs text-gray-600">${hasAI ? `${aiProvider === "gemini" ? "Gemini" : aiProvider === "openai" ? "OpenAI" : "Claude"} • API configured` : 'Add via Vercel env vars when needed'}</div>
               </div>
             </div>
+            <div className="flex items-center gap-3">
+              <span className="text-green-600 text-lg">✓</span>
+              <div>
+                <div className="font-medium text-gray-900">Styling</div>
+                <div className="text-xs text-gray-600">Tailwind CSS • Utility-first</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-green-600 text-lg">✓</span>
+              <div>
+                <div className="font-medium text-gray-900">Animations</div>
+                <div className="text-xs text-gray-600">Framer Motion + GSAP</div>
+              </div>
+            </div>
             <div className="flex items-center gap-3 sm:col-span-2">
               <span className="text-green-600 text-lg">✓</span>
               <div className="flex-1 flex items-center justify-between flex-wrap gap-2">
@@ -864,6 +878,24 @@ export default async function DashboardPage() {
               </div>
               <p className="text-gray-600 ml-6">
                 Postgres with Drizzle ORM → Neon serverless database
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span>🎨</span>
+                <span className="font-medium text-gray-900">Styling</span>
+              </div>
+              <p className="text-gray-600 ml-6">
+                Tailwind CSS → Utility-first, no CSS files needed
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span>✨</span>
+                <span className="font-medium text-gray-900">Animations</span>
+              </div>
+              <p className="text-gray-600 ml-6">
+                Framer Motion for React components, GSAP for scroll effects
               </p>
             </div>
           </div>

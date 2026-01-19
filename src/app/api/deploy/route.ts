@@ -337,13 +337,10 @@ async function startDeployment(deploymentId: string, session: typeof wizardSessi
       })
       .where(eq(licenseKeys.id, session.licenseKeyId));
 
-    // Security: Delete the wizard session - tokens are no longer needed
-    // The user's app has its own env vars now, we don't need to keep copies
-    await db
-      .delete(wizardSessions)
-      .where(eq(wizardSessions.id, session.id));
-
-    console.log(`Deleted wizard session ${session.id} - tokens cleaned up`);
+    // NOTE: Do NOT delete the wizard session here!
+    // The status endpoint needs the vercelToken to poll Vercel for build completion.
+    // The status endpoint will clean up the tokens after detecting success.
+    console.log(`Deployment triggered for session ${session.id} - tokens preserved for status polling`);
 
   } catch (error) {
     console.error("Deployment failed:", error);

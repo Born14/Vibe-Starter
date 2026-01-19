@@ -51,7 +51,11 @@ export async function GET(
             const deploymentsData = await deploymentsRes.json();
             const latestDeployment = deploymentsData.deployments?.[0];
 
-            if (latestDeployment?.readyState === "READY") {
+            // Check both readyState and state fields - Vercel API may return either
+            const isReady = latestDeployment?.readyState === "READY" || latestDeployment?.state === "READY";
+            const isError = latestDeployment?.readyState === "ERROR" || latestDeployment?.state === "ERROR";
+
+            if (isReady) {
               // Get the production domain from alias array (e.g., artios-ten.vercel.app)
               // The 'url' field is deployment-specific (includes hash), 'alias' has clean domains
               // Pick the shortest alias ending in .vercel.app (usually the production domain)
@@ -75,17 +79,9 @@ export async function GET(
                 })
                 .where(eq(deployments.id, id));
 
-              // Clean up sensitive session data
+              // Clean up wizard session completely - no longer needed
               await db
-                .update(wizardSessions)
-                .set({
-                  githubToken: null,
-                  vercelToken: null,
-                  clerkPublishable: null,
-                  clerkSecret: null,
-                  databaseUrl: null,
-                  aiKey: null,
-                })
+                .delete(wizardSessions)
                 .where(eq(wizardSessions.id, session.id));
 
               return NextResponse.json({
@@ -94,7 +90,7 @@ export async function GET(
                 appUrl: actualUrl,
                 repoUrl: `https://github.com/${deployment.githubRepo}`,
               });
-            } else if (latestDeployment?.readyState === "ERROR") {
+            } else if (isError) {
               // Deployment failed
               await db
                 .update(deployments)

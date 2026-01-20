@@ -388,7 +388,7 @@ function getTemplateFiles(appName: string, aiProvider: string, hasAI: boolean, r
           "framer-motion": "^11.15.0",
           gsap: "^3.12.5",
           "lottie-react": "^2.4.0",
-          next: "15.2.8",
+          next: "16.1.4",
           react: "^18.3.1",
           "react-dom": "^18.3.1",
         },
@@ -1556,7 +1556,7 @@ export const items = pgTable("items", {
 This is your AI coding assistant context. Paste this into Claude when building features.
 
 ## Stack
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **Auth:** Clerk (users can sign up/sign in)
 - **Database:** Neon Postgres + Drizzle ORM
 - **Styling:** Tailwind CSS
@@ -1797,7 +1797,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 | Category | Technology | Purpose |
 |----------|------------|---------|
-| **Framework** | Next.js 15 | React with App Router |
+| **Framework** | Next.js 16 | React with App Router |
 | **Auth** | Clerk | User sign-up/sign-in |
 | **Database** | Neon + Drizzle | Postgres with type-safe ORM |
 | **Styling** | Tailwind CSS | Utility-first CSS |

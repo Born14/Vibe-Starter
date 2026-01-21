@@ -50,8 +50,8 @@ export default function Hero() {
 
   return (
     <section className={`min-h-screen bg-white text-black ${inter.className}`}>
-      {/* Mobile-first container */}
-      <div className="mx-auto max-w-md min-h-screen flex flex-col">
+      {/* Centered container - mobile narrow, desktop wider */}
+      <div className="mx-auto w-full max-w-md md:max-w-2xl lg:max-w-4xl min-h-screen flex flex-col">
 
         {/* Nav */}
         <nav className="flex items-center justify-between px-4 py-4">

@@ -85,8 +85,52 @@ export default function EducationPage() {
         </div>
       </section>
 
-      {/* Try This Now */}
+      {/* Connect Claude to GitHub */}
       <section className="py-12 px-4">
+        <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl">
+          <h2 className="text-2xl font-bold text-center mb-2">Connect Claude to Your Repo</h2>
+          <p className="text-center text-gray-500 text-sm mb-8">
+            One-time setup. Takes 2 minutes.
+          </p>
+
+          <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 mb-6">
+            <p className="font-semibold text-black mb-4">Before you can build from your phone:</p>
+            <div className="space-y-4">
+              {[
+                { step: "1", title: "Get Claude Pro or Max", detail: "The free tier doesn't include GitHub access. You need a Claude subscription ($20/month)." },
+                { step: "2", title: "Download the Claude app", detail: "iOS App Store or Google Play. Sign in with your account." },
+                { step: "3", title: "Tap the Code icon", detail: "Bottom of the screen. This is where Claude connects to repos." },
+                { step: "4", title: "Connect GitHub", detail: "Tap 'Connect GitHub' and authorize Claude to access your repositories." },
+                { step: "5", title: "Select your repo", detail: "Find the repo created during launch (your app name). Tap to select it." },
+              ].map((item) => (
+                <div key={item.step} className="flex gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">
+                    {item.step}
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-semibold text-black">{item.title}</div>
+                    <div className="text-sm text-gray-600">{item.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-black text-white rounded-xl p-5">
+            <p className="font-semibold mb-2">Now Claude can see your code and push changes.</p>
+            <p className="text-sm text-gray-300">
+              When you describe a feature, Claude writes the code, creates a pull request, and you merge it. Your site updates automatically.
+            </p>
+          </div>
+
+          <p className="mt-6 text-center text-xs text-gray-400">
+            Don't have Claude Pro? You can still build from a laptop using any AI — just push code manually via GitHub.
+          </p>
+        </div>
+      </section>
+
+      {/* Try This Now */}
+      <section className="py-12 px-4 bg-gray-50">
         <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl">
           <h2 className="text-2xl font-bold text-center mb-2">Try This Right Now</h2>
           <p className="text-center text-gray-500 text-sm mb-8">

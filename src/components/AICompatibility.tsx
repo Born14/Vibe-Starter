@@ -69,6 +69,32 @@ export default function AICompatibility() {
           </div>
         </div>
 
+        {/* How to connect */}
+        <div className="bg-black text-white rounded-xl p-5 mb-6">
+          <p className="text-sm font-semibold mb-3">How to connect (after launch):</p>
+          <ol className="space-y-2 text-sm text-gray-300">
+            <li className="flex gap-2">
+              <span className="text-white font-semibold">1.</span>
+              <span>Download the Claude app (iOS/Android)</span>
+            </li>
+            <li className="flex gap-2">
+              <span className="text-white font-semibold">2.</span>
+              <span>Tap the <span className="text-white font-medium">Code</span> icon</span>
+            </li>
+            <li className="flex gap-2">
+              <span className="text-white font-semibold">3.</span>
+              <span>Connect your GitHub account</span>
+            </li>
+            <li className="flex gap-2">
+              <span className="text-white font-semibold">4.</span>
+              <span>Select your repository</span>
+            </li>
+          </ol>
+          <p className="mt-3 text-xs text-gray-400">
+            Now describe what you want → Claude builds it → Your site updates
+          </p>
+        </div>
+
         {/* The loop explanation */}
         <p className="text-sm text-gray-600 leading-relaxed mb-6">
           That's what makes the "describe → build → live" loop possible.

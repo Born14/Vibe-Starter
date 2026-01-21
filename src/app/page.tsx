@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import ForCreators from "@/components/ForCreators";
 import HowItWorks from "@/components/HowItWorks";
+import AICompatibility from "@/components/AICompatibility";
 import BeyondBasics from "@/components/BeyondBasics";
 import Pricing from "@/components/Pricing";
 import Trust from "@/components/Trust";
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <ForCreators />
       <HowItWorks />
+      <AICompatibility />
       <BeyondBasics />
       <Pricing />
       <Trust />

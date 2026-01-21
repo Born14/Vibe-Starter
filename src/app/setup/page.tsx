@@ -136,8 +136,45 @@ function SetupForm() {
             </p>
           </div>
 
-          {/* What happens next */}
+          {/* Before you begin */}
           <div className="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <p className="font-semibold text-black mb-4">Before you begin:</p>
+            <p className="text-sm text-gray-600 mb-4">
+              Create free accounts on these platforms (all have free tiers):
+            </p>
+            <div className="space-y-2">
+              {[
+                { name: "GitHub", url: "https://github.com/signup", desc: "stores your code" },
+                { name: "Vercel", url: "https://vercel.com/signup", desc: "hosts your site" },
+                { name: "Neon", url: "https://neon.tech", desc: "your database" },
+                { name: "Clerk", url: "https://clerk.com", desc: "user sign-in" },
+                { name: "AI Provider", url: null, desc: "Anthropic, Google AI, or OpenAI" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 text-sm">
+                  <span className="text-gray-400">•</span>
+                  {item.url ? (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-black font-medium hover:underline"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <span className="text-black font-medium">{item.name}</span>
+                  )}
+                  <span className="text-gray-500">– {item.desc}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-gray-400">
+              Takes ~10 minutes to set up all accounts
+            </p>
+          </div>
+
+          {/* What happens next */}
+          <div className="mt-6 bg-gray-50 rounded-xl p-6 border border-gray-200">
             <p className="font-semibold text-black mb-4">What happens next:</p>
             <div className="space-y-3">
               {[

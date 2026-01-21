@@ -13,6 +13,10 @@ const faqs = [
     a: "No. You describe what you want. AI writes the code. You don't touch it.",
   },
   {
+    q: "What accounts do I need?",
+    a: "Free accounts on GitHub, Vercel, Neon, and Clerk. Plus an AI provider (Anthropic, Google, or OpenAI). All have free tiers. The wizard walks you through connecting them.",
+  },
+  {
     q: "Can I really build from my phone?",
     a: "Yes. That's the whole point. Open your AI, describe a change, it pushes to your site. No laptop needed.",
   },

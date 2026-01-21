@@ -17,7 +17,7 @@ async function createKey() {
 
   const [result] = await db.insert(licenseKeys).values({
     key: key,
-    email: 'test@vibe.com',
+    email: 'user@example.com',
     used: false,
   }).returning();
 

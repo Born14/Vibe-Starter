@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vibe Starter
 
-## Getting Started
+Deploy your own full-stack web app from your phone. No coding required.
 
-First, run the development server:
+## What Is This?
+
+Vibe Starter is a deployment wizard that helps non-technical creators launch production-ready web applications. You connect your accounts (GitHub, Vercel, Neon), choose your AI provider, and get a fully deployed app with:
+
+- **Frontend**: Next.js 15 with React 19
+- **Backend**: API routes with your chosen AI (Claude, Gemini, or OpenAI)
+- **Database**: Neon PostgreSQL with Drizzle ORM
+- **Hosting**: Vercel (free tier works great)
+
+Everything deploys to YOUR accounts. You own the code, the hosting, the database. No lock-in.
+
+## How It Works
+
+1. **Get a license key** from [vibestarter.net](https://vibestarter.net)
+2. **Run the wizard** - connects your GitHub, Vercel, and Neon accounts
+3. **Choose your AI** - Claude, Gemini, or OpenAI
+4. **Deploy** - your app is live in minutes
+5. **Build from anywhere** - use AI to add features from your phone
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 15.2.8 |
+| Frontend | React 19, Tailwind CSS 4 |
+| Database | Neon PostgreSQL + Drizzle ORM |
+| Hosting | Vercel |
+| Auth | Clerk (optional) |
+| Rate Limiting | Redis Cloud |
+
+## Local Development
 
 ```bash
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Fill in your values in .env.local
+
+# Push database schema
+npm run db:push
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See `.env.example` for all required variables. You'll need:
 
-## Learn More
+- **Database**: Neon PostgreSQL connection string
+- **GitHub OAuth**: For repository creation
+- **Vercel OAuth**: For deployment
+- **Encryption Key**: For securing stored credentials
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/
+│   ├── api/          # API routes (deploy, auth, etc.)
+│   ├── setup/        # Wizard UI
+│   └── education/    # Learning resources
+├── components/       # Shared UI components
+└── lib/
+    ├── db/           # Database schema and connection
+    ├── encryption.ts # Credential encryption
+    └── license.ts    # License validation
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Support
 
-## Deploy on Vercel
+- **Issues**: [GitHub Issues](https://github.com/Born14/vibe-starter/issues)
+- **Email**: vibestarter26@outlook.com
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License - see [LICENSE](LICENSE) for details.
+
+You're free to use, modify, and distribute this code. Attribution appreciated but not required.

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ArrowRight, Check, X } from "lucide-react";
 
 interface SessionData {
   appName: string | null;
@@ -97,18 +98,18 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
   return (
     <div>
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-3xl">✨</span>
         </div>
         <h2 className="text-3xl font-bold mb-2">Name Your App</h2>
-        <p className="text-white/60">
+        <p className="text-gray-500">
           Choose a unique name for your app. This will be your URL.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm font-semibold mb-2">
             App Name
           </label>
           <div className="relative">
@@ -117,45 +118,41 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
               value={appName}
               onChange={(e) => setAppName(e.target.value.toLowerCase())}
               placeholder="my-awesome-app"
-              className="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 text-lg"
+              className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder-gray-400 text-lg"
               autoFocus
             />
             {checking && (
               <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <div className="w-5 h-5 border-2 border-white/40 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
               </div>
             )}
             {!checking && isAvailable === true && (
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-emerald-400">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-green-600">
+                <Check className="w-6 h-6" />
               </div>
             )}
             {!checking && isAvailable === false && (
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-red-400">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-red-500">
+                <X className="w-6 h-6" />
               </div>
             )}
           </div>
 
           {error && (
-            <p className="mt-2 text-sm text-red-400">{error}</p>
+            <p className="mt-2 text-sm text-red-500">{error}</p>
           )}
 
           {isAvailable && preview && (
-            <div className="mt-4 p-4 bg-emerald-400/10 border border-emerald-400/20 rounded-lg">
-              <p className="text-emerald-400 text-sm mb-1">Available!</p>
-              <p className="text-white font-medium">
-                Your app will be at: <span className="text-emerald-400">{preview}</span>
+            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl">
+              <p className="text-green-700 text-sm mb-1">Available!</p>
+              <p className="text-black font-medium">
+                Your app will be at: <span className="text-green-700">{preview}</span>
               </p>
             </div>
           )}
         </div>
 
-        <div className="text-sm text-white/40">
+        <div className="text-sm text-gray-400">
           <p>Requirements:</p>
           <ul className="list-disc list-inside mt-1">
             <li>3-50 characters</li>
@@ -167,9 +164,19 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
         <button
           type="submit"
           disabled={loading || !isAvailable}
-          className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-black text-white py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          {loading ? "Saving..." : "Continue to Deploy →"}
+          {loading ? (
+            <>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              Saving...
+            </>
+          ) : (
+            <>
+              Continue to Deploy
+              <ArrowRight className="h-5 w-5" />
+            </>
+          )}
         </button>
       </form>
     </div>

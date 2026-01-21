@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight, Check } from "lucide-react";
 
 interface SessionData {
   hasClerk: boolean;
@@ -60,44 +61,39 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
     }
   };
 
-  const openClerk = () => {
-    window.open("https://dashboard.clerk.com", "_blank");
-  };
-
   return (
     <div>
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-3xl">🔐</span>
         </div>
         <h2 className="text-3xl font-bold mb-2">Set Up Clerk</h2>
-        <p className="text-white/60">
+        <p className="text-gray-500">
           Clerk handles user sign-up and sign-in for your app.
         </p>
       </div>
 
       {isConnected ? (
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-emerald-400/20 text-emerald-400 px-4 py-2 rounded-full mb-6">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+          <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full mb-6">
+            <Check className="w-5 h-5" />
             <span className="font-medium">Clerk Keys Saved</span>
           </div>
 
           <button
             onClick={onNext}
-            className="block w-full max-w-sm mx-auto bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-emerald-400 transition-colors"
+            className="block w-full max-w-sm mx-auto bg-black text-white py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
           >
-            Continue →
+            Continue
+            <ArrowRight className="h-5 w-5" />
           </button>
         </div>
       ) : (
         <>
           {/* Instructions */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6">
             <h4 className="font-semibold mb-3">Quick Steps:</h4>
-            <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside">
+            <ol className="space-y-2 text-sm text-gray-600 list-decimal list-inside">
               <li>Click &quot;Open Clerk&quot; below to create an account (if needed)</li>
               <li><strong>Create a new application</strong> - Click <strong>&quot;+ Create Application&quot;</strong> and give it a name (e.g., &quot;My App&quot;)</li>
               <li>Once created, click <strong>&quot;Configure&quot;</strong> in the top navigation</li>
@@ -114,12 +110,12 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
             rel="noopener noreferrer"
             className="w-full bg-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-purple-500 transition-colors mb-6 block text-center"
           >
-            Open Clerk Dashboard →
+            Open Clerk Dashboard
           </a>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Publishable Key
               </label>
               <input
@@ -127,12 +123,12 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
                 value={publishableKey}
                 onChange={(e) => setPublishableKey(e.target.value)}
                 placeholder="pk_test_..."
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder-gray-400 font-mono text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Secret Key
               </label>
               <input
@@ -140,28 +136,38 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
                 value={secretKey}
                 onChange={(e) => setSecretKey(e.target.value)}
                 placeholder="sk_test_..."
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder-gray-400 font-mono text-sm"
               />
             </div>
 
             {error && (
-              <p className="text-red-400 text-sm">{error}</p>
+              <p className="text-red-500 text-sm">{error}</p>
             )}
 
             <button
               type="submit"
               disabled={loading || !publishableKey || !secretKey}
-              className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-black text-white py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? "Saving..." : "Save & Continue →"}
+              {loading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  Save & Continue
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              )}
             </button>
           </form>
         </>
       )}
 
       {/* Help */}
-      <div className="mt-8 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-        <p className="text-blue-400 text-sm">
+      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+        <p className="text-blue-700 text-sm">
           <strong>Can&apos;t find the keys?</strong> After creating your application, navigate to:
           Configure → User & Authentication → API Keys
         </p>

@@ -1,5 +1,7 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
+
 interface StepProps {
   sessionId: string;
   onNext: () => void;
@@ -8,7 +10,7 @@ interface StepProps {
 export default function WelcomeStep({ onNext }: StepProps) {
   return (
     <div className="text-center">
-      <div className="w-16 h-16 bg-emerald-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
         <span className="text-3xl">🚀</span>
       </div>
 
@@ -16,12 +18,12 @@ export default function WelcomeStep({ onNext }: StepProps) {
         Welcome to Vibe Starter
       </h1>
 
-      <p className="text-xl text-white/60 mb-8 max-w-lg mx-auto">
+      <p className="text-xl text-gray-500 mb-8 max-w-lg mx-auto">
         In about 20 minutes, you&apos;ll have a live app with authentication,
         a database, and AI — all in accounts you own.
       </p>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8 text-left max-w-md mx-auto">
+      <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-8 text-left max-w-md mx-auto">
         <h3 className="font-semibold mb-4">What we&apos;ll set up:</h3>
         <ul className="space-y-3">
           {[
@@ -35,15 +37,15 @@ export default function WelcomeStep({ onNext }: StepProps) {
               <span className="text-xl">{item.icon}</span>
               <div>
                 <span className="font-medium">{item.label}</span>
-                <span className="text-white/50 ml-2">— {item.desc}</span>
+                <span className="text-gray-500 ml-2">— {item.desc}</span>
               </div>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-8 max-w-md mx-auto">
-        <p className="text-emerald-400 text-sm">
+      <div className="bg-black text-white rounded-xl p-4 mb-8 max-w-md mx-auto">
+        <p className="text-sm">
           <strong>You own everything.</strong> These are your accounts.
           We just help you set them up.
         </p>
@@ -51,12 +53,13 @@ export default function WelcomeStep({ onNext }: StepProps) {
 
       <button
         onClick={onNext}
-        className="bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-emerald-400 transition-all hover:scale-105"
+        className="bg-black text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-colors inline-flex items-center gap-2"
       >
-        Let&apos;s do this →
+        Let&apos;s do this
+        <ArrowRight className="h-5 w-5" />
       </button>
 
-      <p className="mt-6 text-sm text-white/40">
+      <p className="mt-6 text-sm text-gray-400">
         Estimated time: 20 minutes
       </p>
     </div>

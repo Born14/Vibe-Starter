@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowRight, Check } from "lucide-react";
 
 interface SessionData {
   hasAi: boolean;
@@ -100,29 +101,28 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
   return (
     <div>
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-3xl">🤖</span>
         </div>
         <h2 className="text-3xl font-bold mb-2">Set Up AI</h2>
-        <p className="text-white/60">
+        <p className="text-gray-500">
           Connect an AI to power your app&apos;s intelligent features.
         </p>
       </div>
 
       {isConnected ? (
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-emerald-400/20 text-emerald-400 px-4 py-2 rounded-full mb-6">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
+          <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full mb-6">
+            <Check className="w-5 h-5" />
             <span className="font-medium">AI Connected</span>
           </div>
 
           <button
             onClick={onNext}
-            className="block w-full max-w-sm mx-auto bg-white text-black py-4 rounded-full font-semibold text-lg hover:bg-emerald-400 transition-colors"
+            className="block w-full max-w-sm mx-auto bg-black text-white py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
           >
-            Continue →
+            Continue
+            <ArrowRight className="h-5 w-5" />
           </button>
         </div>
       ) : (
@@ -134,48 +134,48 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
               onClick={() => setAiProvider("claude")}
               className={`p-4 rounded-xl border-2 transition-all ${
                 aiProvider === "claude"
-                  ? "border-orange-400 bg-orange-400/10"
-                  : "border-white/10 bg-white/5 hover:border-white/20"
+                  ? "border-orange-400 bg-orange-50"
+                  : "border-gray-200 bg-gray-50 hover:border-gray-300"
               }`}
             >
               <div className="text-2xl mb-2">🧠</div>
               <div className="font-semibold">Claude</div>
-              <div className="text-xs text-white/50">Recommended</div>
+              <div className="text-xs text-gray-500">Recommended</div>
             </button>
             <button
               type="button"
               onClick={() => setAiProvider("gemini")}
               className={`p-4 rounded-xl border-2 transition-all ${
                 aiProvider === "gemini"
-                  ? "border-blue-400 bg-blue-400/10"
-                  : "border-white/10 bg-white/5 hover:border-white/20"
+                  ? "border-blue-400 bg-blue-50"
+                  : "border-gray-200 bg-gray-50 hover:border-gray-300"
               }`}
             >
               <div className="text-2xl mb-2">✨</div>
               <div className="font-semibold">Gemini</div>
-              <div className="text-xs text-white/50">Google AI</div>
+              <div className="text-xs text-gray-500">Google AI</div>
             </button>
             <button
               type="button"
               onClick={() => setAiProvider("openai")}
               className={`p-4 rounded-xl border-2 transition-all ${
                 aiProvider === "openai"
-                  ? "border-green-400 bg-green-400/10"
-                  : "border-white/10 bg-white/5 hover:border-white/20"
+                  ? "border-green-400 bg-green-50"
+                  : "border-gray-200 bg-gray-50 hover:border-gray-300"
               }`}
             >
               <div className="text-2xl mb-2">🤖</div>
               <div className="font-semibold">OpenAI</div>
-              <div className="text-xs text-white/50">ChatGPT API</div>
+              <div className="text-xs text-gray-500">ChatGPT API</div>
             </button>
           </div>
 
           {/* Instructions */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6">
             <h4 className="font-semibold mb-3">
               Get your {aiProvider === "claude" ? "Claude" : aiProvider === "gemini" ? "Gemini" : "OpenAI"} API Key:
             </h4>
-            <ol className="space-y-2 text-sm text-white/70 list-decimal list-inside">
+            <ol className="space-y-2 text-sm text-gray-600 list-decimal list-inside">
               {aiProvider === "claude" ? (
                 <>
                   <li>Click &quot;Open Anthropic Console&quot; below</li>
@@ -211,12 +211,12 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
                 : "bg-green-600 hover:bg-green-500 text-white"
             }`}
           >
-            Open {aiProvider === "claude" ? "Anthropic Console" : aiProvider === "gemini" ? "Google AI Studio" : "OpenAI Platform"} →
+            Open {aiProvider === "claude" ? "Anthropic Console" : aiProvider === "gemini" ? "Google AI Studio" : "OpenAI Platform"}
           </button>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 API Key
               </label>
               <input
@@ -224,20 +224,30 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
                 value={aiKey}
                 onChange={(e) => setAiKey(e.target.value)}
                 placeholder={aiProvider === "claude" ? "sk-ant-..." : aiProvider === "gemini" ? "AIza..." : "sk-..."}
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 font-mono text-sm"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder-gray-400 font-mono text-sm"
               />
             </div>
 
             {error && (
-              <p className="text-red-400 text-sm">{error}</p>
+              <p className="text-red-500 text-sm">{error}</p>
             )}
 
             <button
               type="submit"
               disabled={loading || !aiKey}
-              className="w-full bg-white text-black py-4 rounded-xl font-semibold text-lg hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-black text-white py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? "Saving..." : "Save & Continue →"}
+              {loading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  Save & Continue
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              )}
             </button>
           </form>
 
@@ -245,7 +255,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
           <button
             onClick={handleSkip}
             disabled={loading}
-            className="w-full mt-4 py-3 rounded-xl font-medium text-white/60 hover:text-white hover:bg-white/5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full mt-4 py-3 rounded-xl font-medium text-gray-500 hover:text-black hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Skip for now - Add AI later
           </button>
@@ -253,8 +263,8 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
       )}
 
       {/* Note about Claude Max */}
-      <div className="mt-8 p-4 bg-white/5 border border-white/10 rounded-lg">
-        <p className="text-white/60 text-sm">
+      <div className="mt-8 p-4 bg-gray-50 border border-gray-200 rounded-xl">
+        <p className="text-gray-600 text-sm">
           <strong>Have Claude Max?</strong> You can still use the API for your app.
           Your Claude subscription is for chatting; the API is for building features.
         </p>

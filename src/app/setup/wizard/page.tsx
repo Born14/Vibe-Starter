@@ -2,6 +2,8 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { Inter } from "next/font/google";
 
 // Step components
 import WelcomeStep from "./steps/WelcomeStep";
@@ -12,6 +14,11 @@ import NeonStep from "./steps/NeonStep";
 import AIStep from "./steps/AIStep";
 import AppNameStep from "./steps/AppNameStep";
 import DeployStep from "./steps/DeployStep";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const STEPS = [
   { id: 1, name: "Welcome", component: WelcomeStep },
@@ -109,10 +116,10 @@ function WizardContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className={`min-h-screen bg-white text-black flex items-center justify-center ${inter.className}`}>
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white/60">Loading your session...</p>
+          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-500">Loading your session...</p>
         </div>
       </div>
     );
@@ -120,14 +127,16 @@ function WizardContent() {
 
   if (error && !session) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+      <div className={`min-h-screen bg-white text-black flex items-center justify-center px-6 ${inter.className}`}>
         <div className="text-center max-w-md">
-          <div className="text-red-400 text-6xl mb-4">!</div>
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-red-500 text-2xl font-bold">!</span>
+          </div>
           <h1 className="text-2xl font-bold mb-4">Session Error</h1>
-          <p className="text-white/60 mb-6">{error}</p>
+          <p className="text-gray-500 mb-6">{error}</p>
           <a
             href="/setup"
-            className="inline-block bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors"
+            className="inline-block bg-black text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-800 transition-colors"
           >
             Enter License Key
           </a>
@@ -139,15 +148,15 @@ function WizardContent() {
   const CurrentStepComponent = STEPS[currentStep - 1]?.component;
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className={`min-h-screen bg-white text-black ${inter.className}`}>
       {/* Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md border-b border-white/10 z-50">
+      <div className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-b border-gray-100 z-50">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between mb-3">
-            <div className="text-lg font-bold tracking-tight">
-              vibe<span className="text-emerald-400">starter</span>
-            </div>
-            <div className="text-sm text-white/60">
+            <Link href="/" className="text-lg font-bold tracking-tight">
+              VIBE STARTER
+            </Link>
+            <div className="text-sm text-gray-500">
               Step {currentStep} of {STEPS.length}
             </div>
           </div>
@@ -159,10 +168,10 @@ function WizardContent() {
                 key={step.id}
                 className={`h-1 flex-1 rounded-full transition-colors ${
                   step.id < currentStep
-                    ? "bg-emerald-400"
+                    ? "bg-black"
                     : step.id === currentStep
-                    ? "bg-white"
-                    : "bg-white/20"
+                    ? "bg-gray-400"
+                    : "bg-gray-200"
                 }`}
               />
             ))}
@@ -174,7 +183,7 @@ function WizardContent() {
       <div className="pt-28 pb-12 px-6">
         <div className="max-w-2xl mx-auto">
           {error && (
-            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
               {error}
             </div>
           )}
@@ -197,8 +206,8 @@ export default function WizardPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-black text-white flex items-center justify-center">
-          <div className="text-white/60">Loading...</div>
+        <div className={`min-h-screen bg-white text-black flex items-center justify-center ${inter.className}`}>
+          <div className="text-gray-400">Loading...</div>
         </div>
       }
     >

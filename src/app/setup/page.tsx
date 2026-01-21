@@ -2,6 +2,21 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { Anton } from "next/font/google";
+import { Inter } from "next/font/google";
+import { ArrowRight } from "lucide-react";
+
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 function SetupForm() {
   const searchParams = useSearchParams();
@@ -42,68 +57,108 @@ function SetupForm() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center px-6">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="text-2xl font-bold tracking-tight mb-2">
-            vibe<span className="text-emerald-400">starter</span>
-          </div>
-          <h1 className="text-3xl font-bold mb-2">Welcome</h1>
-          <p className="text-white/60">
-            Enter your license key to start setup
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="key" className="block text-sm font-medium mb-2">
-              License Key
-            </label>
-            <input
-              type="text"
-              id="key"
-              value={licenseKey}
-              onChange={(e) => setLicenseKey(e.target.value)}
-              placeholder="VS-XXXX-XXXX-XXXX"
-              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-white/40 uppercase tracking-widest text-center font-mono"
-              autoComplete="off"
-              autoFocus
-            />
-            {error && (
-              <p className="mt-2 text-sm text-red-400">{error}</p>
-            )}
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading || !licenseKey.trim()}
-            className="w-full bg-white text-black py-3 rounded-lg font-semibold hover:bg-emerald-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    <div className={`min-h-screen bg-white text-black ${inter.className}`}>
+      {/* Nav */}
+      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+        <div className="mx-auto max-w-md md:max-w-2xl lg:max-w-4xl px-4 py-4 flex items-center justify-between">
+          <Link href="/" className="text-lg font-bold tracking-tight">
+            VIBE STARTER
+          </Link>
+          <Link
+            href="/education"
+            className="text-sm text-gray-500 hover:text-black transition-colors"
           >
-            {loading ? "Validating..." : "Start Setup"}
-          </button>
-        </form>
-
-        <div className="mt-8 text-center">
-          <p className="text-sm text-white/40">
-            Don&apos;t have a license key?{" "}
-            <a href="/#pricing" className="text-emerald-400 hover:underline">
-              Get one here
-            </a>
-          </p>
+            How to Build
+          </Link>
         </div>
+      </nav>
 
-        <div className="mt-12 p-4 bg-white/5 border border-white/10 rounded-lg">
-          <div className="text-sm text-white/60">
-            <p className="font-medium text-white mb-2">What happens next:</p>
-            <ul className="space-y-1 list-disc list-inside">
-              <li>Connect GitHub (for your code)</li>
-              <li>Set up Vercel (free hosting)</li>
-              <li>Set up Clerk (user sign-in)</li>
-              <li>Set up Neon (database)</li>
-              <li>Add AI key (Claude, Gemini, or OpenAI)</li>
-              <li>Name your app & deploy</li>
-            </ul>
-            <p className="mt-3 text-white/40">Total time: ~20 minutes</p>
+      {/* Main Content */}
+      <div className="px-4 py-16">
+        <div className="mx-auto max-w-md">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <h1 className={`${anton.className} text-[12vw] md:text-[6vw] leading-none tracking-tighter mb-4`}>
+              LAUNCH
+            </h1>
+            <p className="text-gray-500">
+              Enter your license key to start
+            </p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="key" className="block text-sm font-semibold mb-2">
+                License Key
+              </label>
+              <input
+                type="text"
+                id="key"
+                value={licenseKey}
+                onChange={(e) => setLicenseKey(e.target.value)}
+                placeholder="VS-XXXX-XXXX-XXXX"
+                className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder-gray-400 uppercase tracking-widest text-center font-mono text-lg"
+                autoComplete="off"
+                autoFocus
+              />
+              {error && (
+                <p className="mt-2 text-sm text-red-500">{error}</p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading || !licenseKey.trim()}
+              className="w-full bg-black text-white py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Validating...
+                </>
+              ) : (
+                <>
+                  Start Launch
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* No key link */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-400">
+              Don&apos;t have a license key?{" "}
+              <Link href="/#pricing" className="text-black font-medium hover:underline">
+                Get one here
+              </Link>
+            </p>
+          </div>
+
+          {/* What happens next */}
+          <div className="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <p className="font-semibold text-black mb-4">What happens next:</p>
+            <div className="space-y-3">
+              {[
+                "Connect GitHub (for your code)",
+                "Set up Vercel (free hosting)",
+                "Set up Clerk (user sign-in)",
+                "Set up Neon (database)",
+                "Add AI key (Claude, Gemini, or OpenAI)",
+                "Name your site & deploy",
+              ].map((step, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs font-semibold">
+                    {i + 1}
+                  </div>
+                  <span className="text-sm text-gray-600">{step}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-xs text-gray-400 text-center">
+              Total time: ~20 minutes
+            </p>
           </div>
         </div>
       </div>
@@ -115,8 +170,8 @@ export default function SetupPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-black text-white flex items-center justify-center">
-          <div className="text-white/60">Loading...</div>
+        <div className={`min-h-screen bg-white text-black flex items-center justify-center ${inter.className}`}>
+          <div className="text-gray-400">Loading...</div>
         </div>
       }
     >

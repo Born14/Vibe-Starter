@@ -33,8 +33,8 @@ export default function BeyondBasics() {
               <li>• Landing pages</li>
               <li>• Email collection</li>
               <li>• Simple forms</li>
-              <li>• Personal sites</li>
-              <li>• Small tools</li>
+              <li>• Link-in-bio replacement</li>
+              <li>• Brand or business page</li>
             </ul>
           </div>
 
@@ -46,7 +46,7 @@ export default function BeyondBasics() {
             <ul className="space-y-2 text-sm text-gray-700">
               <li>• Communities</li>
               <li>• Member areas</li>
-              <li>• Interactive tools</li>
+              <li>• Lead generation</li>
               <li>• Small games</li>
               <li>• Data dashboards</li>
             </ul>

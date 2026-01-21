@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import ForCreators from "@/components/ForCreators";
+import YourHome from "@/components/YourHome";
 import HowItWorks from "@/components/HowItWorks";
 import AICompatibility from "@/components/AICompatibility";
 import BeyondBasics from "@/components/BeyondBasics";
@@ -13,6 +14,7 @@ export default function Home() {
     <main className="bg-white">
       <Hero />
       <ForCreators />
+      <YourHome />
       <HowItWorks />
       <AICompatibility />
       <BeyondBasics />

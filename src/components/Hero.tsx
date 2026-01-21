@@ -17,6 +17,12 @@ const taglines = [
   "Your audience.\nYour list.\nYour site.",
   "No laptop.\nNo code.\nNo fees.",
   "From idea\nto URL.\nThat fast.",
+  "Not a profile.\nA property.",
+  "Your name.\nYour domain.\nYour rules.",
+  "One URL.\nYours forever.",
+  "Build equity\nin yourself,\nnot a platform.",
+  "Your brand\ndeserves\na home.",
+  "Send your ads\nsomewhere\nyou own.",
 ];
 
 const anton = Anton({

@@ -51,6 +51,9 @@ export default function AICompatibility() {
           <p className="font-medium text-black">
             Today, Claude offers the most seamless mobile workflow for this.
           </p>
+          <p className="text-xs text-gray-500">
+            (Requires Claude Pro or Max subscription for GitHub integration)
+          </p>
         </div>
 
         {/* Capabilities */}

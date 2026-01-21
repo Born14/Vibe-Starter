@@ -75,6 +75,11 @@ export default function Trust() {
           After launch, we literally can't access your stuff — even if we wanted to. You have the accounts. You have the keys.
         </p>
 
+        {/* Ownership anchor */}
+        <p className="mt-4 text-sm font-medium text-black text-center">
+          Your home base on the internet. No landlord.
+        </p>
+
       </div>
     </section>
   );

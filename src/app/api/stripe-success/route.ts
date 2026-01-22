@@ -6,7 +6,7 @@ import { licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-04-30.basil",
+  apiVersion: "2025-12-15.clover",
 });
 
 const sql = neon(process.env.DATABASE_URL!);

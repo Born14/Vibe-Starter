@@ -5,6 +5,7 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { Resend } from "resend";
+import { randomBytes } from "crypto";
 
 // Lazy initialization to avoid errors during build when env vars aren't available
 function getStripe() {
@@ -48,12 +49,11 @@ async function sendLicenseKeyEmail(to: string, licenseKey: string) {
   }
 }
 
-// Generate license key in format: VS-XXXX-XXXX-XXXX (hex only)
+// Generate license key in format: VS-XXXX-XXXX-XXXX (hex only, cryptographically secure)
 function generateLicenseKey(): string {
-  const seg1 = Math.random().toString(16).substring(2, 6).toUpperCase();
-  const seg2 = Math.random().toString(16).substring(2, 6).toUpperCase();
-  const seg3 = Math.random().toString(16).substring(2, 6).toUpperCase();
-  return `VS-${seg1}-${seg2}-${seg3}`;
+  const bytes = randomBytes(6); // 6 bytes = 12 hex chars
+  const hex = bytes.toString("hex").toUpperCase();
+  return `VS-${hex.slice(0, 4)}-${hex.slice(4, 8)}-${hex.slice(8, 12)}`;
 }
 
 export async function GET(request: NextRequest) {

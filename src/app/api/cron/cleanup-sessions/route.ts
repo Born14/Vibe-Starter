@@ -12,8 +12,13 @@ export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
 
-  // Allow access if no CRON_SECRET is set (for manual testing) or if it matches
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  // In production, require CRON_SECRET to be set
+  if (!cronSecret) {
+    console.error("CRON_SECRET not configured");
+    return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+  }
+
+  if (authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

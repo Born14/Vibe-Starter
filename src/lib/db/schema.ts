@@ -1,6 +1,6 @@
 import { pgTable, uuid, text, boolean, timestamp, integer } from "drizzle-orm/pg-core";
 
-// License keys from Gumroad purchases
+// License keys from Stripe purchases
 export const licenseKeys = pgTable("license_keys", {
   id: uuid("id").defaultRandom().primaryKey(),
   key: text("key").unique().notNull(),

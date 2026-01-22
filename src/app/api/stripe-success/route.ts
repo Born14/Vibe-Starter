@@ -5,12 +5,17 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-12-15.clover",
-});
+// Lazy initialization to avoid errors during build when env vars aren't available
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: "2025-12-15.clover",
+  });
+}
 
-const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle(sql);
+function getDb() {
+  const sql = neon(process.env.DATABASE_URL!);
+  return drizzle(sql);
+}
 
 // Generate license key in format: VS-XXXX-XXXX-XXXX (hex only)
 function generateLicenseKey(): string {
@@ -28,6 +33,9 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    const stripe = getStripe();
+    const db = getDb();
+
     // Retrieve the checkout session from Stripe
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 

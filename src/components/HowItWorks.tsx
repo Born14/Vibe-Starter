@@ -11,7 +11,7 @@ const steps = [
   {
     number: "01",
     title: "Connect your accounts",
-    description: "We walk you through GitHub, Vercel, and Neon. You create them — you own them forever.",
+    description: "We walk you through GitHub, Vercel, Neon, and Clerk. You create them — you own them forever.",
   },
   {
     number: "02",

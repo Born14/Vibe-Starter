@@ -25,7 +25,7 @@ export default function YourHome() {
         <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
 
           <p className="text-gray-700 text-sm leading-relaxed mb-4">
-            Social platforms are great for discovery. They're not ownership.
+            Social platforms are great for discovery. They&apos;re not ownership.
           </p>
 
           <p className="text-gray-600 text-sm leading-relaxed mb-4">

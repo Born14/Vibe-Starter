@@ -2,6 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { wizardSessions } from "@/lib/db/schema";
 import { eq, and, gt } from "drizzle-orm";
+import { withCsrfProtection } from "@/lib/csrf";
+import { captureAPIError } from "@/lib/error-tracking";
+import {
+  idSchema,
+  vercelTokenSchema,
+  clerkPublishableKeySchema,
+  clerkSecretKeySchema,
+  neonDatabaseUrlSchema,
+  anthropicKeySchema,
+  openaiKeySchema,
+  googleAIKeySchema,
+  appNameSchema,
+  validateInput,
+  sanitizeString,
+} from "@/lib/validation";
 
 // Get session status
 export async function GET(request: NextRequest) {
@@ -10,6 +25,14 @@ export async function GET(request: NextRequest) {
   if (!sessionId) {
     return NextResponse.json({ error: "Session ID required" }, { status: 400 });
   }
+
+  // Validate and sanitize session ID
+  const validation = validateInput(idSchema, sessionId);
+  if (!validation.success) {
+    return NextResponse.json({ error: validation.error }, { status: 400 });
+  }
+
+  const sanitizedSessionId = validation.data;
 
   try {
     const [session] = await db
@@ -27,7 +50,7 @@ export async function GET(request: NextRequest) {
       .from(wizardSessions)
       .where(
         and(
-          eq(wizardSessions.id, sessionId),
+          eq(wizardSessions.id, sanitizedSessionId),
           gt(wizardSessions.expiresAt, new Date())
         )
       )
@@ -49,18 +72,34 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Session fetch error:", error);
+
+    // Track error in Sentry
+    captureAPIError(error, {
+      endpoint: '/api/session',
+      method: 'GET',
+      statusCode: 500,
+    });
+
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 // Update session (for manual key entry steps)
-export async function POST(request: NextRequest) {
+async function postHandler(request: NextRequest) {
   try {
     const { sessionId, field, value } = await request.json();
 
     if (!sessionId || !field) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
+
+    // Validate and sanitize session ID
+    const sessionValidation = validateInput(idSchema, sessionId);
+    if (!sessionValidation.success) {
+      return NextResponse.json({ error: sessionValidation.error }, { status: 400 });
+    }
+
+    const sanitizedSessionId = sessionValidation.data;
 
     // Import encrypt dynamically to avoid issues
     const { encrypt } = await import("@/lib/encryption");
@@ -70,41 +109,41 @@ export async function POST(request: NextRequest) {
       await db
         .update(wizardSessions)
         .set({ currentStep: 7 }) // Advance to App Name step
-        .where(eq(wizardSessions.id, sessionId));
+        .where(eq(wizardSessions.id, sanitizedSessionId));
 
-      console.log(`Successfully skipped AI setup for session ${sessionId}`);
+      console.log(`Successfully skipped AI setup for session ${sanitizedSessionId}`);
       return NextResponse.json({ success: true });
     }
 
-    // Map field names to database columns and validation
-    const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; validate?: (v: string) => boolean }> = {
+    // Map field names to database columns and Zod schemas
+    const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; schema: any }> = {
       vercelToken: {
         column: "vercelToken",
-        validate: (v) => v.length > 10, // Vercel tokens are long strings
+        schema: vercelTokenSchema,
       },
       clerkPublishable: {
         column: "clerkPublishable",
-        validate: (v) => v.startsWith("pk_test_") || v.startsWith("pk_live_"),
+        schema: clerkPublishableKeySchema,
       },
       clerkSecret: {
         column: "clerkSecret",
-        validate: (v) => v.startsWith("sk_test_") || v.startsWith("sk_live_"),
+        schema: clerkSecretKeySchema,
       },
       databaseUrl: {
         column: "databaseUrl",
-        validate: (v) => v.startsWith("postgresql://") && v.includes("neon.tech"),
+        schema: neonDatabaseUrlSchema,
       },
       aiKey: {
         column: "aiKey",
-        validate: (v) => v.startsWith("sk-ant-") || v.startsWith("AIza") || v.startsWith("sk-"), // Claude, Gemini, or OpenAI
+        schema: null, // We'll handle AI key validation separately based on provider
       },
       aiProvider: {
         column: "aiProvider",
-        validate: (v) => ["claude", "gemini", "openai"].includes(v),
+        schema: null, // Simple enum check, no schema needed
       },
       appName: {
         column: "appName",
-        validate: (v) => /^[a-z0-9-]{3,50}$/.test(v),
+        schema: appNameSchema,
       },
     };
 
@@ -113,14 +152,45 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid field" }, { status: 400 });
     }
 
-    // Validate if validator exists
-    if (fieldConfig.validate && !fieldConfig.validate(value)) {
-      return NextResponse.json({ error: `Invalid ${field} format` }, { status: 400 });
+    // Validate input based on field type
+    let validatedValue = value;
+
+    if (field === "aiProvider") {
+      // Simple enum validation for AI provider
+      if (!["claude", "gemini", "openai"].includes(value)) {
+        return NextResponse.json({ error: "Invalid AI provider" }, { status: 400 });
+      }
+      validatedValue = sanitizeString(value);
+    } else if (field === "aiKey") {
+      // Determine which schema to use based on the key format
+      let aiSchema;
+      if (value.startsWith("sk-ant-")) {
+        aiSchema = anthropicKeySchema;
+      } else if (value.startsWith("AIza")) {
+        aiSchema = googleAIKeySchema;
+      } else if (value.startsWith("sk-")) {
+        aiSchema = openaiKeySchema;
+      } else {
+        return NextResponse.json({ error: "Invalid AI key format" }, { status: 400 });
+      }
+
+      const validation = validateInput(aiSchema, value);
+      if (!validation.success) {
+        return NextResponse.json({ error: validation.error }, { status: 400 });
+      }
+      validatedValue = validation.data;
+    } else if (fieldConfig.schema) {
+      // Use Zod schema validation for other fields
+      const validation = validateInput(fieldConfig.schema, value);
+      if (!validation.success) {
+        return NextResponse.json({ error: validation.error }, { status: 400 });
+      }
+      validatedValue = validation.data;
     }
 
     // Encrypt sensitive fields
     const sensitiveFields = ["vercelToken", "clerkPublishable", "clerkSecret", "databaseUrl", "aiKey"];
-    const finalValue = sensitiveFields.includes(field) ? encrypt(value) : value;
+    const finalValue = sensitiveFields.includes(field) ? encrypt(validatedValue) : validatedValue;
 
     // Map fields to their corresponding step numbers
     const stepMap: Record<string, number> = {
@@ -144,13 +214,24 @@ export async function POST(request: NextRequest) {
     await db
       .update(wizardSessions)
       .set(updateData)
-      .where(eq(wizardSessions.id, sessionId));
+      .where(eq(wizardSessions.id, sanitizedSessionId));
 
-    console.log(`Successfully updated session ${sessionId} with field ${field}`);
+    console.log(`Successfully updated session ${sanitizedSessionId} with field ${field}`);
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Session update error:", error);
+
+    // Track error in Sentry
+    captureAPIError(error, {
+      endpoint: '/api/session',
+      method: 'POST',
+      statusCode: 500,
+    });
+
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+// Export POST with CSRF protection
+export const POST = withCsrfProtection(postHandler);

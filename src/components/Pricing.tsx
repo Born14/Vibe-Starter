@@ -1,7 +1,6 @@
 'use client';
 
 import { Inter } from 'next/font/google';
-import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
 
 const inter = Inter({
@@ -56,7 +55,7 @@ export default function Pricing() {
 
           {/* Reassurance */}
           <p className="text-center text-xs text-gray-400 mt-4">
-            7-day refund if you can't complete setup
+            7-day refund if you can&apos;t complete setup
           </p>
 
         </div>
@@ -64,10 +63,10 @@ export default function Pricing() {
         {/* Free tier explanation */}
         <div className="mt-6 text-center">
           <p className="text-sm font-semibold text-black mb-1">
-            Then it's free to run
+            Then it&apos;s free to run
           </p>
           <p className="text-xs text-gray-500 leading-relaxed">
-            The services have generous free tiers. You'll only pay them if your site actually gets popular — and by then, you'll want to.
+            The services have generous free tiers. You&apos;ll only pay them if your site actually gets popular — and by then, you&apos;ll want to.
           </p>
         </div>
 

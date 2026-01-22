@@ -9,6 +9,9 @@ import {
   acquireLock,
   releaseLock,
 } from "@/lib/redis";
+import { generateCsrfToken, setCsrfCookie } from "@/lib/csrf";
+import { captureAPIError } from "@/lib/error-tracking";
+import { licenseKeySchema, validateInput } from "@/lib/validation";
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,19 +32,22 @@ export async function POST(request: NextRequest) {
 
     const { key } = await request.json();
 
-    // Validate format
-    if (!key || !isValidLicenseKeyFormat(key)) {
+    // Validate and sanitize input using Zod schema
+    const validation = validateInput(licenseKeySchema, key);
+    if (!validation.success) {
       return NextResponse.json(
-        { valid: false, error: "Invalid license key format" },
+        { valid: false, error: validation.error },
         { status: 400 }
       );
     }
+
+    const sanitizedKey = validation.data;
 
     // Check if key exists
     const [license] = await db
       .select()
       .from(licenseKeys)
-      .where(eq(licenseKeys.key, key))
+      .where(eq(licenseKeys.key, sanitizedKey))
       .limit(1);
 
     if (!license) {
@@ -70,7 +76,7 @@ export async function POST(request: NextRequest) {
       const [currentLicense] = await db
         .select()
         .from(licenseKeys)
-        .where(eq(licenseKeys.key, key))
+        .where(eq(licenseKeys.key, sanitizedKey))
         .limit(1);
 
       if (currentLicense.used) {
@@ -95,11 +101,19 @@ export async function POST(request: NextRequest) {
       // Release lock
       await releaseLock(lockKey);
 
-      return NextResponse.json({
+      // Generate CSRF token for this session
+      const csrfToken = generateCsrfToken();
+
+      // Create response with CSRF cookie
+      const response = NextResponse.json({
         valid: true,
         sessionId: session.id,
         email: license.email,
+        csrfToken, // Send token to client so they can include it in headers
       });
+
+      // Set CSRF token in httpOnly cookie
+      return setCsrfCookie(response, csrfToken);
     } catch (error) {
       // Make sure to release lock on error
       await releaseLock(lockKey);
@@ -107,6 +121,14 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     console.error("License validation error:", error);
+
+    // Track error in Sentry
+    captureAPIError(error, {
+      endpoint: '/api/validate-license',
+      method: 'POST',
+      statusCode: 500,
+    });
+
     return NextResponse.json(
       { valid: false, error: "Internal server error" },
       { status: 500 }

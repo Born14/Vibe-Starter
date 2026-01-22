@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Anton } from "next/font/google";
 import { Inter } from "next/font/google";
-import { ArrowRight, Smartphone, Monitor, MessageSquare, GitBranch, RefreshCw, AlertCircle } from "lucide-react";
+import { ArrowRight, Smartphone, Monitor } from "lucide-react";
 
 const anton = Anton({
   weight: "400",
@@ -80,7 +80,7 @@ export default function EducationPage() {
           </div>
 
           <div className="mt-8 bg-black text-white rounded-xl p-5 text-center">
-            <p className="font-semibold">That's it. Repeat this loop to build your entire site.</p>
+            <p className="font-semibold">That&apos;s it. Repeat this loop to build your entire site.</p>
           </div>
         </div>
       </section>
@@ -124,7 +124,7 @@ export default function EducationPage() {
           </div>
 
           <p className="mt-6 text-center text-xs text-gray-400">
-            Don't have Claude Pro? You can still build from a laptop using any AI — just push code manually via GitHub.
+            Don&apos;t have Claude Pro? You can still build from a laptop using any AI — just push code manually via GitHub.
           </p>
         </div>
       </section>
@@ -141,7 +141,7 @@ export default function EducationPage() {
             <p className="text-sm text-gray-500 mb-2">Say this to Claude:</p>
             <div className="bg-white rounded-lg p-4 border border-gray-200 mb-4">
               <p className="font-medium text-black">
-                "Add a /notes page where users can create, view, and delete their notes. Save them to the database."
+                &quot;Add a /notes page where users can create, view, and delete their notes. Save them to the database.&quot;
               </p>
             </div>
             <p className="text-sm text-gray-600">
@@ -207,7 +207,7 @@ export default function EducationPage() {
           </div>
 
           <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-            <p className="font-semibold text-black mb-2">You don't need to understand the error.</p>
+            <p className="font-semibold text-black mb-2">You don&apos;t need to understand the error.</p>
             <p className="text-sm text-gray-600">
               Just copy it and paste it to Claude. Claude understands it and fixes it.
             </p>
@@ -305,7 +305,7 @@ export default function EducationPage() {
                   "Add a dashboard that shows the user's recent items",
                 ].map((prompt, i) => (
                   <div key={i} className="bg-white rounded-lg p-3 border border-gray-200 text-sm text-gray-700">
-                    "{prompt}"
+                    &quot;{prompt}&quot;
                   </div>
                 ))}
               </div>
@@ -321,7 +321,7 @@ export default function EducationPage() {
                   "Improve the design",
                 ].map((prompt, i) => (
                   <div key={i} className="bg-gray-100 rounded-lg p-3 text-sm text-gray-400 line-through">
-                    "{prompt}"
+                    &quot;{prompt}&quot;
                   </div>
                 ))}
               </div>

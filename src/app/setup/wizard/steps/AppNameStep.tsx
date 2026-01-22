@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ArrowRight, Check, X } from "lucide-react";
+import { apiPost } from "@/lib/api-client";
 
 interface SessionData {
   appName: string | null;
@@ -78,10 +79,10 @@ export default function AppNameStep({ sessionId, session, onNext, onRefresh }: S
 
     setLoading(true);
     try {
-      const res = await fetch("/api/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "appName", value: appName }),
+      const res = await apiPost("/api/session", {
+        sessionId,
+        field: "appName",
+        value: appName,
       });
 
       if (!res.ok) throw new Error("Failed to save app name");

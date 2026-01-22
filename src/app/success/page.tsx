@@ -22,29 +22,32 @@ function SuccessContent() {
   useEffect(() => {
     const sessionId = searchParams.get('session_id');
 
-    if (!sessionId) {
-      setError('No session found. Please try purchasing again.');
-      setLoading(false);
-      return;
-    }
+    // Move setState calls into async context to avoid cascading renders
+    const validateSession = async () => {
+      if (!sessionId) {
+        setError('No session found. Please try purchasing again.');
+        setLoading(false);
+        return;
+      }
 
-    // Fetch license key from our API
-    fetch(`/api/stripe-success?session_id=${sessionId}`)
-      .then(res => res.json())
-      .then(data => {
+      try {
+        const res = await fetch(`/api/stripe-success?session_id=${sessionId}`);
+        const data = await res.json();
+
         if (data.success) {
           setLicenseKey(data.licenseKey);
           setEmail(data.email);
         } else {
           setError(data.error || 'Failed to generate license key');
         }
-      })
-      .catch(() => {
+      } catch {
         setError('Failed to verify payment. Please contact support.');
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    validateSession();
   }, [searchParams]);
 
   const copyToClipboard = () => {
@@ -87,9 +90,9 @@ function SuccessContent() {
         <Check className="h-8 w-8 text-white" strokeWidth={3} />
       </div>
 
-      <h1 className="text-3xl font-bold mb-2">You're in!</h1>
+      <h1 className="text-3xl font-bold mb-2">You&apos;re in!</h1>
       <p className="text-gray-600 mb-8">
-        Here's your license key. Copy it and head to setup.
+        Here&apos;s your license key. Copy it and head to setup.
       </p>
 
       {/* License key display */}
@@ -128,7 +131,7 @@ function SuccessContent() {
       </Link>
 
       <p className="text-xs text-gray-400 mt-4">
-        Keep this key safe. You'll need it to start the wizard.
+        Keep this key safe. You&apos;ll need it to start the wizard.
       </p>
     </div>
   );

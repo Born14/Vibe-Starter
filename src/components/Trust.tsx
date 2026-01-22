@@ -33,10 +33,10 @@ export default function Trust() {
 
         {/* Section header */}
         <h2 className="text-2xl font-bold text-center text-black mb-2">
-          Don't trust us. Read the code.
+          Don&apos;t trust us. Read the code.
         </h2>
         <p className="text-center text-gray-500 text-sm mb-10">
-          Everything is public. That's the point.
+          Everything is public. That&apos;s the point.
         </p>
 
         {/* Trust points */}
@@ -72,7 +72,7 @@ export default function Trust() {
 
         {/* Extra reassurance */}
         <p className="mt-6 text-xs text-gray-400 text-center leading-relaxed">
-          After launch, we literally can't access your stuff — even if we wanted to. You have the accounts. You have the keys.
+          After launch, we literally can&apos;t access your stuff — even if we wanted to. You have the accounts. You have the keys.
         </p>
 
         {/* Ownership anchor */}

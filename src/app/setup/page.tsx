@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Anton } from "next/font/google";
 import { Inter } from "next/font/google";
 import { ArrowRight } from "lucide-react";
+import { storeCsrfToken } from "@/lib/api-client";
 
 const anton = Anton({
   weight: "400",
@@ -42,9 +43,12 @@ function SetupForm() {
       const data = await response.json();
 
       if (data.valid) {
-        // Store session ID and redirect to wizard
+        // Store session ID, CSRF token, and redirect to wizard
         sessionStorage.setItem("wizardSessionId", data.sessionId);
         sessionStorage.setItem("userEmail", data.email);
+        if (data.csrfToken) {
+          storeCsrfToken(data.csrfToken);
+        }
         router.push("/setup/wizard");
       } else {
         setError(data.error || "Invalid license key");

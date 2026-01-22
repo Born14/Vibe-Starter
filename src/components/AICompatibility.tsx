@@ -94,7 +94,7 @@ export default function AICompatibility() {
 
         {/* The loop explanation */}
         <p className="text-sm text-gray-600 leading-relaxed mb-6">
-          That's what makes the "describe → build → live" loop possible.
+          That&apos;s what makes the &quot;describe → build → live&quot; loop possible.
         </p>
 
         {/* No lock-in message */}
@@ -103,6 +103,12 @@ export default function AICompatibility() {
             You're not locked in. Your code lives on GitHub. If another AI adds GitHub integration later, you can switch. But right now, Claude is the only option for true mobile building.
           </p>
         </div>
+
+        {/* Summary */}
+        <p className="mt-8 text-xs text-gray-400 text-center leading-relaxed">
+          Vibe Starter works with any AI — but if you want to build from your phone, you&apos;ll want one that can push code to GitHub. Today, Claude does this best.
+        </p>
+
 
       </div>
     </section>

@@ -62,7 +62,7 @@ export default function ForCreators() {
             Your own corner of the internet
           </h2>
           <p className="text-gray-600 text-sm leading-relaxed">
-            Not Instagram. Not Substack. Not someone else's platform.
+            Not Instagram. Not Substack. Not someone else&apos;s platform.
             A real website that you control, updated from your phone.
           </p>
         </div>

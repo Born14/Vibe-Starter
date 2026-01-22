@@ -4,11 +4,12 @@ import { wizardSessions, deployments, licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { decrypt } from "@/lib/encryption";
 import { rateLimiters, getClientIp } from "@/lib/redis";
+import { withCsrfProtection } from "@/lib/csrf";
 
 // Reduced timeout since we return early and let frontend poll Vercel
 export const maxDuration = 30;
 
-export async function POST(request: NextRequest) {
+async function postHandler(request: NextRequest) {
   try {
     // Rate limiting: 3 deploys per hour per IP
     const ip = getClientIp(request);
@@ -2007,3 +2008,6 @@ async function pushTemplateCode(githubToken: string, repoFullName: string, appNa
     throw new Error("Failed to update main branch");
   }
 }
+
+// Export POST with CSRF protection
+export const POST = withCsrfProtection(postHandler);

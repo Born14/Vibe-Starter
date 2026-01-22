@@ -98,10 +98,6 @@ function WizardContent() {
     }
   };
 
-  const goToStep = (step: number) => {
-    setCurrentStep(step);
-  };
-
   const nextStep = () => {
     if (currentStep < STEPS.length) {
       setCurrentStep(currentStep + 1);

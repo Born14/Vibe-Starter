@@ -188,16 +188,6 @@ export function withErrorTracking<T extends (...args: any[]) => Promise<any>>(
 }
 
 /**
- * Create a transaction for performance monitoring
- */
-export function startTransaction(name: string, op: string) {
-  return Sentry.startTransaction({
-    name,
-    op,
-  });
-}
-
-/**
  * Flush all pending events (useful for serverless)
  */
 export async function flushErrorTracking(timeout = 2000): Promise<boolean> {

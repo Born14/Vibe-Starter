@@ -44,13 +44,15 @@ export default function Pricing() {
           </ul>
 
           {/* CTA */}
-          <Link
-            href="/setup"
+          <a
+            href="https://buy.stripe.com/8x25kDcwJ3y2dmX1dd2kw00"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center w-full bg-black text-white h-12 rounded-lg font-bold text-base hover:bg-gray-800 transition-colors"
           >
             Launch Your Site
             <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
+          </a>
 
           {/* Reassurance */}
           <p className="text-center text-xs text-gray-400 mt-4">

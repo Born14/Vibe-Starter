@@ -113,7 +113,7 @@ function SuccessContent() {
         </div>
         {email && (
           <p className="text-xs text-gray-400 mt-4">
-            Sent to {email} (save this!)
+            Also sent to {email}
           </p>
         )}
       </div>

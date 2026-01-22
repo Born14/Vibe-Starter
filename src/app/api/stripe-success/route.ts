@@ -4,6 +4,7 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { licenseKeys } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { Resend } from "resend";
 
 // Lazy initialization to avoid errors during build when env vars aren't available
 function getStripe() {
@@ -15,6 +16,36 @@ function getStripe() {
 function getDb() {
   const sql = neon(process.env.DATABASE_URL!);
   return drizzle(sql);
+}
+
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
+
+async function sendLicenseKeyEmail(to: string, licenseKey: string) {
+  const resend = getResend();
+  try {
+    await resend.emails.send({
+      from: "Vibe Starter <noreply@vibestarter.net>",
+      to: to,
+      subject: "Your Vibe Starter License Key",
+      html: `
+        <div style="font-family: system-ui, sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px;">
+          <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 16px;">You're in!</h1>
+          <p style="color: #666; margin-bottom: 24px;">Here's your Vibe Starter license key. Keep it safe.</p>
+          <div style="background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 24px;">
+            <p style="font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 8px;">Your License Key</p>
+            <code style="font-size: 24px; font-weight: bold; letter-spacing: 2px;">${licenseKey}</code>
+          </div>
+          <a href="https://vibestarter.net/setup" style="display: block; background: black; color: white; text-align: center; padding: 16px; border-radius: 8px; text-decoration: none; font-weight: bold;">Continue to Setup</a>
+          <p style="color: #888; font-size: 12px; margin-top: 24px; text-align: center;">Lost your key? Just reply to this email.</p>
+        </div>
+      `,
+    });
+  } catch (error) {
+    console.error("Failed to send email:", error);
+    // Don't throw - email failure shouldn't block the flow
+  }
 }
 
 // Generate license key in format: VS-XXXX-XXXX-XXXX (hex only)
@@ -78,10 +109,16 @@ export async function GET(request: NextRequest) {
       used: true,
     });
 
+    // Send license key via email
+    if (email !== "unknown@example.com") {
+      await sendLicenseKeyEmail(email, key);
+    }
+
     return NextResponse.json({
       success: true,
       licenseKey: key,
       email: email,
+      emailSent: email !== "unknown@example.com",
     });
   } catch (error) {
     console.error("Stripe session error:", error);

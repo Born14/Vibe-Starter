@@ -224,7 +224,7 @@ export function validateInput<T>(
   }
 
   // Format Zod errors into user-friendly message
-  const errorMessage = result.error.errors
+  const errorMessage = result.error.issues
     .map((err) => `${err.path.join('.')}: ${err.message}`)
     .join(', ');
 

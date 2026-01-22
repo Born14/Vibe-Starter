@@ -34,31 +34,28 @@ export default function AICompatibility() {
 
         {/* Section header */}
         <h2 className="text-2xl font-bold text-center text-black mb-2">
-          AI Compatibility
+          Build From Your Phone
         </h2>
         <p className="text-center text-gray-500 text-sm mb-10">
-          How building from your phone works
+          Requires Claude Pro or Max
         </p>
 
         {/* Main explanation */}
         <div className="space-y-4 text-sm text-gray-600 leading-relaxed mb-8">
           <p>
-            Any AI can help you write code.
-          </p>
-          <p>
-            But to build entirely from your phone — where the AI can push real changes directly to your site — you need an AI that can connect to GitHub and create commits.
+            To build from your phone, you need an AI that can connect to GitHub and push commits directly to your repository.
           </p>
           <p className="font-medium text-black">
-            Today, Claude offers the most seamless mobile workflow for this.
+            Right now, only Claude can do this.
           </p>
-          <p className="text-xs text-gray-500">
-            (Requires Claude Pro or Max subscription for GitHub integration)
+          <p>
+            With a Claude Pro or Max subscription, you get GitHub integration through the Claude mobile app. Describe what you want → Claude writes the code → your site updates automatically.
           </p>
         </div>
 
         {/* Capabilities */}
         <div className="bg-gray-50 rounded-xl p-5 border border-gray-100 mb-6">
-          <p className="text-sm font-semibold text-black mb-4">It can:</p>
+          <p className="text-sm font-semibold text-black mb-4">Claude can:</p>
           <div className="space-y-3">
             {capabilities.map((cap, index) => (
               <div key={index} className="flex items-center gap-3">
@@ -103,14 +100,9 @@ export default function AICompatibility() {
         {/* No lock-in message */}
         <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
           <p className="text-sm text-gray-600 leading-relaxed">
-            If another AI adds the same capabilities in the future, it will work too. You're not locked into any model — this is about what's technically possible right now.
+            You're not locked in. Your code lives on GitHub. If another AI adds GitHub integration later, you can switch. But right now, Claude is the only option for true mobile building.
           </p>
         </div>
-
-        {/* Summary */}
-        <p className="mt-8 text-xs text-gray-400 text-center leading-relaxed">
-          Vibe Starter works with any AI — but if you want to build from your phone, you'll want one that can push code to GitHub. Today, Claude does this best.
-        </p>
 
       </div>
     </section>

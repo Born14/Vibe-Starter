@@ -14,11 +14,11 @@ const faqs = [
   },
   {
     q: "What accounts do I need?",
-    a: "Free accounts on GitHub, Vercel, Neon, and Clerk. Plus an AI provider (Anthropic, Google, or OpenAI). All have free tiers. The wizard walks you through connecting them.",
+    a: "Free accounts on GitHub, Vercel, Neon, and Clerk. For your app's AI features, pick any provider (Anthropic, Google, or OpenAI). To build from your phone, you need Claude Pro or Max.",
   },
   {
     q: "Can I really build from my phone?",
-    a: "Yes. That's the whole point. Open your AI, describe a change, it pushes to your site. No laptop needed.",
+    a: "Yes. You need Claude Pro or Max ($20/mo) for GitHub integration. Open Claude, describe a change, it pushes to your site. No laptop needed.",
   },
   {
     q: "What if I get stuck?",

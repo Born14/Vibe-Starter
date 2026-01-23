@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
+import { apiPost } from "@/lib/api-client";
 
 interface SessionData {
   hasClerk: boolean;
@@ -37,19 +38,11 @@ export default function ClerkStep({ sessionId, session, onNext, onRefresh }: Ste
       }
 
       // Save publishable key
-      const res1 = await fetch("/api/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "clerkPublishable", value: publishableKey }),
-      });
+      const res1 = await apiPost("/api/session", { sessionId, field: "clerkPublishable", value: publishableKey });
       if (!res1.ok) throw new Error("Failed to save publishable key");
 
       // Save secret key
-      const res2 = await fetch("/api/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "clerkSecret", value: secretKey }),
-      });
+      const res2 = await apiPost("/api/session", { sessionId, field: "clerkSecret", value: secretKey });
       if (!res2.ok) throw new Error("Failed to save secret key");
 
       onRefresh();

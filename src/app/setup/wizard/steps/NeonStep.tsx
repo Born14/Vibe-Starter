@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
+import { apiPost } from "@/lib/api-client";
 
 interface SessionData {
   hasNeon: boolean;
@@ -44,11 +45,7 @@ export default function NeonStep({ sessionId, session, onNext, onRefresh }: Step
         throw new Error("Connection string should start with postgresql:// and contain neon.tech");
       }
 
-      const res = await fetch("/api/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "databaseUrl", value: cleanUrl }),
-      });
+      const res = await apiPost("/api/session", { sessionId, field: "databaseUrl", value: cleanUrl });
 
       if (!res.ok) throw new Error("Failed to save connection string");
 

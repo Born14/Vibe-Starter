@@ -81,15 +81,16 @@ export const githubTokenSchema = z
 
 /**
  * Clerk API Key Validators
+ * Clerk keys are Base64-encoded and may contain alphanumeric chars plus dots, underscores, hyphens
  */
 export const clerkPublishableKeySchema = z
   .string()
-  .regex(/^pk_(test|live)_[A-Za-z0-9]+$/, 'Invalid Clerk publishable key format')
+  .regex(/^pk_(test|live)_[A-Za-z0-9._-]+$/, 'Invalid Clerk publishable key format')
   .transform(sanitizeString);
 
 export const clerkSecretKeySchema = z
   .string()
-  .regex(/^sk_(test|live)_[A-Za-z0-9]+$/, 'Invalid Clerk secret key format')
+  .regex(/^sk_(test|live)_[A-Za-z0-9._-]+$/, 'Invalid Clerk secret key format')
   .transform(sanitizeString);
 
 /**

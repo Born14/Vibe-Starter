@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { wizardSessions } from "@/lib/db/schema";
 import { eq, and, gt } from "drizzle-orm";
+import { z } from "zod";
 import { withCsrfProtection } from "@/lib/csrf";
 import { captureAPIError } from "@/lib/error-tracking";
 import {
@@ -116,7 +117,7 @@ async function postHandler(request: NextRequest) {
     }
 
     // Map field names to database columns and Zod schemas
-    const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; schema: z.ZodSchema }> = {
+    const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; schema: z.ZodSchema | null }> = {
       vercelToken: {
         column: "vercelToken",
         schema: vercelTokenSchema,

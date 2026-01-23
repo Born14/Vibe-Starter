@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ExternalLink, Check } from "lucide-react";
+import { apiPost } from "@/lib/api-client";
 
 interface SessionData {
   appName: string | null;
@@ -38,11 +39,7 @@ export default function DeployStep({ sessionId, session }: StepProps) {
 
     try {
       // Start deploy
-      const response = await fetch("/api/deploy", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId }),
-      });
+      const response = await apiPost("/api/deploy", { sessionId });
 
       if (!response.ok) {
         const data = await response.json();

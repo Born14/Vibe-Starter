@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
+import { apiPost } from "@/lib/api-client";
 
 interface SessionData {
   hasAi: boolean;
@@ -40,19 +41,11 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
       }
 
       // Save provider
-      const res1 = await fetch("/api/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "aiProvider", value: aiProvider }),
-      });
+      const res1 = await apiPost("/api/session", { sessionId, field: "aiProvider", value: aiProvider });
       if (!res1.ok) throw new Error("Failed to save AI provider");
 
       // Save key
-      const res2 = await fetch("/api/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "aiKey", value: aiKey }),
-      });
+      const res2 = await apiPost("/api/session", { sessionId, field: "aiKey", value: aiKey });
       if (!res2.ok) throw new Error("Failed to save API key");
 
       onRefresh();
@@ -70,11 +63,7 @@ export default function AIStep({ sessionId, session, onNext, onRefresh }: StepPr
 
     try {
       // Use special skipAi field to advance step without setting keys
-      const res = await fetch("/api/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, field: "skipAi", value: true }),
-      });
+      const res = await apiPost("/api/session", { sessionId, field: "skipAi", value: true });
       if (!res.ok) throw new Error("Failed to skip AI setup");
 
       onRefresh();

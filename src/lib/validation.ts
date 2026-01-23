@@ -243,9 +243,9 @@ export function validateOrThrow<T>(schema: z.ZodSchema<T>, input: unknown): T {
  */
 export function validateFields(
   fields: Record<string, { schema: z.ZodSchema; value: unknown }>
-): { success: true; data: Record<string, any> } | { success: false; errors: Record<string, string> } {
+): { success: true; data: Record<string, unknown> } | { success: false; errors: Record<string, string> } {
   const errors: Record<string, string> = {};
-  const data: Record<string, any> = {};
+  const data: Record<string, unknown> = {};
 
   for (const [key, { schema, value }] of Object.entries(fields)) {
     const result = validateInput(schema, value);

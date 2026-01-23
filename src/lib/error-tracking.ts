@@ -49,7 +49,7 @@ export function captureError(
   context?: {
     user?: { id: string; email?: string };
     tags?: Record<string, string>;
-    extra?: Record<string, any>;
+    extra?: Record<string, unknown>;
     level?: 'fatal' | 'error' | 'warning' | 'info';
   }
 ) {
@@ -91,7 +91,7 @@ export function captureAPIError(
     endpoint: string;
     method: string;
     statusCode?: number;
-    requestBody?: any;
+    requestBody?: unknown;
     userId?: string;
   }
 ) {
@@ -168,11 +168,11 @@ export function captureAuthError(
 /**
  * Wrap async functions with error tracking
  */
-export function withErrorTracking<T extends (...args: any[]) => Promise<any>>(
+export function withErrorTracking<T extends (...args: unknown[]) => Promise<unknown>>(
   fn: T,
   context?: { name: string; tags?: Record<string, string> }
 ): T {
-  return (async (...args: any[]) => {
+  return (async (...args: unknown[]) => {
     try {
       return await fn(...args);
     } catch (error) {

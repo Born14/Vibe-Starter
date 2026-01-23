@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { licenseKeys, wizardSessions } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { isValidLicenseKeyFormat } from "@/lib/license";
 import {
   rateLimiters,
   getClientIp,

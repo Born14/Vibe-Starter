@@ -100,7 +100,7 @@ export default function AICompatibility() {
         {/* No lock-in message */}
         <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
           <p className="text-sm text-gray-600 leading-relaxed">
-            You're not locked in. Your code lives on GitHub. If another AI adds GitHub integration later, you can switch. But right now, Claude is the only option for true mobile building.
+            You&apos;re not locked in. Your code lives on GitHub. If another AI adds GitHub integration later, you can switch. But right now, Claude is the only option for true mobile building.
           </p>
         </div>
 

@@ -116,7 +116,7 @@ async function postHandler(request: NextRequest) {
     }
 
     // Map field names to database columns and Zod schemas
-    const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; schema: any }> = {
+    const fieldMap: Record<string, { column: keyof typeof wizardSessions.$inferInsert; schema: z.ZodSchema }> = {
       vercelToken: {
         column: "vercelToken",
         schema: vercelTokenSchema,

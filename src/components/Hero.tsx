@@ -23,6 +23,7 @@ const taglines = [
   "Build equity\nin yourself,\nnot a platform.",
   "Your brand\ndeserves\na home.",
   "Send your ads\nsomewhere\nyou own.",
+  "Open source.\nRead the code\nbefore you buy.",
 ];
 
 const anton = Anton({
@@ -116,6 +117,7 @@ export default function Hero() {
               <span>Launch in 20 mins from your phone</span>
             </div>
             <span>Free to run. Pay only if it grows.</span>
+            <span>100% open source. Read the code first.</span>
           </div>
 
         </main>

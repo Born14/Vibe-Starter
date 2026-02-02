@@ -15,7 +15,7 @@ const included = [
   "Auto-deploy when you push",
   "Build from your phone",
   "All accounts in your name",
-  "Open source — see every line",
+  "Open source — inspect before you buy",
 ];
 
 export default function Pricing() {

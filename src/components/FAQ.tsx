@@ -42,7 +42,11 @@ const faqs = [
   },
   {
     q: "Why should I trust you?",
-    a: "You shouldn't have to. The code is open source — every line is public. We never see your passwords or keys.",
+    a: "You shouldn't have to. Unlike most starter kits that hide code until you pay, ours is 100% public on GitHub. Read every line. Have a developer audit it. Fork it for free. We only ask for $39 because we think you'll find value in the guided setup.",
+  },
+  {
+    q: "If it's open source, why pay $39?",
+    a: "You're paying for the guided deployment wizard and license key that automates the entire setup. The code is free to fork and self-deploy if you're technical. Most creators prefer the 20-minute wizard over configuring everything themselves.",
   },
 ];
 

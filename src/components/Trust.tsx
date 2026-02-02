@@ -33,7 +33,7 @@ export default function Trust() {
 
         {/* Section header */}
         <h2 className="text-2xl font-bold text-center text-black mb-2">
-          Don&apos;t trust us. Read the code.
+          Other starters hide their code until you pay. We don&apos;t.
         </h2>
         <p className="text-center text-gray-500 text-sm mb-10">
           Everything is public. That&apos;s the point.
@@ -69,6 +69,14 @@ export default function Trust() {
           <Github className="h-5 w-5" />
           View on GitHub
         </a>
+
+        {/* Comparison callout */}
+        <div className="mt-6 bg-black/5 rounded-lg p-4 text-center">
+          <p className="text-xs text-gray-600">
+            <span className="font-semibold text-black">Unlike paid templates</span> that require purchase to see the code,
+            Vibe Starter is fully public. Have a dev friend review it. Fork it. Learn from it.
+          </p>
+        </div>
 
         {/* Extra reassurance */}
         <p className="mt-6 text-xs text-gray-400 text-center leading-relaxed">

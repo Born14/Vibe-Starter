@@ -1,6 +1,6 @@
 import { pgTable, uuid, text, boolean, timestamp, integer } from "drizzle-orm/pg-core";
 
-// License keys from Stripe purchases
+// License keys (issued free via /api/free-license; historical rows came from Stripe purchases)
 export const licenseKeys = pgTable("license_keys", {
   id: uuid("id").defaultRandom().primaryKey(),
   key: text("key").unique().notNull(),

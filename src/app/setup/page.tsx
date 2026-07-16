@@ -27,6 +27,27 @@ function SetupForm() {
   const [licenseKey, setLicenseKey] = useState(keyFromUrl);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
+
+  const handleGetFreeKey = async () => {
+    setError("");
+    setGenerating(true);
+
+    try {
+      const response = await fetch("/api/free-license", { method: "POST" });
+      const data = await response.json();
+
+      if (response.ok && data.key) {
+        setLicenseKey(data.key);
+      } else {
+        setError(data.error || "Could not generate a key. Please try again.");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,7 +107,7 @@ function SetupForm() {
               LAUNCH
             </h1>
             <p className="text-gray-500">
-              Enter your license key to start
+              Vibe Starter is free. Grab a key and start.
             </p>
           </div>
 
@@ -130,13 +151,18 @@ function SetupForm() {
             </button>
           </form>
 
-          {/* No key link */}
+          {/* Free key generator */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-400">
               Don&apos;t have a license key?{" "}
-              <Link href="/#pricing" className="text-black font-medium hover:underline">
-                Get one here
-              </Link>
+              <button
+                type="button"
+                onClick={handleGetFreeKey}
+                disabled={generating || loading}
+                className="text-black font-medium hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {generating ? "Generating..." : "Generate one free"}
+              </button>
             </p>
           </div>
 

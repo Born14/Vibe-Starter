@@ -15,7 +15,7 @@ Everything deploys to YOUR accounts. You own the code, the hosting, the database
 
 ## How It Works
 
-1. **Get a license key** from [vibestarter.net](https://vibestarter.net)
+1. **Generate a free license key** at [vibestarter.net/setup](https://vibestarter.net/setup) — Vibe Starter is free of charge
 2. **Run the wizard** - connects your GitHub, Vercel, and Neon accounts
 3. **Choose your AI** - Claude, Gemini, or OpenAI
 4. **Deploy** - your app is live in minutes

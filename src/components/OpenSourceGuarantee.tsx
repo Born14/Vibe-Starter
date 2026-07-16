@@ -29,7 +29,7 @@ export default function OpenSourceGuarantee() {
         </h2>
         <p className="text-sm text-gray-400 mb-6">
           We publish everything. Read it. Fork it. Have a developer review it.
-          Then decide if it&apos;s worth $39.
+          And it&apos;s completely free.
         </p>
 
         <div className="grid grid-cols-3 gap-4">

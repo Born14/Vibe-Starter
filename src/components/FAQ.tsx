@@ -42,11 +42,11 @@ const faqs = [
   },
   {
     q: "Why should I trust you?",
-    a: "You shouldn't have to. Unlike most starter kits that hide code until you pay, ours is 100% public on GitHub. Read every line. Have a developer audit it. Fork it for free. We only ask for $39 because we think you'll find value in the guided setup.",
+    a: "You shouldn't have to. Unlike most starter kits that hide code until you pay, ours is 100% public on GitHub. Read every line. Have a developer audit it. Fork it. Everything deploys to your own accounts, so there's nothing we could hold hostage even if we wanted to.",
   },
   {
-    q: "If it's open source, why pay $39?",
-    a: "You're paying for the guided deployment wizard and license key that automates the entire setup. The code is free to fork and self-deploy if you're technical. Most creators prefer the 20-minute wizard over configuring everything themselves.",
+    q: "What's the catch? Why is it free?",
+    a: "There isn't one. Vibe Starter used to cost $39, but the guided wizard is now completely free — generate a license key on the setup page and go. The code has always been open source, and everything still deploys to your own accounts.",
   },
 ];
 

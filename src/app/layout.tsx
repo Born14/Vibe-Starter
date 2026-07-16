@@ -20,13 +20,13 @@ export const metadata: Metadata = {
   keywords: ["AI code", "app deployment", "Next.js", "Vercel", "no-code", "mobile coding"],
   openGraph: {
     title: "Vibe Starter — From AI Code to Live App in 20 Minutes",
-    description: "Stop generating code. Start shipping apps. One-time $39 setup.",
+    description: "Stop generating code. Start shipping apps. Free and open source.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Vibe Starter — From AI Code to Live App in 20 Minutes",
-    description: "Stop generating code. Start shipping apps. One-time $39 setup.",
+    description: "Stop generating code. Start shipping apps. Free and open source.",
   },
 };
 

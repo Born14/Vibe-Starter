@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import { ArrowRight, Check } from 'lucide-react';
 
@@ -15,7 +16,7 @@ const included = [
   "Auto-deploy when you push",
   "Build from your phone",
   "All accounts in your name",
-  "Open source — inspect before you buy",
+  "Open source — inspect every line",
 ];
 
 export default function Pricing() {
@@ -28,8 +29,8 @@ export default function Pricing() {
 
           {/* Price */}
           <div className="text-center mb-6">
-            <div className="text-5xl font-bold text-black">$39</div>
-            <p className="text-gray-500 text-sm mt-1">One-time. Not a subscription.</p>
+            <div className="text-5xl font-bold text-black">Free</div>
+            <p className="text-gray-500 text-sm mt-1">No payment. No subscription.</p>
           </div>
 
           {/* What's included */}
@@ -43,19 +44,17 @@ export default function Pricing() {
           </ul>
 
           {/* CTA */}
-          <a
-            href="https://buy.stripe.com/8x25kDcwJ3y2dmX1dd2kw00"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/setup"
             className="flex items-center justify-center w-full bg-black text-white h-12 rounded-lg font-bold text-base hover:bg-gray-800 transition-colors"
           >
             Launch Your Site
             <ArrowRight className="ml-2 h-4 w-4" />
-          </a>
+          </Link>
 
           {/* Reassurance */}
           <p className="text-center text-xs text-gray-400 mt-4">
-            7-day refund if you can&apos;t complete setup
+            Grab a free license key and go — no account needed
           </p>
 
         </div>
@@ -63,7 +62,7 @@ export default function Pricing() {
         {/* Free tier explanation */}
         <div className="mt-6 text-center">
           <p className="text-sm font-semibold text-black mb-1">
-            Then it&apos;s free to run
+            And it&apos;s free to run
           </p>
           <p className="text-xs text-gray-500 leading-relaxed">
             The services have generous free tiers. You&apos;ll only pay them if your site actually gets popular — and by then, you&apos;ll want to.

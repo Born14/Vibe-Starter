@@ -96,6 +96,11 @@ export const rateLimiters = {
     limit: async (ip: string) => checkRateLimit(`validate-license:${ip}`, 5, 600),
   },
 
+  // Free license key generation: 3 keys per 10 minutes per IP
+  freeLicense: {
+    limit: async (ip: string) => checkRateLimit(`free-license:${ip}`, 3, 600),
+  },
+
   // Deploy endpoint: 3 deploys per hour per IP
   deploy: {
     limit: async (ip: string) => checkRateLimit(`deploy:${ip}`, 3, 3600),

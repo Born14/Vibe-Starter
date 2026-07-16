@@ -350,7 +350,7 @@ export default function EducationPage() {
             href="/setup"
             className="inline-flex items-center bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-800 transition-colors"
           >
-            Launch – $39
+            Launch — Free
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
         </div>

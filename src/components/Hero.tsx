@@ -98,7 +98,7 @@ export default function Hero() {
               href="#launch"
               className="flex items-center justify-center w-full bg-black text-white h-12 rounded-lg font-bold text-base hover:bg-gray-800 transition-colors"
             >
-              Launch – $39
+              Launch — Free
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
 
